@@ -58,7 +58,30 @@
     } 
 }
 
-@layer utilities {  
+@layer utilities {
+  
+  .hidden-scrollbar::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+
+  .small-scrollbar::-webkit-scrollbar {
+    display: initial;
+    width: 4px;
+    height: 14px;
+    
+  }
+
+  .small-scrollbar::-webkit-scrollbar-thumb {
+    background: #dedede;
+    border-radius: vh;
+    
+  }
+
+  .small-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #cecece;
+    
+  }
+  
   .kb-text-primary-gradient{
     background: linear-gradient(180deg, #FDED4F 0%, #FFB649 100%);
   -webkit-background-clip: text;
@@ -130,7 +153,7 @@
     @apply 2xl:text-[1.25rem] md:text-[0.9rem] font-normal leading-[125%] tracking-[-0.6px];
   }
   .l3-b{
-    @apply 2xl:text-[1.25rem] md:text-[0.9rem] font-normal leading-[100%];
+    @apply 2xl:text-[1.25rem] md:text-[0.9rem] font-bold leading-[100%];
   }
   .l4-r{
     @apply 2xl:text-[1rem] md:text-[0.71rem] font-normal leading-[100%];

@@ -20,7 +20,7 @@ export default {
 
 
       backgroundImage: () => ({
-        'kb-primary-gradient': `linear-gradient(45deg, #FDED4F 0%, #FFB649 100%)`,
+        'kb-primary-gradient': `linear-gradient(190deg, #FDED4F 0%, #FFB649 100%)`,
         'kb-keycloak-gradient': `linear-gradient(227deg, #008AAA 0%, #00B8E3 100%)`,
       }),
 
