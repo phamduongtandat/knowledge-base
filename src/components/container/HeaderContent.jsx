@@ -4,10 +4,15 @@ import Plus from "../../assets/icon/plus.svg";
 import Filter from "../../assets/icon/filter.svg";
 import FileToggle from "../toggle/FileToggle";
 import AddOption from "../optionDropdown/AddOption";
+import FileFilterOpt from "../optionDropdown/FileFilterOpt";
+import BlogFilterOpt from "../optionDropdown/BlogFilterOpt";
+import AddNewPopup from "../popup/AddNewPopup";
+
 
 function HeaderContent({ titlePage }) {
   const [isOpenItem, setIsOpenItem] = useState(true);
   const [isAdd, setIsAdd] = useState(false);
+  const [isFilterOpt, setIsFilterOpt] = useState(false)
 
   return (
     <div className="flex items-center gap-[0.46875rem]  px-[1.6875rem] h-[1.8125rem] justify-between">
@@ -16,6 +21,9 @@ function HeaderContent({ titlePage }) {
       ) : (
         <PageTitleLayout />
       )}
+
+      {/* POPUP ADD NEW */}
+      {/* <AddNewPopup /> */}
 
       {/* ADD MORE */}
       {titlePage == 'Home' &&
@@ -31,7 +39,7 @@ function HeaderContent({ titlePage }) {
             <div className="l3-b kb-text-shadow-lg">Add more</div>
           </button>
 
-          <div className={`absolute top-12 z-10 -right-12 ease-out duration-200  ${isAdd ? '' : '-translate-y-1/3 scale-0'}`}>
+          <div className={`absolute top-12 z-10 -right-11 ease-out duration-200  ${isAdd ? '' : '-translate-y-1/3 scale-0'}`}>
             <AddOption />
           </div>
 
@@ -43,9 +51,17 @@ function HeaderContent({ titlePage }) {
 
         <FileToggle />
 
-        <div className="flex justify-center rounded-full items-center gap-[0.46875rem] kb-shadow-white-bg p-[0.70313rem] cursor-pointer">
-          <img src={Filter} />
+        <div
+
+          className="relative flex justify-center rounded-full items-center gap-[0.46875rem] kb-shadow-white-bg p-[0.70313rem] cursor-pointer">
+          <img onClick={() => { setIsFilterOpt(!isFilterOpt) }} src={Filter} />
+          {isFilterOpt && <div className="absolute z-20 top-full mt-2 right-0">
+            <FileFilterOpt />
+            {/* <BlogFilterOpt /> */}
+
+          </div>}
         </div>
+
       </div>
     </div>
   );

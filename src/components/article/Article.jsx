@@ -1,8 +1,17 @@
+import { useState } from 'react';
 import Dot from '../../assets/image/dot.svg'
+import ArticleOnwerOption from '../optionDropdown/ArticleOnwerOption';
 
-function Article() {
+
+function Article({ articleID, setAticleID, itemID }) {
+
+
+  const [isArticleOnwerOption, setIsArticleOnwerOption] = useState(false)
+
   return (
-    <div className="flex w-full rounded-[0.42188rem] justify-center items-center gap-[0.70313rem] self-stretch p-[0.70313rem] kb-shadow-white-bg">
+    <div className={`relative flex w-full rounded-[0.42188rem] justify-center items-center gap-[0.70313rem] self-stretch p-[0.70313rem] 
+    ${isArticleOnwerOption && articleID === itemID ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
+    >
       <img
         className="self-stretch w-[3.75444rem] h-[3.4375rem] rounded-[0.1875rem]"
         src="https://via.placeholder.com/60x55"
@@ -43,17 +52,33 @@ function Article() {
               June 22, 2023 | at 19:00
             </div>
           </div>
-
-
-
         </div>
       </div>
 
       {/* THREE DOT */}
-      <div className="w-[15px] h-[52px] justify-end items-start gap-[7.50px]">
-        <img src={Dot} className="cursor-pointer w-[15px] h-[15px] justify-center items-center gap-[7.50px] flex hover:outline-blue-200 hover:outline-double" />
-      </div>
+      <div className="relative w-[15px] h-[52px] justify-end items-start gap-[7.50px]">
+        <img
+          src={Dot}
+          onClick={() => {
 
+            if (isArticleOnwerOption && articleID !== itemID) {
+              setIsArticleOnwerOption(true)
+              setAticleID(itemID)
+              return
+            }
+            setAticleID(itemID)
+            setIsArticleOnwerOption(!isArticleOnwerOption)
+
+          }}
+          className="cursor-pointer w-[15px] h-[15px] justify-center items-center gap-[7.50px] flex hover:outline-blue-200 hover:outline-double"
+        />
+
+        <div className={`absolute bottom-7 right-7 ease-linear duration-200
+         ${isArticleOnwerOption && articleID === itemID ? '' : 'translate-y-2/4 scale-0'}`}>
+          <ArticleOnwerOption />
+        </div>
+
+      </div>
     </div>
   );
 }

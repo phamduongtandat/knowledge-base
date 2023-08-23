@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import LoginBg from '../assets/image/login-bg.svg'
 import LogoCompany from '../assets/image/login-hiptechLogo.png'
 import LoginImg from '../assets/image/login-img.png';
 import LoginForm from '../components/Login/LoginForm'
+import checkLogin from '../utils/checkLogin';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+
+    const { isLogin } = checkLogin()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isLogin) navigate('/')
+    }, [isLogin])
 
     return (
         <div
