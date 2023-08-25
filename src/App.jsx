@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -11,10 +11,13 @@ import FavouritePage from './pages/FavouritePage';
 import RecentPage from './pages/RecentPage';
 import BinPage from './pages/BinPage';
 import DetailPage from "./pages/DetailPage";
-
-
+import ShareList from "./components/popup/ShareList";
+import PopupContainer from "./components/container/PopupContainer";
 
 function App() {
+
+
+
   return (
     <div className="bg-kb-background ">
 
@@ -23,39 +26,24 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
 
 
-        {/* <Route
-          path="/" element={<MainLayout />}
-        >
-          <Route index element={<HomePage />} />
-          <Route path="shared" element={<SharedPage />} />
-          <Route path="/recent" element={<RecentPage />} />
-          <Route path="/recent/:id" element={<DetailPage />} />
-          <Route path="/favourite" element={<FavouritePage />} />
-          <Route path="/bin" element={<BinPage />} />
-          <Route path="/account-list" element={<AccListPage />} />
-          <Route path="/support" element={<SupportPage />} />
-        </Route> */}
-
         <Route
           path="/" element={<MainLayout />}
         >
-
-
           <Route index element={<HomePage />} />
+          <Route path="/home/content/:id" element={<DetailPage />} />
           <Route path="shared" element={<SharedPage />} />
           <Route path="/recent" element={<RecentPage />} />
-          <Route path="/recent/:id" element={<DetailPage />} />
+          {/* <Route path="/recent/:id" element={<DetailPage />} /> */}
           <Route path="/favourite" element={<FavouritePage />} />
           <Route path="/bin" element={<BinPage />} />
           <Route path="/account-list" element={<AccListPage />} />
           <Route path="/support" element={<SupportPage />} />
-
-
         </Route>
 
-
-
       </Routes>
+      {false && <ShareList />}
+      {/* <PopupContainer /> */}
+
     </div>
   );
 }

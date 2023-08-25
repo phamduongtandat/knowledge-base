@@ -1,8 +1,9 @@
 import Catalogy from '../../assets/icon/catalogy.svg'
 import Article from '../../assets/icon/article.svg'
 import Upload from '../../assets/icon/upload.svg'
-import { useState } from 'react'
-import AddNewPopup from '../popup/AddNewPopup'
+import { useContext, useState } from 'react'
+import { AddPopupContext } from '../../context/AddPopupContext'
+
 function AddOption() {
     const optionList = [
         { label: 1, name: 'New category', img: Catalogy },
@@ -10,10 +11,16 @@ function AddOption() {
         { label: 3, name: 'New file', img: Upload },
 
     ]
-    const [label, setLabel] = useState('')
-    const handleSelect = (label) => {
-        setLabel(label)
 
+    const [, setIsOpenAdd] = useContext(AddPopupContext)
+
+
+    //const [label, setLabel] = useState('')
+    const handleSelect = (label) => {
+        if (label === 3) {
+            return console.log('chưa có new file')
+        }
+        setIsOpenAdd(label)
     }
 
     return (

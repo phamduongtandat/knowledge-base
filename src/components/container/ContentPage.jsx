@@ -4,17 +4,52 @@ import Folder from "../../assets/image/folder.png";
 import Dot from "../../assets/image/dot.svg";
 import Expand from "../../assets/icon/expand.svg";
 import { useState, useRef, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import CategogyOwnerOpt from "../optionDropdown/CategogyOwnerOpt";
+import PopupContainer from "./PopupContainer";
+import useGetFolderContent from "../../services/folder/useGetFolderContent";
 
-function ContentPage({ titlePage, ab }) {
+
+function ContentPage({ titlePage }) {
+
+  let linkpath
+
+  switch (titlePage) {
+    case 'Home':
+      linkpath = '/home/content'
+
+      //localStorage.setItem('local', JSON.stringify('/home/content'))
+      break;
+
+    default:
+      //linkpath = JSON.parse(localStorage.getItem('local'))
+
+      break;
+  }
+
+  const { id } = useParams()
+
+  const { folderContent } = useGetFolderContent(id)
+  console.log('folderContent :', folderContent)
+
   const [CategOpt, setCategOpt] = useState({ isOpen: false, itemID: '' })
   const [articleID, setAticleID] = useState('');
 
-  const mock = ['ar1', 'ar2', 'ar3', 'ar4']
+  const mock = []
   const [isExpand, setIsExpand] = useState(false);
 
-  const te = [12, 1, 2, 3, 4, 5, 6, 7, 8, 94, 15, 16, 11, 18, 19, 66, 99];
+  const mockroot = [{
+    "id": "a6fb595e-4ac1-439b-a81d-c4304aaecfaf",
+    "name": "Test-folder",
+    "size": 0,
+    "type": "folder",
+    "createAt": "2023-08-24T14:09:48.072152Z",
+    "updateAt": null,
+    "content": null,
+    "parentName": null,
+    "author": "next impactful Metal",
+    "status": null
+  }];
   const containerRef = useRef();
 
   const [showButton, setShowButton] = useState(false);
@@ -59,18 +94,18 @@ function ContentPage({ titlePage, ab }) {
       >
 
         {/* FOLDER */}
-        {te.map((i) => {
+        {mockroot?.map((i) => {
           return (
             <div
-              key={i}
-              className={`relative flex min-w-[8.39063rem]  h-[6.09375rem] justify-center items-center p-[0.9375rem] rounded-md  ${CategOpt.isOpen && CategOpt.itemID === i ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
+              key={i.id}
+              className={`relative flex min-w-[8.39063rem]  h-[6.09375rem] justify-center items-center p-[0.9375rem] rounded-md  ${CategOpt.isOpen && CategOpt.itemID === i.id ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
             >
-              <Link to={`/recent/${ab}`} className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
+              <Link to={`${linkpath}/${i.id}`} className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
                 <div className="flex flex-col gap-2 justify-between items-start flex-[1_0_0]">
                   <img className="w-12 h-[2.10938rem]" src={Folder} />
 
                   <div className="flex flex-col items-start text-kb-second-color">
-                    <div className="l3-b">EBS</div>
+                    <div className="l3-b">{i.name}</div>
                     <div className="l3-r">48 files</div>
                   </div>
                 </div>
@@ -80,16 +115,16 @@ function ContentPage({ titlePage, ab }) {
                 <img
                   className="cursor-pointer hover:outline-blue-200 hover:outline-double" src={Dot}
                   onClick={() => {
-                    if (CategOpt.itemID !== i && CategOpt.isOpen) {
-                      return setCategOpt({ itemID: i, isOpen: true })
+                    if (CategOpt.itemID !== i.id && CategOpt.isOpen) {
+                      return setCategOpt({ itemID: i.id, isOpen: true })
                     }
-                    setCategOpt({ itemID: i, isOpen: !CategOpt.isOpen })
+                    setCategOpt({ itemID: i.id, isOpen: !CategOpt.isOpen })
                   }}
                 />
 
                 <div className={`  z-50  ease-linear duration-200
                 ${showButton && !isExpand ? 'fixed -translate-x-2/3 -translate-y-2/3 ' : 'absolute bottom-2/3 right-1/4'} 
-                  ${CategOpt.isOpen && CategOpt.itemID === i ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
+                  ${CategOpt.isOpen && CategOpt.itemID === i.id ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
                 >
                   <CategogyOwnerOpt />
                 </div>
@@ -123,6 +158,9 @@ function ContentPage({ titlePage, ab }) {
           </div>
         </div>
       </div>
+
+      {titlePage == 'Home' && <PopupContainer />}
+
     </div>
   );
 }

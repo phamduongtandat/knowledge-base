@@ -22,7 +22,8 @@ const useLogin = () => {
         return res?.data
     }
     const onSuccess = (data) => {
-        document.cookie = `access_token=Bearer ${data.access_token}`
+        document.cookie = `access_token=${data.access_token}`
+        document.cookie = `refresh_token=${data.refresh_token}`
         const { isLogin } = checkLogin()
         if (isLogin) navigate('/')
     };

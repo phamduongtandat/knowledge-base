@@ -9,6 +9,7 @@ import BlogFilterOpt from "../optionDropdown/BlogFilterOpt";
 import AddNewPopup from "../popup/AddNewPopup";
 
 
+
 function HeaderContent({ titlePage }) {
   const [isOpenItem, setIsOpenItem] = useState(true);
   const [isAdd, setIsAdd] = useState(false);

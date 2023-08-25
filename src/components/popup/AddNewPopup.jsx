@@ -1,18 +1,28 @@
-import React, { useState } from 'react'
+import { useContext, useState } from 'react'
 import Folder from '../../assets/image/folder.png'
+import { AddPopupContext } from '../../context/AddPopupContext'
 
 function AddNewPopup() {
+    const [isOpenAdd, setIsOpenAdd] = useContext(AddPopupContext)
     const [isCateg, setIsCateg] = useState(true)
     return (
-        <div className="bg-kb-neutral-700/50 fixed z-20 inset-0">
+        <div
+            id='addBackDrop'
+            onClick={({ target }) => {
+
+                if (target.id === 'addBackDrop') {
+                    setIsOpenAdd(0)
+                }
+            }}
+            className="bg-kb-neutral-700/50 fixed z-20 inset-0">
             <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-start gap-1.5 p-4 rounded-[0.5rem] kb-shadow-white-bg">
 
                 <div className={`flex items-start gap-1.5 px-3.5 py-1.5 rounded-[3.4rem] bg-kb-primary-color`}>
 
                     <div
-                        onClick={() => { setIsCateg(true) }}
+                        onClick={() => { setIsCateg(true); setIsOpenAdd(1) }}
                         className={`flex flex-col items-start gap-1.5 px-3.5 py-1.5 rounded-[3.4rem]  cursor-pointer 
-                        ${isCateg ? 'bg-kb-neutral-white text-kb-primary-color' : 'text-kb-neutral-white'}`}
+                        ${isCateg && isOpenAdd === 1 ? 'bg-kb-neutral-white text-kb-primary-color' : 'text-kb-neutral-white'}`}
                     >
 
                         <div className="flex justify-center items-center gap-1.5 rounded-[0.4rem]">
@@ -25,7 +35,7 @@ function AddNewPopup() {
                     <div
                         onClick={() => { setIsCateg(false) }}
                         className={`flex flex-col items-start gap-1.5 px-3.5 py-1.5 rounded-[3.4rem] cursor-pointer
-                        ${!isCateg ? 'bg-kb-neutral-white text-kb-primary-color' : 'text-kb-neutral-white'}`}
+                        ${(!isCateg || isOpenAdd === 2) ? 'bg-kb-neutral-white text-kb-primary-color' : 'text-kb-neutral-white'}`}
 
                     >
                         <div className="flex justify-center items-center gap-1.5 rounded-[0.4rem] ">
@@ -37,7 +47,7 @@ function AddNewPopup() {
 
 
                 {/* NEW FILE */}
-                {!isCateg && <div className="flex flex-col justify-center items-center gap-8 self-stretch pt-[2rem] pb-3.5 px-0 rounded-md mt-2 border-2 border-dashed border-kb-primary-color">
+                {(!isCateg || isOpenAdd === 2) && <div className="flex flex-col justify-center items-center gap-8 self-stretch pt-[2rem] pb-3.5 px-0 rounded-md mt-2 border-2 border-dashed border-kb-primary-color">
 
                     <div className=" flex justify-center items-center w-[6rem] h-[6rem] text-kb-primary-color">
                         <i className="fa-solid fa-upload fa-2xl "></i>
@@ -50,7 +60,7 @@ function AddNewPopup() {
                 </div>}
 
                 {/* NEW CATEGORY */}
-                {isCateg && <>
+                {isCateg && isOpenAdd === 1 && <>
                     <div className="flex flex-col justify-center items-center gap-2.5 self-stretch pt-[2.625rem] pb-5 px-0">
                         <img className="w-[3.85rem] h-[2.71rem]" src={Folder} />
                     </div>

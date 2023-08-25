@@ -6,12 +6,15 @@ import ProfileOption from '../myProfile/ProfileOption';
 import checkLogin from '../../utils/checkLogin';
 import { useNavigate } from 'react-router-dom';
 function MainLayout() {
-    const { isLogin } = checkLogin()
+
+    const { isLogin, tokenInfo } = checkLogin()
+    console.log('name :', name)
     const navigate = useNavigate();
     const [isDrop, setIsDrop] = useState(false)
     useEffect(() => {
         if (!isLogin) navigate('/login')
     }, [isLogin])
+
     return (
         <>
             {isLogin && <div className="flex w-full items-start ">
@@ -32,11 +35,11 @@ function MainLayout() {
                         <div className="w-[0.1875rem] self-stretch rounded-[4.64063rem] bg-kb-neutral-50" />
 
                         <div className=" relative flex justify-end items-center gap-3">
-                            <h3 className="text-kb-second-color">Username</h3>
+                            <h3 className="text-kb-second-color">{tokenInfo?.name}</h3>
                             <img
                                 onClick={() => { setIsDrop(!isDrop) }}
                                 className="w-12 h-12 rounded-full border-2 cursor-pointer border-kb-primary-color" src="https://via.placeholder.com/48x48" />
-                            {isDrop && <div className="absolute top-14 z-10">
+                            {isDrop && <div className="absolute top-14 z-10 min-w-[135px] ">
                                 <ProfileOption />
                             </div>}
                         </div>
