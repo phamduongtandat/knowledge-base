@@ -10,9 +10,16 @@ import AccListPage from './pages/AccListPage';
 import FavouritePage from './pages/FavouritePage';
 import RecentPage from './pages/RecentPage';
 import BinPage from './pages/BinPage';
-import DetailPage from "./pages/DetailPage";
+
 import ShareList from "./components/popup/ShareList";
 import PopupContainer from "./components/container/PopupContainer";
+import HomeDetailPage from "./pages/HomeDetailPage";
+//import { AddPopupProvider } from "./context/AddPopupContext";
+import ShareDetailPage from "./pages/ShareDetailPage";
+import RecentDetailPage from "./pages/RecentDetailPage";
+import FavorDetailPage from "./pages/FavorDetailPage";
+import BinDetailPage from "./pages/BinDetailPage";
+
 
 function App() {
 
@@ -29,20 +36,29 @@ function App() {
         <Route
           path="/" element={<MainLayout />}
         >
+
           <Route index element={<HomePage />} />
-          <Route path="/home/content/:id" element={<DetailPage />} />
-          <Route path="shared" element={<SharedPage />} />
+          <Route path="home/content/:id" element={<HomeDetailPage />} />
+
+          <Route path="/shared" element={<SharedPage />} />
+          <Route path="shared/content/:id" element={<ShareDetailPage />} />
+
           <Route path="/recent" element={<RecentPage />} />
-          {/* <Route path="/recent/:id" element={<DetailPage />} /> */}
+          <Route path="/recent/content/:id" element={<RecentDetailPage />} />
+
           <Route path="/favourite" element={<FavouritePage />} />
+          <Route path="/favourite/content/:id" element={<FavorDetailPage />} />
+
           <Route path="/bin" element={<BinPage />} />
+          <Route path="/bin/content/:id" element={<BinDetailPage />} />
+
           <Route path="/account-list" element={<AccListPage />} />
           <Route path="/support" element={<SupportPage />} />
         </Route>
 
       </Routes>
       {false && <ShareList />}
-      {/* <PopupContainer /> */}
+      <PopupContainer />
 
     </div>
   );

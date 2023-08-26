@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 function MainLayout() {
 
     const { isLogin, tokenInfo } = checkLogin()
-    console.log('name :', name)
+    //console.log('name :', name)
     const navigate = useNavigate();
     const [isDrop, setIsDrop] = useState(false)
     useEffect(() => {

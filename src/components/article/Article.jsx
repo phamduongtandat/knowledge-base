@@ -3,7 +3,7 @@ import Dot from '../../assets/image/dot.svg'
 import ArticleOnwerOption from '../optionDropdown/ArticleOnwerOption';
 
 
-function Article({ articleID, setAticleID, itemID }) {
+function Article({ articleID, setAticleID, itemID, data }) {
 
 
   const [isArticleOnwerOption, setIsArticleOnwerOption] = useState(false)
@@ -20,7 +20,9 @@ function Article({ articleID, setAticleID, itemID }) {
       <div className="flex justify-between items-start flex-[1_0_0] self-stretch">
         <div className="flex flex-col items-center gap-[0.1875rem] flex-[1_0_0]">
           <div className="flex items-start gap-[0.5625rem] self-stretch">
-            <div className="p1-b kb-text-primary-gradient">Oracle</div>
+            <div className="p1-b kb-text-primary-gradient">
+              {data?.parentName}
+            </div>
 
             <div className="flex items-center gap-[0.23438rem] flex-[1_0_0] self-stretch">
               <i className="fa-solid fa-paperclip fa-sm text-kb-neutral-300"></i>
@@ -29,12 +31,11 @@ function Article({ articleID, setAticleID, itemID }) {
           </div>
 
           <h4 className="self-stretch text-kb-second-color">
-            Optimizing Oracle Database Performance for E-commerce
+            {data?.name}
           </h4>
 
           <div className="self-stretch p3-r text-kb-second-color">
-            This blog post can delve into how businesses, especially e-commerce
-            platforms, can optimize their Oracle databases...
+            {data?.content}
           </div>
         </div>
 
@@ -46,10 +47,10 @@ function Article({ articleID, setAticleID, itemID }) {
 
           <div className="flex flex-col justify-end items-end flex-[1_0_0]">
             <div className="self-end p2-b text-kb-second-color">
-              Author of the blog
+              {data?.author}
             </div>
             <div className="self-stretch text-kb-neutral-300 p3-r">
-              June 22, 2023 | at 19:00
+              {data?.createAt}
             </div>
           </div>
         </div>
@@ -75,7 +76,7 @@ function Article({ articleID, setAticleID, itemID }) {
 
         <div className={`absolute bottom-7 right-7 ease-linear duration-200
          ${isArticleOnwerOption && articleID === itemID ? '' : 'translate-y-2/4 scale-0'}`}>
-          <ArticleOnwerOption />
+          <ArticleOnwerOption info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />
         </div>
 
       </div>

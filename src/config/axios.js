@@ -1,15 +1,20 @@
 import Axios from 'axios';
 import checkLogin from './../utils/checkLogin';
+
+
 const axios = Axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
     withCredentials: true,
-    headers: {
-        Authorization: 'Bearer' + ' ' + document.cookie?.split('; ').find(row => row.startsWith('access_token'))?.split('=')[1],
-    }
+    // headers: {
+
+    //     Authorization: 'Bearer' + ' ' + document.cookie?.split('; ').find(row => row.startsWith('access_token'))?.split('=')[1],
+    // }
 });
 
 axios.interceptors.request.use(async function (config) {
-    const { tokenInfo } = checkLogin()
+    const { tokenInfo, accessToken } = checkLogin()
+    config.headers['Authorization'] = 'Bearer' + ' ' + accessToken
+
     if (tokenInfo?.exp < new Date().getTime() / 1000) {
         //const data = await 
         //document.cookie = `access_token=${}`

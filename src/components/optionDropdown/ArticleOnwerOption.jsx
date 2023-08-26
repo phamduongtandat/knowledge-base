@@ -1,5 +1,7 @@
+import { useDispatch } from "react-redux"
+import { getInfo, properPopup, renamePopup, sharePopup } from "../../redux/popupSlice"
 
-function ArticleOnwerOption() {
+function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
     const optionList = [
         { label: 1, name: 'Like', img: 'fa-solid fa-heart fa-sm' },
         { label: 2, name: 'Edit', img: 'fa-solid fa-pen fa-sm' },
@@ -9,8 +11,32 @@ function ArticleOnwerOption() {
         { label: 6, name: 'Delete', img: 'fa-solid fa-trash-can fa-sm' },
     ]
 
+    //const isProper = useSelector(state=>state.popup.isProper )
+    const dispatch = useDispatch()
+
     const handleSelect = (label) => {
+        if (label === 3) {
+            dispatch(getInfo(info))
+            dispatch(renamePopup(true))
+            setIsArticleOnwerOption(false)
+            return
+        }
+
+        if (label === 4) {
+            dispatch(getInfo(info))
+            dispatch(sharePopup(true))
+            setIsArticleOnwerOption(false)
+            return
+        }
+
+        if (label === 5) {
+            dispatch(getInfo(info))
+            dispatch(properPopup(true))
+            setIsArticleOnwerOption(false)
+            return
+        }
         console.log(' label:', label)
+        //console.log('info :', info)
     }
 
     return (

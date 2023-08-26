@@ -1,8 +1,8 @@
 import Catalogy from '../../assets/icon/catalogy.svg'
 import Article from '../../assets/icon/article.svg'
 import Upload from '../../assets/icon/upload.svg'
-import { useContext, useState } from 'react'
-import { AddPopupContext } from '../../context/AddPopupContext'
+import { useDispatch } from 'react-redux'
+import { addContentPopup } from '../../redux/popupSlice'
 
 function AddOption() {
     const optionList = [
@@ -12,15 +12,16 @@ function AddOption() {
 
     ]
 
-    const [, setIsOpenAdd] = useContext(AddPopupContext)
+
+    const dispatch = useDispatch()
 
 
-    //const [label, setLabel] = useState('')
     const handleSelect = (label) => {
-        if (label === 3) {
+        if (label === 2) {
             return console.log('chưa có new file')
         }
-        setIsOpenAdd(label)
+
+        dispatch(addContentPopup(label))
     }
 
     return (

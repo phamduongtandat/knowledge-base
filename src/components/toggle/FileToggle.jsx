@@ -1,8 +1,10 @@
 import { useState } from "react"
 import Blog from '../../assets/icon/blog.svg'
 import File from '../../assets/icon/file.svg'
-function FileToggle() {
-    const [isBlog, setIsBlog] = useState(true)
+import { memo } from "react"
+function FileToggle({ setIsBlog, isBlog }) {
+    //const [isBlog, setIsBlog] = useState(true)
+
     return (
         <button className={`flex w-[4rem] h-[2.5rem] items-center p-1 rounded-full shadow transition duration-300 focus:outline-none ${isBlog ? 'bg-kb-neutral-50' : 'bg-kb-primary-gradient'}`}>
 

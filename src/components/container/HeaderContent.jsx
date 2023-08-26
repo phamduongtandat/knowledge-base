@@ -10,24 +10,26 @@ import AddNewPopup from "../popup/AddNewPopup";
 
 
 
-function HeaderContent({ titlePage }) {
-  const [isOpenItem, setIsOpenItem] = useState(true);
+function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
+  //const [isOpenItem, setIsOpenItem] = useState(true);
+  const [isBlog, setIsBlog] = useState(true)
   const [isAdd, setIsAdd] = useState(false);
   const [isFilterOpt, setIsFilterOpt] = useState(false)
 
+
   return (
     <div className="flex items-center gap-[0.46875rem]  px-[1.6875rem] h-[1.8125rem] justify-between">
-      {isOpenItem ? (
+      {titlePage === 'Home' || titlePage === 'Shared history' || titlePage === 'Recent' || titlePage === 'Favourite' || titlePage === 'Bin' ? (
         <div className="text-kb-second-color l1-b">{titlePage}</div>
       ) : (
-        <PageTitleLayout />
+        <PageTitleLayout titlePage={titlePage} headerChart={headerChart} />
       )}
 
       {/* POPUP ADD NEW */}
       {/* <AddNewPopup /> */}
 
       {/* ADD MORE */}
-      {titlePage == 'Home' &&
+      {(titlePage === 'Home' || titlePage === 'home') &&
         <div onClick={() => { setIsAdd(!isAdd) }} className="relative flex items-start">
           <button
 
@@ -50,15 +52,19 @@ function HeaderContent({ titlePage }) {
       {/*TOGGLE & FILTER */}
       <div className="flex justify-end items-center gap-3 self-stretch">
 
-        <FileToggle />
+        {<FileToggle isBlog={isBlog} setIsBlog={setIsBlog} />}
 
         <div
 
-          className="relative flex justify-center rounded-full items-center gap-[0.46875rem] kb-shadow-white-bg p-[0.70313rem] cursor-pointer">
+          className="relative flex justify-center rounded-full items-center gap-[0.46875rem] kb-shadow-white-bg p-[0.70313rem] cursor-pointer"
+        >
+
           <img onClick={() => { setIsFilterOpt(!isFilterOpt) }} src={Filter} />
+
           {isFilterOpt && <div className="absolute z-20 top-full mt-2 right-0">
-            <FileFilterOpt />
-            {/* <BlogFilterOpt /> */}
+
+            {!isBlog && <FileFilterOpt />}
+            {titlePage === 'Home' && isBlog && <BlogFilterOpt isAll={isAll} setIsAll={setIsAll} />}
 
           </div>}
         </div>

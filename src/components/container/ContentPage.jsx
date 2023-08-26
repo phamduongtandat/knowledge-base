@@ -4,52 +4,63 @@ import Folder from "../../assets/image/folder.png";
 import Dot from "../../assets/image/dot.svg";
 import Expand from "../../assets/icon/expand.svg";
 import { useState, useRef, useEffect } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CategogyOwnerOpt from "../optionDropdown/CategogyOwnerOpt";
 import PopupContainer from "./PopupContainer";
-import useGetFolderContent from "../../services/folder/useGetFolderContent";
+import RenamePopup from "../popup/RenamePopup";
+import ProperPopup from "../popup/ProperPopup";
+import { useSelector } from "react-redux";
 
 
-function ContentPage({ titlePage }) {
 
+function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
+
+
+  const isProper = useSelector(state => state.popup.isProper)
+  const isRename = useSelector(state => state.popup.isRename)
+
+  // console.log('titleChart :', titleChart)
   let linkpath
-
+  //console.log('titlePage :', titlePage)
   switch (titlePage) {
     case 'Home':
       linkpath = '/home/content'
-
-      //localStorage.setItem('local', JSON.stringify('/home/content'))
       break;
 
+    case 'home':
+      linkpath = '/home/content'
+      break;
+    case 'shared':
+      linkpath = '/shared/content'
+      break;
+    case 'recent':
+      linkpath = '/recent/content'
+      break;
+    case 'favourite':
+      linkpath = '/favourite/content'
+      break;
+    case 'bin':
+      linkpath = '/bin/content'
+      break;
+
+
     default:
-      //linkpath = JSON.parse(localStorage.getItem('local'))
+
 
       break;
   }
 
-  const { id } = useParams()
 
-  const { folderContent } = useGetFolderContent(id)
-  console.log('folderContent :', folderContent)
 
+  const folder = data?.filter(i => i.type === "folder")
+  const article = data?.filter(i => i.type === "article")
   const [CategOpt, setCategOpt] = useState({ isOpen: false, itemID: '' })
   const [articleID, setAticleID] = useState('');
 
-  const mock = []
+
   const [isExpand, setIsExpand] = useState(false);
 
-  const mockroot = [{
-    "id": "a6fb595e-4ac1-439b-a81d-c4304aaecfaf",
-    "name": "Test-folder",
-    "size": 0,
-    "type": "folder",
-    "createAt": "2023-08-24T14:09:48.072152Z",
-    "updateAt": null,
-    "content": null,
-    "parentName": null,
-    "author": "next impactful Metal",
-    "status": null
-  }];
+
   const containerRef = useRef();
 
   const [showButton, setShowButton] = useState(false);
@@ -72,7 +83,7 @@ function ContentPage({ titlePage }) {
 
   return (
     <div className="relative">
-      <HeaderContent titlePage={titlePage} />
+      <HeaderContent titlePage={titlePage} headerChart={headerChart} isAll={isAll} setIsAll={setIsAll} />
 
       {/* FOLDER LIST */}
       {showButton && !isExpand && (
@@ -94,9 +105,10 @@ function ContentPage({ titlePage }) {
       >
 
         {/* FOLDER */}
-        {mockroot?.map((i) => {
+        {folder?.map((i) => {
           return (
             <div
+              // onClick={() => { setTitleChart(pre => [...pre, i.name]) }}
               key={i.id}
               className={`relative flex min-w-[8.39063rem]  h-[6.09375rem] justify-center items-center p-[0.9375rem] rounded-md  ${CategOpt.isOpen && CategOpt.itemID === i.id ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
             >
@@ -126,7 +138,7 @@ function ContentPage({ titlePage }) {
                 ${showButton && !isExpand ? 'fixed -translate-x-2/3 -translate-y-2/3 ' : 'absolute bottom-2/3 right-1/4'} 
                   ${CategOpt.isOpen && CategOpt.itemID === i.id ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
                 >
-                  <CategogyOwnerOpt />
+                  <CategogyOwnerOpt setCategOpt={setCategOpt} info={i} />
                 </div>
               </div>
             </div>
@@ -153,13 +165,13 @@ function ContentPage({ titlePage }) {
                     </div> */}
 
           <div className="flex flex-col self-stretch items-start content-start  w-auto gap-[1.125rem] ">
-            {mock.map((i) => <Article articleID={articleID} setAticleID={setAticleID} key={i} itemID={i} />)}
+            {article?.map((i) => <Article key={i.id} articleID={articleID} setAticleID={setAticleID} data={i} itemID={i.id} />)}
 
           </div>
         </div>
       </div>
 
-      {titlePage == 'Home' && <PopupContainer />}
+
 
     </div>
   );

@@ -1,6 +1,13 @@
 
+import { useDispatch } from "react-redux"
+import { getInfo, properPopup, renamePopup } from "../../redux/popupSlice"
 
-function CategogyOwnerOpt() {
+
+
+function CategogyOwnerOpt({ info, setCategOpt }) {
+
+    //const { setItemName } = useContext(AddPopupContext)
+    const dispatch = useDispatch()
     const optionList = [
 
         { label: 1, name: 'Move to', img: 'fa-solid fa-arrows-up-down-left-right fa-sm' },
@@ -11,10 +18,24 @@ function CategogyOwnerOpt() {
 
     const handleSelect = (label) => {
         console.log(' label:', label)
+        if (label === 2) {
+            //setItemName(name)
+            dispatch(getInfo(info))
+            dispatch(renamePopup(true))
+            return setCategOpt(pre => { return { ...pre, isOpen: false } })
+        }
+        if (label === 3) {
+            //setItemName(name)
+            dispatch(getInfo(info))
+            dispatch(properPopup(true))
+            return setCategOpt(pre => { return { ...pre, isOpen: false } })
+        }
+
     }
 
     return (
         <div className="relative kb-shadow-white-bg w-40 rounded-lg ">
+
 
             {optionList.map(({ label, name, img }) => {
                 return <div
@@ -30,11 +51,13 @@ function CategogyOwnerOpt() {
 
                 </div>
             })}
-
-
-
-
         </div>
+
+
+
+
+
+
     )
 }
 
