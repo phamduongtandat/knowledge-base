@@ -6,12 +6,12 @@ import FileToggle from "../toggle/FileToggle";
 import AddOption from "../optionDropdown/AddOption";
 import FileFilterOpt from "../optionDropdown/FileFilterOpt";
 import BlogFilterOpt from "../optionDropdown/BlogFilterOpt";
-import AddNewPopup from "../popup/AddNewPopup";
+
 
 
 
 function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
-  //const [isOpenItem, setIsOpenItem] = useState(true);
+
   const [isBlog, setIsBlog] = useState(true)
   const [isAdd, setIsAdd] = useState(false);
   const [isFilterOpt, setIsFilterOpt] = useState(false)
@@ -19,14 +19,14 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
 
   return (
     <div className="flex items-center gap-[0.46875rem]  px-[1.6875rem] h-[1.8125rem] justify-between">
-      {titlePage === 'Home' || titlePage === 'Shared history' || titlePage === 'Recent' || titlePage === 'Favourite' || titlePage === 'Bin' ? (
+      {titlePage === 'Home' || titlePage === 'Shared history' || titlePage === 'Recent' || titlePage === 'Favourite' || titlePage === 'Bin' || titlePage === 'Search' ? (
         <div className="text-kb-second-color l1-b">{titlePage}</div>
       ) : (
         <PageTitleLayout titlePage={titlePage} headerChart={headerChart} />
       )}
 
       {/* POPUP ADD NEW */}
-      {/* <AddNewPopup /> */}
+
 
       {/* ADD MORE */}
       {(titlePage === 'Home' || titlePage === 'home') &&

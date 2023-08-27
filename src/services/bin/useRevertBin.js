@@ -4,18 +4,14 @@ import axios from '../../config/axios';
 
 
 
-import { useDispatch } from 'react-redux';
-import { renamePopup } from '../../redux/popupSlice';
+const useRevertBin = () => {
 
-const useRename = (contentID) => {
 
-    const dispatch = useDispatch()
 
-    const mutationFn = async (data) => {
+    const mutationFn = async (contentID) => {
         const res = await axios({
             method: 'put',
-            url: `/api/content/rename/${contentID}`,
-            data,
+            url: `/api/content/trash/${contentID}`,
         });
 
         return res?.data;
@@ -23,10 +19,9 @@ const useRename = (contentID) => {
 
     const onSuccess = async () => {
 
-        dispatch(renamePopup(false))
-        queryClient.invalidateQueries(['folderContent']);
-        queryClient.invalidateQueries(['homePageContent'])
-        queryClient.invalidateQueries(['searchData'])
+
+        queryClient.invalidateQueries(['binContent']);
+
     };
 
     const onError = (error) => {
@@ -41,7 +36,7 @@ const useRename = (contentID) => {
     });
 
     return {
-        renameContent: mutation.mutate,
+        revertBin: mutation.mutate,
         isSuccess: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
@@ -49,4 +44,4 @@ const useRename = (contentID) => {
     };
 };
 
-export default useRename;
+export default useRevertBin;

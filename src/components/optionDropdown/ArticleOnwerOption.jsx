@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux"
 import { getInfo, properPopup, renamePopup, sharePopup } from "../../redux/popupSlice"
+import useMoveAFToBin from "../../services/option/useMoveAFToBin"
 
 function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
     const optionList = [
@@ -13,6 +14,7 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
 
     //const isProper = useSelector(state=>state.popup.isProper )
     const dispatch = useDispatch()
+    const { MoveAFToBin } = useMoveAFToBin()
 
     const handleSelect = (label) => {
         if (label === 3) {
@@ -33,6 +35,12 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
             dispatch(getInfo(info))
             dispatch(properPopup(true))
             setIsArticleOnwerOption(false)
+            return
+        }
+        if (label === 6) {
+
+            console.log('info :', info)
+            MoveAFToBin(info?.id)
             return
         }
         console.log(' label:', label)

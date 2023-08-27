@@ -6,18 +6,14 @@ import Expand from "../../assets/icon/expand.svg";
 import { useState, useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import CategogyOwnerOpt from "../optionDropdown/CategogyOwnerOpt";
-import PopupContainer from "./PopupContainer";
-import RenamePopup from "../popup/RenamePopup";
-import ProperPopup from "../popup/ProperPopup";
-import { useSelector } from "react-redux";
+
 
 
 
 function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
 
-  const isProper = useSelector(state => state.popup.isProper)
-  const isRename = useSelector(state => state.popup.isRename)
+
 
   // console.log('titleChart :', titleChart)
   let linkpath
@@ -41,6 +37,9 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
       break;
     case 'bin':
       linkpath = '/bin/content'
+      break;
+    case 'Search':
+      linkpath = '/home/content'
       break;
 
 
@@ -165,7 +164,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
                     </div> */}
 
           <div className="flex flex-col self-stretch items-start content-start  w-auto gap-[1.125rem] ">
-            {article?.map((i) => <Article key={i.id} articleID={articleID} setAticleID={setAticleID} data={i} itemID={i.id} />)}
+            {article?.map((i) => <Article key={i.id} articleID={articleID} setAticleID={setAticleID} data={i} itemID={i.id} titlePage={titlePage} />)}
 
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import { Route, Routes } from 'react-router-dom';
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -14,11 +14,12 @@ import BinPage from './pages/BinPage';
 import ShareList from "./components/popup/ShareList";
 import PopupContainer from "./components/container/PopupContainer";
 import HomeDetailPage from "./pages/HomeDetailPage";
-//import { AddPopupProvider } from "./context/AddPopupContext";
+
 import ShareDetailPage from "./pages/ShareDetailPage";
 import RecentDetailPage from "./pages/RecentDetailPage";
 import FavorDetailPage from "./pages/FavorDetailPage";
 import BinDetailPage from "./pages/BinDetailPage";
+import SearchPage from './pages/SearchPage';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
 
           <Route index element={<HomePage />} />
           <Route path="home/content/:id" element={<HomeDetailPage />} />
+          <Route path="search/:keyWord" element={<SearchPage />} />
 
           <Route path="/shared" element={<SharedPage />} />
           <Route path="shared/content/:id" element={<ShareDetailPage />} />
@@ -57,7 +59,7 @@ function App() {
         </Route>
 
       </Routes>
-      {false && <ShareList />}
+
       <PopupContainer />
 
     </div>

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Dot from '../../assets/image/dot.svg'
 import ArticleOnwerOption from '../optionDropdown/ArticleOnwerOption';
+import BinOpt from '../optionDropdown/BinOpt';
 
 
-function Article({ articleID, setAticleID, itemID, data }) {
+function Article({ titlePage, articleID, setAticleID, itemID, data }) {
 
 
   const [isArticleOnwerOption, setIsArticleOnwerOption] = useState(false)
@@ -76,7 +77,8 @@ function Article({ articleID, setAticleID, itemID, data }) {
 
         <div className={`absolute bottom-7 right-7 ease-linear duration-200
          ${isArticleOnwerOption && articleID === itemID ? '' : 'translate-y-2/4 scale-0'}`}>
-          <ArticleOnwerOption info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />
+          {titlePage !== 'Bin' && <ArticleOnwerOption info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
+          {titlePage === 'Bin' && <BinOpt info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
         </div>
 
       </div>

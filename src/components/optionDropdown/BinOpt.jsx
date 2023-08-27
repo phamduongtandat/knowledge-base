@@ -1,13 +1,29 @@
+import useRevertBin from "../../services/bin/useRevertBin"
+import useTerminateItem from "../../services/bin/useTerminateItem"
 
 
-function BinOpt() {
+function BinOpt({ info }) {
     const optionList = [
         { label: 1, name: 'Recover', img: 'fa-solid fa-rotate-left fa-sm' },
         { label: 2, name: 'Delete', img: 'fa-solid fa-trash-can fa-sm' },
     ]
 
+    const { revertBin } = useRevertBin()
+    const { terminateItem } = useTerminateItem()
+
     const handleSelect = (label) => {
-        console.log(' label:', label)
+        if (label === 1) {
+            revertBin(info?.id)
+            return
+        }
+
+        if (label === 2) {
+
+            console.log('Đã integrate nhưng đợi confirmModal')
+            //terminateItem(info?.id)
+            return
+        }
+
     }
 
     return (

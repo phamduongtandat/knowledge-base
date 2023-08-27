@@ -77,7 +77,7 @@ function ShareList() {
 
                     {/* SHARE LIST */}
                     <div className="overflow-y-scroll self-stretch small-scrollbar">
-                        {sharedUsers.map((i) => {
+                        {sharedUsers?.map((i) => {
                             return <div key={i} className=" flex items-center gap-[0.46875rem] self-stretch ">
                                 <div className="flex items-center gap-[0.46875rem] flex-[1_0_0]">
                                     <img className="w-6 h-6 rounded-3xl border-yellow-300" src="https://via.placeholder.com/24x24" />
