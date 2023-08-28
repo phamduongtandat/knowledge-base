@@ -1,5 +1,7 @@
+import { useDispatch } from "react-redux"
 import useRevertBin from "../../services/bin/useRevertBin"
-import useTerminateItem from "../../services/bin/useTerminateItem"
+import { getInfo, terminatePopup } from "../../redux/popupSlice"
+
 
 
 function BinOpt({ info }) {
@@ -9,7 +11,8 @@ function BinOpt({ info }) {
     ]
 
     const { revertBin } = useRevertBin()
-    const { terminateItem } = useTerminateItem()
+    //const { terminateItem } = useTerminateItem()
+    const dispatch = useDispatch()
 
     const handleSelect = (label) => {
         if (label === 1) {
@@ -18,8 +21,9 @@ function BinOpt({ info }) {
         }
 
         if (label === 2) {
-
-            console.log('Đã integrate nhưng đợi confirmModal')
+            dispatch(getInfo(info))
+            dispatch(terminatePopup(true))
+            //console.log('Đã integrate nhưng đợi confirmModal')
             //terminateItem(info?.id)
             return
         }

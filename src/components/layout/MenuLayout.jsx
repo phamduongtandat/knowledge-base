@@ -2,6 +2,8 @@ import { useState } from 'react'
 import KB from '../../assets/image/KB.jpg'
 import Tree from '../../assets/icon/tree.svg'
 import { NavLink, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { treePopup } from '../../redux/popupSlice';
 
 
 
@@ -10,6 +12,8 @@ function MenuLayout() {
     let local = pathname?.split('/')[1]
     //console.log(' local:', local)
     const [isOpenMenu, setIsOpenMenu] = useState(true)
+
+    const dispatch = useDispatch()
 
     return (
         <div className={` right-auto kb-shadow-white-bg flex h-screen flex-col items-center shrink-0 2xl:pt-16 2xl:pb-6 2xl:px-2.5 2xl:gap-[2.625rem] 2xl:rounded-[0rem_1.25rem_1.25rem_0rem] md:pt-[2.84rem] md:pb-[1.1rem] md:px-[0.444rem] md:gap-[1.9rem] md:rounded-[0rem_0.9rem_0.9rem_0rem] 
@@ -24,7 +28,12 @@ function MenuLayout() {
                 </div>
             </div>
 
-            <div className="self-stretch bg-kb-primary-gradient justify-center items-center inline-flex 2xl:px-2.5 2xl:py-4 2xl:gap-2.5 2xl:rounded-lg md:px-[0.444rem] md:py-[0.71rem] md:gap-[0.444rem] md:rounded-md">
+            <div
+                onClick={() => {
+                    dispatch(treePopup(true))
+
+                }}
+                className="cursor-pointer self-stretch bg-kb-primary-gradient justify-center items-center inline-flex 2xl:px-2.5 2xl:py-4 2xl:gap-2.5 2xl:rounded-lg md:px-[0.444rem] md:py-[0.71rem] md:gap-[0.444rem] md:rounded-md">
 
                 <img src={Tree} className="2xl:w-5 2xl:h-5 2xl:gap-2.5 md:w-[0.9rem] md:h-[0.9rem] md:gap-[0.444rem] flex-col justify-center items-center inline-flex" />
                 {isOpenMenu && <div className=" l3-b kb-text-shadow-lg">Folder tree</div>}

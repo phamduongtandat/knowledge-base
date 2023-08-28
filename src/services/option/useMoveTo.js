@@ -1,17 +1,23 @@
 import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../../config/react-query';
 import axios from '../../config/axios';
+import { useDispatch } from 'react-redux';
+import { movePopup } from '../../redux/popupSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const useTerminateItem = (contentID) => {
+
+const useMoveTo = (contentID) => {
+    //const navi = useNavigate()
+    const dispatch = useDispatch()
 
 
-
-    const mutationFn = async () => {
+    const mutationFn = async (data) => {
         const res = await axios({
-            method: 'delete',
-            url: `/api/content/trash/${contentID}`,
+            method: 'put',
+            url: `/api/content/move/${contentID}`,
+            data,
         });
 
         return res?.data;
@@ -19,8 +25,11 @@ const useTerminateItem = (contentID) => {
 
     const onSuccess = async () => {
 
-        queryClient.invalidateQueries(['binContent']);
-
+        dispatch(movePopup(false))
+        //navi(`/home/content/`)
+        queryClient.invalidateQueries(['folderContent']);
+        queryClient.invalidateQueries(['homePageContent'])
+        queryClient.invalidateQueries(['searchData'])
     };
 
     const onError = (error) => {
@@ -35,7 +44,7 @@ const useTerminateItem = (contentID) => {
     });
 
     return {
-        terminateItem: mutation.mutate,
+        moveTo: mutation.mutate,
         isSuccess: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
@@ -43,4 +52,4 @@ const useTerminateItem = (contentID) => {
     };
 };
 
-export default useTerminateItem;
+export default useMoveTo;

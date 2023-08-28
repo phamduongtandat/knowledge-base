@@ -1,0 +1,126 @@
+import { useDispatch, useSelector } from "react-redux"
+import { movePopup } from "../../redux/popupSlice"
+import Folder from "../../assets/image/folder.png";
+import useGetHomePage from './../../services/home/useGetHomePage';
+import { useState } from "react";
+import useGetFolderContent from './../../services/folder/useGetFolderContent';
+import useMoveTo from "../../services/option/useMoveTo";
+import checkLogin from "../../utils/checkLogin";
+
+
+
+function MovePopup() {
+    let itemInfo = useSelector(state => state.popup.itemInfo)
+
+    const [child, setChild] = useState('')
+
+    const { homePageContent } = useGetHomePage('all')
+    const { folderContent } = useGetFolderContent(child?.id)
+    const { moveTo } = useMoveTo(itemInfo?.id)
+
+
+    const folder = child
+        ? folderContent?.filter(i => i.type === "folder")
+        : homePageContent?.filter(i => i.type === "folder" && i.name !== itemInfo?.name)
+
+
+    const dispatch = useDispatch()
+
+
+    return (
+        <div
+            id='addBackDrop'
+            onClick={({ target }) => {
+
+                if (target.id === 'addBackDrop') {
+                    dispatch(movePopup(false))
+                }
+            }}
+            className="bg-kb-neutral-700/50 fixed z-50 inset-0"
+        >
+
+
+
+            <div className=" absolute flex flex-col h-[90%] w-[90%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 justify-around  items-start gap-7 p-4 rounded-[0.5rem] kb-shadow-white-bg">
+
+
+                <div className="flex justify-center items-center gap-[1.125rem] self-stretch">
+
+                    <h2 className="text-kb-second-color flex-1">Move {itemInfo?.name} to {child?.name} </h2>
+                    <div
+                        onClick={() => { dispatch(movePopup(false)) }}
+                        className="flex justify-end items-center gap-[0.46875rem]">
+                        <div className="flex justify-center items-center gap-[0.46875rem] p-[0.70313rem] rounded-[2.39063rem] bg-kb-neutral-white cursor-pointer">
+                            <i className="fa-solid fa-xmark fa-lg"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className="flex flex-wrap  ml-7">
+                    {folder?.map((i) => {
+                        return (
+                            <div
+                                onClick={() => {
+                                    //dispatch(getInfo(i))
+                                    setChild(i)
+                                }}
+                                key={i.id}
+                                className={` flex min-w-[8rem]  h-[6rem] justify-center items-center p-[0.9375rem] rounded-md cursor-pointer`}
+                            >
+
+
+                                <div className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
+                                    <div className="flex flex-col gap-2 justify-between items-start flex-[1_0_0]">
+                                        <img className="w-12 h-[2.10938rem]" src={Folder} />
+
+                                        <div className="flex flex-col items-start text-kb-second-color">
+                                            <div className="l3-b">{i?.name}</div>
+                                            <div className="l3-r">48 files</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        );
+                    })}
+
+                </div>
+
+                <div className=" w-full flex justify-around">
+
+                    <div
+                        onClick={() => { dispatch(movePopup(false)) }}
+                        className="bg-kb-neutral-300/40 kb-text-shadow-sm flex justify-center items-center gap-[0.46875rem] px-6 py-[1rem] rounded-md cursor-pointer">
+
+                        <div className="l3-b">Cancel</div>
+                    </div>
+
+                    <div
+                        onClick={() => {
+                            const { tokenInfo } = checkLogin()
+                            const data = {
+                                parentId: child?.id,
+                                type: child?.type,
+                                userId: tokenInfo?.userID
+
+                            }
+                            console.log('data :', data)
+                            console.log('itemInfo?.id :', itemInfo?.id)
+                            moveTo(data)
+                        }}
+                        className="bg-kb-primary-gradient kb-text-shadow-sm flex justify-center items-center gap-[0.46875rem] px-3 py-[1rem] rounded-md cursor-pointer">
+
+                        <div className="l3-b">Move to here</div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    )
+}
+
+export default MovePopup

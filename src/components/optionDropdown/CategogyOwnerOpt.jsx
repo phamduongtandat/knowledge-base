@@ -1,12 +1,12 @@
 
 import { useDispatch } from "react-redux"
-import { getInfo, properPopup, renamePopup } from "../../redux/popupSlice"
+import { getInfo, movePopup, properPopup, renamePopup } from "../../redux/popupSlice"
 
 
 
 function CategogyOwnerOpt({ info, setCategOpt }) {
 
-    //const { setItemName } = useContext(AddPopupContext)
+
     const dispatch = useDispatch()
     const optionList = [
 
@@ -18,6 +18,12 @@ function CategogyOwnerOpt({ info, setCategOpt }) {
 
     const handleSelect = (label) => {
         console.log(' label:', label)
+        if (label === 1) {
+            //setItemName(name)
+            dispatch(getInfo(info))
+            dispatch(movePopup(true))
+            return setCategOpt(pre => { return { ...pre, isOpen: false } })
+        }
         if (label === 2) {
             //setItemName(name)
             dispatch(getInfo(info))

@@ -2,6 +2,7 @@
 import useGetProperties from './../../services/option/useGetProperties';
 import { properPopup } from '../../redux/popupSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import formatDate from '../../utils/formatDate';
 
 function ProperPopup() {
 
@@ -9,7 +10,7 @@ function ProperPopup() {
     // const { itemName } = useContext(AddPopupContext)
     const itemInfo = useSelector(state => state.popup.itemInfo)
     const { properties } = useGetProperties(itemInfo?.id)
-    console.log('properties :', properties)
+
     return (
         <div
             id='addBackDrop'
@@ -23,27 +24,70 @@ function ProperPopup() {
         >
 
 
-            <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-start gap-1.5 p-4 rounded-[0.5rem] kb-shadow-white-bg">
-                <div className="flex justify-center items-center gap-1.5 rounded-[0.4rem] ">
-                    <div className="l3-b ">{itemInfo.name}</div>
+            {/* <div className="  flex-col items-start gap-1.5 p-4 rounded-[0.5rem] kb-shadow-white-bg">                
+
+            </div> */}
+
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center  rounded-[0.5rem] gap-1.5 p-7 w-[20rem]  text-kb-neutral-500 kb-shadow-white-bg">
+
+                <div className="flex justify-center items-center gap-2.5 self-stretch px-0 py-2.5">
+                    <div className="l1-b text-kb-second-color">Properties</div>
+                </div>
+
+                <div className="flex items-start justify-between w-full ">
+                    <div className="flex justify-center items-center gap-2.5  px-0 py-1">
+                        <h4 className="flex-1">Name</h4>
+                    </div>
+
+                    <div className="flex justify-between items-center gap-2.5 px-0 py-1">
+                        <div className="p1-b flex-1">{properties?.name}</div>
+                    </div>
                 </div>
 
 
-                {/* <div className="flex flex-col justify-center items-center gap-2.5 self-stretch pt-[2.625rem] pb-5 px-0">
-                    <img className="w-[3.85rem] h-[2.71rem]" src={Folder} />
-                </div> */}
 
+                <div className="flex items-start justify-between w-full ">
+                    <div className="flex justify-center items-start gap-2.5  px-0 py-1">
+                        <h4 className="flex-1">Author</h4>
+                    </div>
 
+                    <div className="flex justify-center items-center gap-2.5 px-0 py-1">
+                        <div className="p1-b flex-1">{properties?.author}</div>
+                    </div>
+                </div>
 
-                {/* <div className={`flex flex-col items-start gap-1.5 self-stretch pt-3.5 pb-0 px-14  `}>
-                    <button
-                        type='button'
-                        className={` flex justify-center items-center gap-1.5 self-stretch px-1.5 py-3 rounded-lg bg-kb-primary-gradient`}>
-                        <div className="l3-b kb-text-shadow-lg">Acknowledge</div>
-                    </button>
-                </div> */}
+                <div className="flex items-start justify-between w-full ">
+                    <div className="flex justify-start items-start gap-2.5  px-0 py-1">
+                        <h4 className="flex-1">Type</h4>
+                    </div>
+
+                    <div className="flex justify-center items-center gap-2.5 px-0 py-1">
+                        <div className="p1-b flex-1">{properties?.type}</div>
+                    </div>
+                </div>
+
+                <div className="flex items-start justify-between w-full ">
+                    <div className="flex justify-center items-center gap-2.5  px-0 py-1">
+                        <h4 className="flex-1">Created at</h4>
+                    </div>
+
+                    <div className="flex justify-center items-center gap-2.5 px-0 py-1">
+                        <div className="p1-b flex-1">{formatDate(properties?.createAt)}</div>
+                    </div>
+                </div>
+
+                <div className="flex items-start justify-between w-full ">
+                    <div className="flex justify-center items-center gap-2.5  px-0 py-1">
+                        <h4 className="flex-1">Last modified</h4>
+                    </div>
+
+                    <div className="flex justify-center items-center gap-2.5 px-0 py-1">
+                        <div className="p1-b flex-1">{properties?.updateAt ? formatDate(properties?.updateAt) : 'Not update'}</div>
+                    </div>
+                </div>
 
             </div>
+
         </div>
     )
 }
