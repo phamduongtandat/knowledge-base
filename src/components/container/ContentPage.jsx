@@ -6,6 +6,7 @@ import Expand from "../../assets/icon/expand.svg";
 import { useState, useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import CategogyOwnerOpt from "../optionDropdown/CategogyOwnerOpt";
+import BinOpt from "../optionDropdown/BinOpt";
 
 
 
@@ -35,9 +36,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
     case 'favourite':
       linkpath = '/favourite/content'
       break;
-    case 'bin':
-      linkpath = '/bin/content'
-      break;
+
     case 'Search':
       linkpath = '/home/content'
       break;
@@ -111,16 +110,29 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
               key={i.id}
               className={`relative flex min-w-[8.39063rem]  h-[6.09375rem] justify-center items-center p-[0.9375rem] rounded-md  ${CategOpt.isOpen && CategOpt.itemID === i.id ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
             >
-              <Link to={`${linkpath}/${i.id}`} className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
-                <div className="flex flex-col gap-2 justify-between items-start flex-[1_0_0]">
-                  <img className="w-12 h-[2.10938rem]" src={Folder} />
+              {
+                titlePage !== 'Bin'
+                  ? <Link to={`${linkpath}/${i.id}`} className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
+                    <div className="flex flex-col gap-2 justify-between items-start flex-[1_0_0]">
+                      <img className="w-12 h-[2.10938rem]" src={Folder} />
 
-                  <div className="flex flex-col items-start text-kb-second-color">
-                    <div className="l3-b">{i.name}</div>
-                    <div className="l3-r">48 files</div>
+                      <div className="flex flex-col items-start text-kb-second-color">
+                        <div className="l3-b">{i.name}</div>
+                        <div className="l3-r">48 files</div>
+                      </div>
+                    </div>
+                  </Link>
+                  : <div className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
+                    <div className="flex flex-col gap-2 justify-between items-start flex-[1_0_0]">
+                      <img className="w-12 h-[2.10938rem]" src={Folder} />
+
+                      <div className="flex flex-col items-start text-kb-second-color">
+                        <div className="l3-b">{i.name}</div>
+                        <div className="l3-r">48 files</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Link>
+              }
 
               <div className="flex justify-center items-start gap-[0.46875rem] self-stretch  ">
                 <img
@@ -135,10 +147,12 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
                 <div className={`  z-50  ease-linear duration-200
                 ${showButton && !isExpand ? 'fixed -translate-x-2/3 -translate-y-2/3 ' : 'absolute bottom-2/3 right-1/4'} 
-                  ${CategOpt.isOpen && CategOpt.itemID === i.id ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
+                ${CategOpt.isOpen && CategOpt.itemID === i.id ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
                 >
-                  <CategogyOwnerOpt setCategOpt={setCategOpt} info={i} />
+                  {titlePage !== 'Bin' && <CategogyOwnerOpt setCategOpt={setCategOpt} info={i} />}
+                  {titlePage === 'Bin' && <BinOpt info={i} />}
                 </div>
+
               </div>
             </div>
           );

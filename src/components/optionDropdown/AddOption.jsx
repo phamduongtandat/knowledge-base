@@ -2,7 +2,7 @@ import Catalogy from '../../assets/icon/catalogy.svg'
 import Article from '../../assets/icon/article.svg'
 import Upload from '../../assets/icon/upload.svg'
 import { useDispatch } from 'react-redux'
-import { addContentPopup } from '../../redux/popupSlice'
+import { addContentPopup, selectEditorPopup } from '../../redux/popupSlice'
 
 function AddOption() {
     const optionList = [
@@ -18,7 +18,8 @@ function AddOption() {
 
     const handleSelect = (label) => {
         if (label === 2) {
-            return console.log('chưa có new file')
+            dispatch(selectEditorPopup(true))
+            return dispatch(addContentPopup(0))
         }
 
         dispatch(addContentPopup(label))

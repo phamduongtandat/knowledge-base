@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider, queryClient } from './config/react-query.js';
 import './index.css'
 import store from './redux/store.js';
-//import { AddPopupProvider } from './context/AddPopupContext.jsx';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>

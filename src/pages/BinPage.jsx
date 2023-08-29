@@ -5,7 +5,7 @@ import checkLogin from '../utils/checkLogin'
 
 function BinPage() {
     const { tokenInfo } = checkLogin()
-    const { binContent } = useGetBin(tokenInfo.userID)
+    const { binContent } = useGetBin(tokenInfo?.userID)
     console.log('binContent :', binContent)
     return (
         <>

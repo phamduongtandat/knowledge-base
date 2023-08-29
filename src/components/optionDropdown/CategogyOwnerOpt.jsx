@@ -1,11 +1,12 @@
 
 import { useDispatch } from "react-redux"
 import { getInfo, movePopup, properPopup, renamePopup } from "../../redux/popupSlice"
+import useMoveCategToBin from './../../services/option/useMoveCategToBin';
 
 
 
 function CategogyOwnerOpt({ info, setCategOpt }) {
-
+    const { moveCategToBin } = useMoveCategToBin()
 
     const dispatch = useDispatch()
     const optionList = [
@@ -34,6 +35,10 @@ function CategogyOwnerOpt({ info, setCategOpt }) {
             //setItemName(name)
             dispatch(getInfo(info))
             dispatch(properPopup(true))
+            return setCategOpt(pre => { return { ...pre, isOpen: false } })
+        }
+        if (label === 4) {
+            moveCategToBin(info?.id)
             return setCategOpt(pre => { return { ...pre, isOpen: false } })
         }
 

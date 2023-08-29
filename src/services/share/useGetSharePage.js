@@ -1,17 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from '../../config/axios';
-import checkLogin from '../../utils/checkLogin';
 
 
 
-const useGetHomePage = (status) => {
-    const { tokenInfo } = checkLogin()
-    console.log('userID :', tokenInfo)
-    //console.log('status :', status)
+const useGetSharePage = (userID) => {
+
     const queryFn = async () => {
         const res = await axios({
             method: 'get',
-            url: `/api/content/home-page/userId/${tokenInfo?.userID}/status/${status}`,
+            url: `/api/shares/userId/${userID}`,
 
         });
 
@@ -22,14 +19,15 @@ const useGetHomePage = (status) => {
 
     const res = useQuery({
         queryFn,
-        queryKey: ['homePageContent', status],
-        //enabled: !!status,
+        queryKey: ['shareContent'],
+        //enabled: !!folderID,
         keepPreviousData: true,
 
     });
 
+
     return {
-        homePageContent: res.data?.data,
+        shareContent: res.data?.data,
         isLoading: res.isLoading,
         isSuccess: res.isSuccess,
         isError: res.isError,
@@ -38,4 +36,4 @@ const useGetHomePage = (status) => {
 }
 
 
-export default useGetHomePage;
+export default useGetSharePage;

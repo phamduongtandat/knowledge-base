@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Blog from '../../assets/icon/blog.svg'
 import File from '../../assets/icon/file.svg'
-import { memo } from "react"
+
 function FileToggle({ setIsBlog, isBlog }) {
     //const [isBlog, setIsBlog] = useState(true)
 

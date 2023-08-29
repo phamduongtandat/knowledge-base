@@ -11,7 +11,7 @@ import FavouritePage from './pages/FavouritePage';
 import RecentPage from './pages/RecentPage';
 import BinPage from './pages/BinPage';
 
-import ShareList from "./components/popup/ShareList";
+
 import PopupContainer from "./components/container/PopupContainer";
 import HomeDetailPage from "./pages/HomeDetailPage";
 
@@ -20,6 +20,7 @@ import RecentDetailPage from "./pages/RecentDetailPage";
 import FavorDetailPage from "./pages/FavorDetailPage";
 import BinDetailPage from "./pages/BinDetailPage";
 import SearchPage from './pages/SearchPage';
+import MarkdownPage from './pages/MarkdownPage';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/markdown/write" element={<MarkdownPage />} />
 
 
         <Route

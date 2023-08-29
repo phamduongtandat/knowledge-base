@@ -2,29 +2,28 @@ import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../../config/react-query';
 import axios from '../../config/axios';
 
-import { useDispatch } from 'react-redux';
-import { addContentPopup } from '../../redux/popupSlice';
 
-const useCreateContent = () => {
 
-    //const {tokenInfo}=checkLogin()
-    const dispatch = useDispatch()
 
-    const mutationFn = async (data) => {
+const useMoveCategToBin = () => {
+
+
+
+    const mutationFn = async (contentID) => {
         const res = await axios({
-            method: 'post',
-            url: '/api/content',
-            data,
+            method: 'delete',
+            url: `/api/content/remove/${contentID}`,
         });
 
         return res?.data;
     };
 
-    const onSuccess = async (data) => {
-        console.log('data :', data)
-        queryClient.invalidateQueries(['homePageContent']);
+    const onSuccess = async () => {
+
+
         queryClient.invalidateQueries(['folderContent']);
-        dispatch(addContentPopup(0))
+        queryClient.invalidateQueries(['homePageContent'])
+        queryClient.invalidateQueries(['searchData'])
     };
 
     const onError = (error) => {
@@ -39,7 +38,7 @@ const useCreateContent = () => {
     });
 
     return {
-        createContent: mutation.mutate,
+        moveCategToBin: mutation.mutate,
         isSuccess: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
@@ -47,4 +46,4 @@ const useCreateContent = () => {
     };
 };
 
-export default useCreateContent;
+export default useMoveCategToBin;

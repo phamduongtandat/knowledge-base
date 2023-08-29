@@ -7,6 +7,8 @@ import MovePopup from '../popup/MovePopup'
 import TerminatePopup from '../popup/TerminatePopup'
 import FolderTreePopup from '../popup/FolderTreePopup'
 
+import SelectEditorPopup from '../popup/SelectEditorPopup'
+
 function PopupContainer() {
 
     const isOpenAdd = useSelector(state => state.popup.isAddContent)
@@ -16,6 +18,7 @@ function PopupContainer() {
     const isMove = useSelector(state => state.popup.isMove)
     const isTerminate = useSelector(state => state.popup.isTerminate)
     const isTree = useSelector(state => state.popup.isTree)
+    const isSelect = useSelector(state => state.popup.isSelect)
 
     return (
         <div>
@@ -26,6 +29,7 @@ function PopupContainer() {
             {isMove && <MovePopup />}
             {isTerminate && <TerminatePopup />}
             {isTree && <FolderTreePopup />}
+            {isSelect && <SelectEditorPopup />}
         </div>
     )
 }

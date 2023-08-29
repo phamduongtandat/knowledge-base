@@ -1,25 +1,30 @@
-import React, { useState } from 'react'
+
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-function MarkdownArea() {
-    const [article, setArticle] = useState('')
-    console.log(article)
+function MarkdownArea({ isWrite, setArticle, article }) {
+
+    //console.log(article)
 
     return (
-        <div className="flex gap-2 m-7">
-            <textarea
-                onChange={(e) => { setArticle(e.target.value) }}
-                value={article}
-                className="border w-full p-2"
-            />
+        <>
+            <div className="flex min-h-full max-h-fit w-full  ">
+                {isWrite && <textarea
+                    onChange={(e) => { setArticle(e.target.value) }}
+                    value={article}
+                    className="  rounded-[0.77919rem] border-[0.779px] border-solid  p-2 outline-none h-screen min-h-full max-h-fit w-full"
+                />}
 
-            <div className="w-full min-h-full h-auto border-2 p-7">
-                {/* eslint-disable-next-line react/no-children-prop */}
-                <ReactMarkdown children={article} remarkPlugins={[remarkGfm]} />
+
+
             </div>
 
-        </div>
+            {!isWrite && !!article && <div className=" w-full min-h-full max-h-fit p-2">
+                {/* eslint-disable-next-line react/no-children-prop */}
+                <ReactMarkdown children={article} remarkPlugins={[remarkGfm]} />
+            </div>}
+        </>
+
 
     )
 }
