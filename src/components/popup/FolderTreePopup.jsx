@@ -2,12 +2,16 @@ import { useDispatch } from "react-redux"
 import { treePopup } from "../../redux/popupSlice"
 import useGetHomePage from "../../services/home/useGetHomePage"
 import ItemContainer from "../folderTree/ItemContainer"
+import checkLogin from "../../utils/checkLogin"
+import useGetUserID from "../../services/auth/useGetUserID"
 
 
 function FolderTreePopup() {
     const dispatch = useDispatch()
+    const { tokenInfo } = checkLogin()
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
 
-    const { homePageContent } = useGetHomePage('all')
+    const { homePageContent } = useGetHomePage(userID, 'all')
 
 
     return (

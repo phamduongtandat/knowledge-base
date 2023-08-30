@@ -19,8 +19,8 @@ const useGetBin = (userID) => {
 
     const res = useQuery({
         queryFn,
-        queryKey: ['binContent'],
-        //enabled: !!folderID,
+        queryKey: ['binContent', userID],
+        enabled: !!userID,
         keepPreviousData: true,
 
     });

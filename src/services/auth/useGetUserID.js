@@ -3,12 +3,12 @@ import axios from '../../config/axios';
 
 
 
-const useGetFavourite = (userID) => {
+const useGetUserID = (preferred_username) => {
 
     const queryFn = async () => {
         const res = await axios({
             method: 'get',
-            url: `/api/favorites/userId/${userID}`,
+            url: `/api/user-details/username/${preferred_username}`,
 
         });
 
@@ -19,7 +19,7 @@ const useGetFavourite = (userID) => {
 
     const res = useQuery({
         queryFn,
-        queryKey: ['favouriteContent', userID],
+        queryKey: ['userID'],
         //enabled: !!folderID,
         keepPreviousData: true,
 
@@ -27,7 +27,7 @@ const useGetFavourite = (userID) => {
 
 
     return {
-        favouriteContent: res.data?.data,
+        userID: res.data?.data?.id,
         isLoading: res.isLoading,
         isSuccess: res.isSuccess,
         isError: res.isError,
@@ -36,4 +36,4 @@ const useGetFavourite = (userID) => {
 }
 
 
-export default useGetFavourite;
+export default useGetUserID;

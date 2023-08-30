@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import LoginBg from '../assets/image/login-bg.svg'
 import LogoCompany from '../assets/image/login-hiptechLogo.png'
 import LoginImg from '../assets/image/login-img.png';

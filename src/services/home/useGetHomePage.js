@@ -1,17 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from '../../config/axios';
-import checkLogin from '../../utils/checkLogin';
 
 
 
-const useGetHomePage = (status) => {
-    const { tokenInfo } = checkLogin()
-    console.log('userID :', tokenInfo)
+
+const useGetHomePage = (userID, status) => {
+
     //console.log('status :', status)
     const queryFn = async () => {
         const res = await axios({
             method: 'get',
-            url: `/api/content/home-page/userId/${tokenInfo?.userID}/status/${status}`,
+            url: `/api/content/home-page/userId/${userID}/status/${status}`,
 
         });
 
@@ -22,8 +21,8 @@ const useGetHomePage = (status) => {
 
     const res = useQuery({
         queryFn,
-        queryKey: ['homePageContent', status],
-        //enabled: !!status,
+        queryKey: ['homePageContent', status, userID],
+        //enabled: !!userID,
         keepPreviousData: true,
 
     });

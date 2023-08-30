@@ -5,10 +5,15 @@ import { Outlet } from "react-router-dom";
 import ProfileOption from '../myProfile/ProfileOption';
 import checkLogin from '../../utils/checkLogin';
 import { useNavigate } from 'react-router-dom';
+import useGetUserID from '../../services/auth/useGetUserID';
+import { useDispatch } from 'react-redux';
+import { getUserId } from '../../redux/authSlice';
 function MainLayout() {
 
     const { isLogin, tokenInfo } = checkLogin()
-    //console.log('name :', name)
+    //const { userID } = useGetUserID(tokenInfo?.preferred_username)
+
+    //console.log('userID :', userID)
     const navigate = useNavigate();
     const [isDrop, setIsDrop] = useState(false)
     useEffect(() => {

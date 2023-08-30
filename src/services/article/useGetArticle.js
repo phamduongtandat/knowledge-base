@@ -1,14 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
+
 import axios from '../../config/axios';
 
 
 
-const useGetFavourite = (userID) => {
+const useGetArticle = (articleID) => {
+
+
 
     const queryFn = async () => {
         const res = await axios({
             method: 'get',
-            url: `/api/favorites/userId/${userID}`,
+            url: `/api/content/page/${articleID}`,
 
         });
 
@@ -19,7 +22,7 @@ const useGetFavourite = (userID) => {
 
     const res = useQuery({
         queryFn,
-        queryKey: ['favouriteContent', userID],
+        queryKey: ['articleContent'],
         //enabled: !!folderID,
         keepPreviousData: true,
 
@@ -27,13 +30,11 @@ const useGetFavourite = (userID) => {
 
 
     return {
-        favouriteContent: res.data?.data,
+        articleContent: res.data?.data,
         isLoading: res.isLoading,
         isSuccess: res.isSuccess,
         isError: res.isError,
     };
+};
 
-}
-
-
-export default useGetFavourite;
+export default useGetArticle;

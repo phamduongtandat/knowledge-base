@@ -21,6 +21,7 @@ import FavorDetailPage from "./pages/FavorDetailPage";
 import BinDetailPage from "./pages/BinDetailPage";
 import SearchPage from './pages/SearchPage';
 import MarkdownPage from './pages/MarkdownPage';
+import BlogHomePage from './pages/BlogHomePage';
 
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/markdown/write" element={<MarkdownPage />} />
+        <Route path="/markdown/write/:parentID" element={<MarkdownPage />} />
 
 
         <Route
@@ -42,6 +43,7 @@ function App() {
 
           <Route index element={<HomePage />} />
           <Route path="home/content/:id" element={<HomeDetailPage />} />
+          <Route path="home/content/page/:id" element={<BlogHomePage />} />
           <Route path="search/:keyWord" element={<SearchPage />} />
 
           <Route path="/shared" element={<SharedPage />} />

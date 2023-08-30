@@ -2,10 +2,11 @@ import { useState } from 'react';
 import Dot from '../../assets/image/dot.svg'
 import ArticleOnwerOption from '../optionDropdown/ArticleOnwerOption';
 import BinOpt from '../optionDropdown/BinOpt';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function Article({ titlePage, articleID, setAticleID, itemID, data }) {
-
+  const navi = useNavigate()
 
   const [isArticleOnwerOption, setIsArticleOnwerOption] = useState(false)
 
@@ -13,12 +14,14 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
     <div className={`relative flex w-full rounded-[0.42188rem] justify-center items-center gap-[0.70313rem] self-stretch p-[0.70313rem] 
     ${isArticleOnwerOption && articleID === itemID ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
     >
+
+
       <img
         className="self-stretch w-[3.75444rem] h-[3.4375rem] rounded-[0.1875rem]"
         src="https://via.placeholder.com/60x55"
       />
 
-      <div className="flex justify-between items-start flex-[1_0_0] self-stretch">
+      <div onClick={() => { navi(`/${titlePage}/content/page/${itemID}`) }} className="flex justify-between items-start flex-[1_0_0] self-stretch">
         <div className="flex flex-col items-center gap-[0.1875rem] flex-[1_0_0]">
           <div className="flex items-start gap-[0.5625rem] self-stretch">
             <div className="p1-b kb-text-primary-gradient">
@@ -56,6 +59,11 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
           </div>
         </div>
       </div>
+
+
+
+
+
 
       {/* THREE DOT */}
       <div className="relative w-[15px] h-[52px] justify-end items-start gap-[7.50px]">

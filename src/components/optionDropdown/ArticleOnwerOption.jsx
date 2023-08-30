@@ -1,8 +1,13 @@
 import { useDispatch } from "react-redux"
 import { getInfo, properPopup, renamePopup, sharePopup } from "../../redux/popupSlice"
 import useMoveAFToBin from "../../services/option/useMoveAFToBin"
+import { useLocation, useNavigate } from "react-router-dom"
+import { getItemEdit, markdownEdit } from "../../redux/editSlice"
 
 function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
+
+    const navi = useNavigate()
+
     const optionList = [
         { label: 1, name: 'Like', img: 'fa-solid fa-heart fa-sm' },
         { label: 2, name: 'Edit', img: 'fa-solid fa-pen fa-sm' },
@@ -15,8 +20,18 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
     //const isProper = useSelector(state=>state.popup.isProper )
     const dispatch = useDispatch()
     const { MoveAFToBin } = useMoveAFToBin()
-
+    const { pathname } = useLocation()
+    const local = pathname?.split('/').pop()
     const handleSelect = (label) => {
+        if (label === 2) {
+            dispatch(getItemEdit(info))
+            dispatch(markdownEdit(true))
+            setIsArticleOnwerOption(false)
+
+            navi(`/markdown/write/${local}`)
+            return
+        }
+
         if (label === 3) {
             dispatch(getInfo(info))
             dispatch(renamePopup(true))

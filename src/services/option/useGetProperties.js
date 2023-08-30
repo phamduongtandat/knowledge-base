@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from '../../config/axios';
-import checkLogin from '../../utils/checkLogin';
+
 
 
 
 const useGetProperties = (contentID) => {
-    const { tokenInfo } = checkLogin()
-    console.log('userID :', tokenInfo.userID)
+
     const queryFn = async () => {
         const res = await axios({
             method: 'get',

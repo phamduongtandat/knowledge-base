@@ -30,7 +30,7 @@ const useRename = (contentID) => {
     };
 
     const onError = (error) => {
-        const message = error.response?.data?.message;
+        const message = error.response?.data?.data;
         console.log(' message:', message)
     };
 
@@ -45,7 +45,7 @@ const useRename = (contentID) => {
         isSuccess: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
-        error: mutation.error?.response?.data?.message,
+        error: mutation.error?.response?.data?.data,
     };
 };
 

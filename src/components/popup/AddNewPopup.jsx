@@ -10,8 +10,11 @@ import checkLogin from './../../utils/checkLogin';
 import useCreateContent from './../../services/home/useCreateContent';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContentPopup } from '../../redux/popupSlice';
+import useGetUserID from '../../services/auth/useGetUserID';
 
 function AddNewPopup() {
+
+
     //const { isOpenAdd, setIsOpenAdd } = useContext(AddPopupContext)
     const isOpenAdd = useSelector(state => state.popup.isAddContent)
     const dispatch = useDispatch()
@@ -20,16 +23,25 @@ function AddNewPopup() {
     const [isName, setIsName] = useState(false)
     const { pathname } = useLocation()
     const parentID = pathname?.split('/').pop()
+
+    console.log(' parentID:', parentID)
+    if (parentID) {
+        console.log('hello')
+    }
+
     const { createContent } = useCreateContent()
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(folderSchema),
     })
-    //console.log('errors :', errors)
+
+    const { tokenInfo } = checkLogin()
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
+
     const onSubmit = (data) => {
-        const { tokenInfo } = checkLogin()
+
         data.type = 'folder'
         data.parentId = parentID
-        data.userId = tokenInfo?.userID
+        data.userId = userID
         createContent(data)
         console.log('data :', data)
 
@@ -47,7 +59,9 @@ function AddNewPopup() {
         >
             <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-start gap-1.5 p-4 rounded-[0.5rem] kb-shadow-white-bg">
 
-                <div className={`flex items-start gap-1.5 px-3.5 py-1.5 rounded-[3.4rem] bg-kb-primary-color`}>
+
+                {/* TITLE ADD */}
+                <div className={`flex items-start justify-center gap-1.5 px-3.5 py-1.5 rounded-[3.4rem] bg-kb-primary-color`}>
 
                     <div
                         onClick={() => { setIsCateg(true); dispatch(addContentPopup(1)) }}
@@ -62,7 +76,7 @@ function AddNewPopup() {
                         </div>
                     </div>
 
-                    <div
+                    {parentID && <div
                         onClick={() => { setIsCateg(false) }}
                         className={`flex flex-col items-start gap-1.5 px-3.5 py-1.5 rounded-[3.4rem] cursor-pointer
                         ${(!isCateg || isOpenAdd === 3) ? 'bg-kb-neutral-white text-kb-primary-color' : 'text-kb-neutral-white'}`}
@@ -72,7 +86,7 @@ function AddNewPopup() {
                             <i className="fa-solid fa-upload fa-sm"></i>
                             <div className="l3-b ">New file</div>
                         </div>
-                    </div>
+                    </div>}
                 </div>
 
 

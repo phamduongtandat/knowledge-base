@@ -1,11 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
+import checkLogin from '../../utils/checkLogin';
+
 
 function ProfileOption() {
+
     const backLogin = useNavigate()
     const handleLogOut = () => {
         document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
         document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
         backLogin('login')
+        checkLogin(false)
+        console.log('can')
     }
 
     return (

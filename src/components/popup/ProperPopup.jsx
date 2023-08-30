@@ -36,6 +36,16 @@ function ProperPopup() {
 
                 <div className="flex items-start justify-between w-full ">
                     <div className="flex justify-center items-center gap-2.5  px-0 py-1">
+                        <h4 className="flex-1">ID</h4>
+                    </div>
+
+                    <div className="flex justify-between items-center gap-2.5 px-0 py-1">
+                        <div className="p1-b flex-1">{properties?.id}</div>
+                    </div>
+                </div>
+
+                <div className="flex items-start justify-between w-full ">
+                    <div className="flex justify-center items-center gap-2.5  px-0 py-1">
                         <h4 className="flex-1">Name</h4>
                     </div>
 

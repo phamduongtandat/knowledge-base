@@ -1,13 +1,16 @@
 import { useDispatch } from "react-redux"
 import { selectEditorPopup } from "../../redux/popupSlice"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useState } from "react"
 
 
 function SelectEditorPopup() {
+
     const dispatch = useDispatch()
     const [choice, setChoice] = useState('')
-
+    const { pathname } = useLocation()
+    const parentID = pathname?.split('/')?.pop()
+    console.log('parentID :', parentID)
     const editorList = [
         { label: 'markdown', name: 'Markdown', img: 'fa-solid fa-code fa-2xl' },
         { label: 'wysiwyg', name: 'WYSIWYG', img: 'fa-solid fa-feather-pointed fa-2xl' },
@@ -56,7 +59,7 @@ function SelectEditorPopup() {
 
                 </div>
 
-                <Link to={`/${choice}/write`} className="flex flex-col justify-center items-center gap-2.5 self-stretch pt-5 pb-0 px-5">
+                <Link to={`/${choice}/write/${parentID}`} className="flex flex-col justify-center items-center gap-2.5 self-stretch pt-5 pb-0 px-5">
                     <div className="flex justify-center items-center gap-2.5 self-stretch px-2.5 py-4 rounded-lg bg bg-kb-primary-gradient">
                         <div
                             //onClick={()=>{}}

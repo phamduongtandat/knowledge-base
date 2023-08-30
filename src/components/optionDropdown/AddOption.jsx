@@ -4,13 +4,13 @@ import Upload from '../../assets/icon/upload.svg'
 import { useDispatch } from 'react-redux'
 import { addContentPopup, selectEditorPopup } from '../../redux/popupSlice'
 
-function AddOption() {
+function AddOption({ titlePage }) {
     const optionList = [
         { label: 1, name: 'New category', img: Catalogy },
         { label: 2, name: 'New article', img: Article },
-        { label: 3, name: 'New file', img: Upload },
-
+        { label: 3, name: 'New file', img: Upload }
     ]
+
 
 
     const dispatch = useDispatch()

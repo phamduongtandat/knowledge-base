@@ -7,6 +7,7 @@ import useRename from '../../services/option/useRename';
 import checkLogin from '../../utils/checkLogin';
 import { useDispatch, useSelector } from 'react-redux';
 import { renamePopup } from '../../redux/popupSlice';
+import useGetUserID from '../../services/auth/useGetUserID';
 
 
 function RenamePopup() {
@@ -14,15 +15,18 @@ function RenamePopup() {
     const itemInfo = useSelector(state => state.popup.itemInfo)
     const dispatch = useDispatch()
 
+    const { tokenInfo } = checkLogin()
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
+
     const { register, handleSubmit, } = useForm({
         defaultValues: { name: itemInfo?.name },
         resolver: yupResolver(folderSchema),
     })
 
-    const { renameContent } = useRename(itemInfo?.id)
-    const { tokenInfo } = checkLogin()
+    const { renameContent, error } = useRename(itemInfo?.id)
+    //const { tokenInfo } = checkLogin()
     const handleRename = (data) => {
-        data.userId = tokenInfo?.userID
+        data.userId = userID
         console.log('data :', data)
         renameContent(data)
 
@@ -52,7 +56,7 @@ function RenamePopup() {
                     <div className="flex flex-col justify-center items-center gap-2.5 self-stretch pt-[2.625rem] pb-5 px-0">
                         <img className="w-[3.85rem] h-[2.71rem]" src={Folder} />
                     </div>
-
+                    <div className="text-red-700 italic">{error}</div>
                     <div className="flex justify-center items-center gap-2.5 self-stretch px-0 py-2.5 text-kb-second-color">
                         <input name='name' {...register('name')} className="border-2 pl-2" />
 

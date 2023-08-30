@@ -6,12 +6,14 @@ import FileToggle from "../toggle/FileToggle";
 import AddOption from "../optionDropdown/AddOption";
 import FileFilterOpt from "../optionDropdown/FileFilterOpt";
 import BlogFilterOpt from "../optionDropdown/BlogFilterOpt";
+import { useDispatch } from "react-redux";
+import { addContentPopup } from "../../redux/popupSlice";
 
 
 
 
 function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
-
+  const dispatch = useDispatch()
   const [isBlog, setIsBlog] = useState(true)
   const [isAdd, setIsAdd] = useState(false);
   const [isFilterOpt, setIsFilterOpt] = useState(false)
@@ -29,7 +31,7 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
 
 
       {/* ADD MORE */}
-      {(titlePage === 'Home' || titlePage === 'home') &&
+      {(titlePage === 'home') &&
         <div onClick={() => { setIsAdd(!isAdd) }} className="relative flex items-start">
           <button
 
@@ -43,11 +45,37 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
           </button>
 
           <div className={`absolute top-12 z-10 -right-11 ease-out duration-200  ${isAdd ? '' : '-translate-y-1/3 scale-0'}`}>
-            <AddOption />
+            {<AddOption />}
           </div>
 
         </div>
       }
+
+
+      {(titlePage === 'Home') &&
+        <div className="relative flex items-start">
+          <button
+            onClick={() => { dispatch(addContentPopup(1)) }}
+            className=" flex justify-center items-center gap-[0.46875rem] px-[0.46875rem] py-3 rounded-md bg-kb-primary-gradient">
+            <img
+              className="flex w-[0.9375rem] h-[0.9375rem] justify-center items-center gap-[0.46875rem] px-[0.04688rem] py-[0.09375rem]"
+              src={Plus}
+              alt=""
+            />
+            <div className="l3-b kb-text-shadow-lg">Add more</div>
+          </button>
+        </div>
+      }
+
+
+
+
+
+
+
+
+
+
 
       {/*TOGGLE & FILTER */}
       <div className="flex justify-end items-center gap-3 self-stretch">

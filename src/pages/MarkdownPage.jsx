@@ -1,18 +1,37 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import checkLogin from "../utils/checkLogin"
 import { useEffect, useState } from "react"
 import MarkdownArea from "../components/MarkdownArea"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { selectEditorPopup } from "../redux/popupSlice"
 import WriteToggle from "../components/toggle/WriteToggle"
+import useCreateContent from "../services/home/useCreateContent"
+import useUpdateArt from "../services/article/useUpdateArt"
+
 
 
 function MarkdownPage() {
+    const isMarkDownEdit = useSelector(state => state.edit.isMarkDownEdit)
+    const itemEdit = useSelector(state => state.edit.itemEdit)
+
+
+    useEffect(() => {
+        if (isMarkDownEdit) {
+            setArticle(itemEdit?.content)
+            setArtName(itemEdit?.name)
+        }
+
+    }, [])
+
+
+    const { parentID } = useParams()
     const [isWrite, setIsWrite] = useState(true)
     const [article, setArticle] = useState('')
+    const [artName, setArtName] = useState('')
     const dispatch = useDispatch()
 
     const { isLogin } = checkLogin()
+    const userID = useSelector(state => state.auth.userId)
 
     const navi = useNavigate()
 
@@ -21,10 +40,43 @@ function MarkdownPage() {
         dispatch(selectEditorPopup(false))
     }, [isLogin])
 
+    const { createContent, error } = useCreateContent()
+    console.log('error :', error)
     const handPost = () => {
-        console.log('art :', article)
+        if (!artName || !!error) {
+            console.log(' errorteee:', error)
+            return
+
+        }
+        const data = {
+            name: artName,
+            type: "article",
+            content: article,
+            parentId: parentID,
+            userId: userID,
+            status: "PUBLISH"
+        }
+
+        createContent(data)
+
     }
 
+    const { updateArt } = useUpdateArt(itemEdit?.id)
+    const handEdit = () => {
+        if (!artName || !!error) {
+            return
+
+        }
+        const data = {
+            name: artName,
+            content: article,
+            file: []
+
+        }
+
+        updateArt(data)
+        //return navi(``)
+    }
 
     return (
         <div className="flex items-start max-h-fit min-h-screen">
@@ -48,7 +100,7 @@ function MarkdownPage() {
                             </div>
 
                         </div>
-                        <div
+                        {!isMarkDownEdit && <div
                             onClick={handPost}
                             className="flex items-start">
 
@@ -59,7 +111,21 @@ function MarkdownPage() {
                                 <div className="l3-b ">Post</div>
                             </div>
 
-                        </div>
+                        </div>}
+
+                        {isMarkDownEdit && <div
+                            onClick={handEdit}
+                            className="flex items-start">
+
+                            <div className="kb-text-shadow-lg flex justify-center items-center gap-[0.487rem] self-stretch px-[0.487rem] py-[0.77919rem] rounded-[0.38956rem] bg-kb-primary-gradient">
+
+                                <i className="flex w-[0.97394rem] h-[0.97394rem] flex-col justify-center items-center gap-[0.487rem] fa-solid fa-paper-plane fa-sm" />
+
+                                <div className="l3-b ">Done Edit</div>
+                            </div>
+
+                        </div>}
+
                     </div>
 
 
@@ -72,8 +138,15 @@ function MarkdownPage() {
                                 <div className="flex justify-center items-center gap-[0.2435rem]">
 
                                     <div className="justify-center items-center gap-[3.90px] flex text-kb-second-color">
-                                        <h3 className="">Your article name</h3>
-                                        <i className="fa-solid fa-pen-to-square fa-sm"></i>
+
+                                        {/* FILL NAME */}
+                                        <input
+                                            value={artName}
+                                            onChange={({ target }) => { setArtName(target.value) }} className="border-2 border-kb-second-color h-10 rounded-md pl-2" placeholder="Your article name" />
+                                        <i className="fa-solid fa-pen-to-square fa-2xl "></i>
+
+                                        {!artName && <span className="text-red-700 italic">Please fill name for my Article</span>}
+                                        {<span className="text-red-700 italic" >{error}</span>}
                                     </div>
                                 </div>
                             </div>

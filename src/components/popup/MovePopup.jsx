@@ -6,6 +6,7 @@ import { useState } from "react";
 import useGetFolderContent from './../../services/folder/useGetFolderContent';
 import useMoveTo from "../../services/option/useMoveTo";
 import checkLogin from "../../utils/checkLogin";
+import useGetUserID from "../../services/auth/useGetUserID";
 
 
 
@@ -13,12 +14,13 @@ function MovePopup() {
     let itemInfo = useSelector(state => state.popup.itemInfo)
 
     const [child, setChild] = useState('')
+    console.log('child :', child)
 
-    const { homePageContent } = useGetHomePage('all')
     const { folderContent } = useGetFolderContent(child?.id)
     const { moveTo } = useMoveTo(itemInfo?.id)
-
-
+    const { tokenInfo } = checkLogin()
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
+    const { homePageContent } = useGetHomePage(userID, 'only-me')
     const folder = child
         ? folderContent?.filter(i => i.type === "folder")
         : homePageContent?.filter(i => i.type === "folder" && i.name !== itemInfo?.name)
@@ -99,11 +101,13 @@ function MovePopup() {
 
                     <div
                         onClick={() => {
-                            const { tokenInfo } = checkLogin()
+
+                            console.log('parentId :', child?.id)
                             const data = {
-                                parentId: child?.id,
-                                type: child?.type,
-                                userId: tokenInfo?.userID
+
+                                parentId: child?.id || '',
+                                type: itemInfo?.type,
+                                userId: userID
 
                             }
                             console.log('data :', data)

@@ -19,7 +19,7 @@ const useGetSharePage = (userID) => {
 
     const res = useQuery({
         queryFn,
-        queryKey: ['shareContent'],
+        queryKey: ['shareContent', userID],
         //enabled: !!folderID,
         keepPreviousData: true,
 

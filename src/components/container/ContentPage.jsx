@@ -18,7 +18,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
   // console.log('titleChart :', titleChart)
   let linkpath
-  //console.log('titlePage :', titlePage)
+
   switch (titlePage) {
     case 'Home':
       linkpath = '/home/content'

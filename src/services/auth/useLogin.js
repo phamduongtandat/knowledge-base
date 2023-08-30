@@ -2,7 +2,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import checkLogin from '../../utils/checkLogin';
+//import useGetUserID from './useGetUserID';
+
 const useLogin = () => {
+
+
     checkLogin
     const navigate = useNavigate();
     const mutationFn = async ({ username, password }) => {
@@ -22,9 +26,11 @@ const useLogin = () => {
         return res?.data
     }
     const onSuccess = (data) => {
+
         document.cookie = `access_token=${data.access_token}`
         document.cookie = `refresh_token=${data.refresh_token}`
         const { isLogin } = checkLogin()
+        console.log('isLogin :', isLogin)
         if (isLogin) navigate('/')
     };
 
