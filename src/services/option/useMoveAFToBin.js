@@ -20,10 +20,10 @@ const useMoveAFToBin = () => {
 
     const onSuccess = async () => {
 
-
         queryClient.invalidateQueries(['folderContent']);
         queryClient.invalidateQueries(['homePageContent'])
         queryClient.invalidateQueries(['searchData'])
+        queryClient.invalidateQueries(['favouriteContent']);
     };
 
     const onError = (error) => {

@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux"
 import { selectEditorPopup } from "../../redux/popupSlice"
 import { Link, useLocation } from "react-router-dom"
 import { useState } from "react"
+import { getPagePath } from "../../redux/editSlice"
 
 
 function SelectEditorPopup() {
@@ -21,6 +22,7 @@ function SelectEditorPopup() {
         //     setChoice(label)
         // }
         setChoice(label)
+        dispatch(getPagePath(pathname))
     }
 
     console.log('choice :', choice)

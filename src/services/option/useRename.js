@@ -19,6 +19,7 @@ const useRename = (contentID) => {
         });
 
         return res?.data;
+
     };
 
     const onSuccess = async () => {

@@ -1,22 +1,23 @@
 import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../../config/react-query';
 import axios from '../../config/axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { markdownEdit } from '../../redux/editSlice';
-import { useNavigate } from 'react-router-dom';
+
+import { movePopup } from '../../redux/popupSlice';
 
 
 
-const useUpdateArt = (contentID) => {
 
-    const dispatch = useDispatch()
-    const pagePath = useSelector(state => state.edit.pagePath)
-    const navi = useNavigate()
-    const mutationFn = async (data) => {
+
+const useDeleteLike = (userID) => {
+
+    //const dispatch = useDispatch()
+
+
+    const mutationFn = async (contentID) => {
         const res = await axios({
-            method: 'put',
-            url: `/api/content/page/${contentID}`,
-            data
+            method: 'delete',
+            url: `/api/favorites/${contentID}/user/${userID}`,
+
         });
 
         return res?.data;
@@ -24,10 +25,10 @@ const useUpdateArt = (contentID) => {
 
     const onSuccess = async () => {
 
-        dispatch(markdownEdit(false))
-        navi(pagePath)
         queryClient.invalidateQueries(['folderContent']);
-
+        queryClient.invalidateQueries(['articleContent'])
+        queryClient.invalidateQueries(['searchData'])
+        queryClient.invalidateQueries(['favouriteContent'])
     };
 
     const onError = (error) => {
@@ -42,7 +43,7 @@ const useUpdateArt = (contentID) => {
     });
 
     return {
-        updateArt: mutation.mutate,
+        deleteLike: mutation.mutate,
         isSuccess: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
@@ -50,4 +51,4 @@ const useUpdateArt = (contentID) => {
     };
 };
 
-export default useUpdateArt;
+export default useDeleteLike;

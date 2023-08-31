@@ -2,14 +2,17 @@ import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../../config/react-query';
 import axios from '../../config/axios';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContentPopup } from '../../redux/popupSlice';
+import { useNavigate } from 'react-router-dom';
 
 const useCreateContent = () => {
 
     //const {tokenInfo}=checkLogin()
     const dispatch = useDispatch()
-
+    const navi = useNavigate()
+    const pagePath = useSelector(state => state.edit.pagePath)
+    const isAddContent = useSelector(state => state.popup.isAddContent)
     const mutationFn = async (data) => {
         const res = await axios({
             method: 'post',
@@ -21,6 +24,10 @@ const useCreateContent = () => {
     };
 
     const onSuccess = async (data) => {
+        if (isAddContent === 0) {
+
+            return navi(pagePath)
+        }
         console.log('data :', data)
         queryClient.invalidateQueries(['homePageContent']);
         queryClient.invalidateQueries(['folderContent']);

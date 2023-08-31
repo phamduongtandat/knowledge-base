@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getInfo, properPopup, renamePopup, sharePopup } from "../../redux/popupSlice"
 import useMoveAFToBin from "../../services/option/useMoveAFToBin"
 import { useLocation, useNavigate } from "react-router-dom"
-import { getItemEdit, markdownEdit } from "../../redux/editSlice"
+import { getItemEdit, getPagePath, markdownEdit } from "../../redux/editSlice"
+import useLike from "../../services/option/useLike"
+import useDeleteLike from './../../services/option/useDeleteLike';
 
 function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
 
@@ -19,15 +21,39 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
 
     //const isProper = useSelector(state=>state.popup.isProper )
     const dispatch = useDispatch()
+    const userID = useSelector(state => state.auth.userId)
     const { MoveAFToBin } = useMoveAFToBin()
+    const { likeArticle } = useLike()
+    const { deleteLike } = useDeleteLike(userID)
+
+
     const { pathname } = useLocation()
     const local = pathname?.split('/').pop()
+
     const handleSelect = (label) => {
+
+        if (label === 1) {
+
+            if (info?.isLike) {
+                deleteLike(info?.id)
+            } else {
+                const data = {
+                    articleId: info?.id,
+                    userId: userID
+                }
+                console.log('like :', data)
+                likeArticle(data)
+                return
+            }
+
+        }
+
         if (label === 2) {
             dispatch(getItemEdit(info))
             dispatch(markdownEdit(true))
             setIsArticleOnwerOption(false)
-
+            dispatch(getPagePath(pathname))
+            //console.log('pathname :', pathname)
             navi(`/markdown/write/${local}`)
             return
         }
@@ -71,11 +97,11 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
                     className="flex  justify-start items-center gap-3 pl-7 py-3 rounded-lg cursor-pointer hover:bg-kb-neutral-50/50 "
                     onClick={() => { handleSelect(label) }}
                 >
-                    <div className="w-3 flex justify-center shrink-0 text-kb-neutral-300">
+                    <div className={`w-3 flex justify-center shrink-0 ${label === 1 && info?.isLike ? 'text-kb-primary-color' : 'text-kb-neutral-300'} `}>
                         <i className={` ${img} `}></i>
                     </div>
 
-                    <div className="l3-b text-kb-neutral-300">{name}</div>
+                    <div className="l3-b text-kb-neutral-300">{label === 1 && info?.isLike ? 'Dislike' : name}</div>
 
                 </div>
             })}

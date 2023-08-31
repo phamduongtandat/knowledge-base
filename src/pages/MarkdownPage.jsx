@@ -40,11 +40,12 @@ function MarkdownPage() {
         dispatch(selectEditorPopup(false))
     }, [isLogin])
 
-    const { createContent, error } = useCreateContent()
+    const { createContent, error, } = useCreateContent()
     console.log('error :', error)
+
     const handPost = () => {
-        if (!artName || !!error) {
-            console.log(' errorteee:', error)
+        if (!artName) {
+            //console.log(' errorteee:', error)
             return
 
         }
@@ -54,10 +55,12 @@ function MarkdownPage() {
             content: article,
             parentId: parentID,
             userId: userID,
-            status: "PUBLISH"
+            status: "PUBLISH",
+            editor: "Markdown"
         }
 
         createContent(data)
+
 
     }
 
@@ -75,7 +78,7 @@ function MarkdownPage() {
         }
 
         updateArt(data)
-        //return navi(``)
+
     }
 
     return (
@@ -102,7 +105,7 @@ function MarkdownPage() {
                         </div>
                         {!isMarkDownEdit && <div
                             onClick={handPost}
-                            className="flex items-start">
+                            className="flex items-start cursor-pointer">
 
                             <div className="kb-text-shadow-lg flex justify-center items-center gap-[0.487rem] self-stretch px-[0.487rem] py-[0.77919rem] rounded-[0.38956rem] bg-kb-primary-gradient">
 
@@ -115,7 +118,7 @@ function MarkdownPage() {
 
                         {isMarkDownEdit && <div
                             onClick={handEdit}
-                            className="flex items-start">
+                            className="flex items-start cursor-pointer">
 
                             <div className="kb-text-shadow-lg flex justify-center items-center gap-[0.487rem] self-stretch px-[0.487rem] py-[0.77919rem] rounded-[0.38956rem] bg-kb-primary-gradient">
 
