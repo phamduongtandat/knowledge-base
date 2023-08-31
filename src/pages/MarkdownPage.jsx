@@ -43,7 +43,7 @@ function MarkdownPage() {
     const { createContent, error, } = useCreateContent()
     console.log('error :', error)
 
-    const handPost = () => {
+    const handPost = (status) => {
         if (!artName) {
             //console.log(' errorteee:', error)
             return
@@ -55,7 +55,7 @@ function MarkdownPage() {
             content: article,
             parentId: parentID,
             userId: userID,
-            status: "PUBLISH",
+            status,
             editor: "Markdown"
         }
 
@@ -103,18 +103,43 @@ function MarkdownPage() {
                             </div>
 
                         </div>
-                        {!isMarkDownEdit && <div
-                            onClick={handPost}
-                            className="flex items-start cursor-pointer">
+                        {!isMarkDownEdit &&
 
-                            <div className="kb-text-shadow-lg flex justify-center items-center gap-[0.487rem] self-stretch px-[0.487rem] py-[0.77919rem] rounded-[0.38956rem] bg-kb-primary-gradient">
+                            <div className="flex gap-2">
+                                <div
+                                    onClick={() => { handPost("PUBLISH") }}
+                                    className="flex items-start cursor-pointer">
 
-                                <i className="flex w-[0.97394rem] h-[0.97394rem] flex-col justify-center items-center gap-[0.487rem] fa-solid fa-paper-plane fa-sm" />
+                                    <div className="kb-text-shadow-lg flex justify-center items-center gap-[0.487rem] self-stretch px-[0.487rem] py-[0.77919rem] rounded-[0.38956rem] bg-kb-primary-gradient">
 
-                                <div className="l3-b ">Post</div>
+                                        <i className="flex w-[0.97394rem] h-[0.97394rem] flex-col justify-center items-center gap-[0.487rem] fa-solid fa-paper-plane fa-sm" />
+
+                                        <div className="l3-b ">Post</div>
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    onClick={() => { handPost("DRAFT") }}
+                                    className="flex items-start cursor-pointer">
+
+                                    <div className="kb-text-shadow-lg flex justify-center items-center gap-[0.487rem] self-stretch px-[0.487rem] py-[0.77919rem] rounded-[0.38956rem] bg-kb-primary-gradient">
+
+                                        <i className="flex w-[0.97394rem] h-[0.97394rem] flex-col justify-center items-center gap-[0.487rem] fa-solid fa-paper-plane fa-sm" />
+
+                                        <div className="l3-b ">Private</div>
+                                    </div>
+
+                                </div>
+
+
                             </div>
 
-                        </div>}
+                        }
+
+
+
+
 
                         {isMarkDownEdit && <div
                             onClick={handEdit}
