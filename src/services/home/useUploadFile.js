@@ -2,33 +2,33 @@ import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../../config/react-query';
 import axios from '../../config/axios';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { addContentPopup } from '../../redux/popupSlice';
+//import { useNavigate } from 'react-router-dom';
 
+const useUploadFile = (userID, contentID) => {
 
-import { useDispatch } from 'react-redux';
-import { renamePopup } from '../../redux/popupSlice';
-
-const useRename = (contentID) => {
-
+    //const {tokenInfo}=checkLogin()
     const dispatch = useDispatch()
+    // const navi = useNavigate()
+    // const pagePath = useSelector(state => state.edit.pagePath)
+    // const isAddContent = useSelector(state => state.popup.isAddContent)
 
     const mutationFn = async (data) => {
         const res = await axios({
-            method: 'put',
-            url: `/api/content/rename/${contentID}`,
+            method: 'post',
+            url: `/api/content/upload-file/${userID}/folder/${contentID}`,
             data,
         });
 
         return res?.data;
-
     };
 
-    const onSuccess = async () => {
+    const onSuccess = async (data) => {
 
-        dispatch(renamePopup(false))
+        //console.log('data :', data)        
         queryClient.invalidateQueries(['folderContent']);
-        queryClient.invalidateQueries(['homePageContent'])
-        queryClient.invalidateQueries(['searchData'])
-        queryClient.invalidateQueries(['favouriteContent'])
+        dispatch(addContentPopup(0))
     };
 
     const onError = (error) => {
@@ -43,7 +43,7 @@ const useRename = (contentID) => {
     });
 
     return {
-        renameContent: mutation.mutate,
+        uploadFile: mutation.mutate,
         isSuccess: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
@@ -51,4 +51,4 @@ const useRename = (contentID) => {
     };
 };
 
-export default useRename;
+export default useUploadFile;

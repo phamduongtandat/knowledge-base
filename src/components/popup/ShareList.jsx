@@ -4,22 +4,41 @@ import useGetSharedUsers from "../../services/option/useGetSharedUsers"
 
 import { useState } from "react"
 import useGetUserList from "../../services/userAccount/useGetUserList"
+import checkLogin from "../../utils/checkLogin"
+import useGetUserID from "../../services/auth/useGetUserID"
 
 
 
 function ShareList() {
+    const { tokenInfo } = checkLogin()
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
     const itemInfo = useSelector(state => state.popup.itemInfo)
     const dispatch = useDispatch()
     const { sharedUsers } = useGetSharedUsers(itemInfo?.id)
     console.log('sharedUsers :', sharedUsers)
-    const mock = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 }, { id: 8 }]
-    const mock1 = [{ id: 1 },]
+    //const mock = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 }, { id: 8 }, { id: 9 }, { id: 10 }]
+    //const mock1 = [{ id: 1 },]
     const [keyParam, setKeyParam] = useState('')
-
-
 
     const { userList } = useGetUserList({ name: keyParam })
     console.log('userList :', userList)
+    const [useIdShare, setUseIdShare] = useState([])
+
+    const handleAddAcc = (acc) => {
+        console.log('acc :', acc)
+        const isDelAcc = useIdShare.some(i => i === acc)
+        console.log('isDelAcc :', isDelAcc)
+        if (isDelAcc) {
+            const xAcc = useIdShare.filter(i => i !== acc)
+            setUseIdShare(xAcc)
+
+            return
+        }
+        setUseIdShare([...useIdShare, acc])
+
+
+    }
+    console.log('useIdShare :', useIdShare)
     return (
         <div
             id='addBackDrop'
@@ -72,7 +91,7 @@ function ShareList() {
 
                         <div className="flex justify-between items-center self-stretch p-[0.28125rem] rounded-md border">
 
-                            <div className="flex items-center gap-[0.5625rem] flex-[1_0_0] pl-[0.56rem] ">
+                            <div className="flex h-full items-center gap-[0.5625rem] flex-[1_0_0] pl-[0.56rem] ">
                                 <i className="fa-solid fa-magnifying-glass fa-sm text-kb-neutral-100"></i>
                                 <input
                                     value={keyParam}
@@ -80,12 +99,17 @@ function ShareList() {
                                         setKeyParam(target.value)
 
                                     }}
-                                    className="p1-b outline-none " placeholder='Friend name' />
+                                    className="p1-b pl-2 outline-none w-full h-full " placeholder='Friend name' />
                             </div>
 
                             <div
                                 onClick={() => {
-
+                                    const data = {
+                                        useIdShare,
+                                        userId: userID
+                                    }
+                                    console.log('dataSend :', data)
+                                    setKeyParam('')
                                 }}
                                 className="bg-kb-primary-gradient kb-text-shadow-sm flex justify-center items-center gap-[0.46875rem] px-1.5 py-[0.5625rem] rounded-md cursor-pointer">
                                 <i className="fa-solid fa-paper-plane fa-sm"></i>
@@ -94,11 +118,20 @@ function ShareList() {
 
                         </div>
 
-                        {/* //       _____  _____  */}
-                        {keyParam && <div className="self-stretch min-h-fit h-full max-h-52 rounded-md flex-col justify-start items-start gap-[9px] flex px-7 bg bg-kb-background">
+                        {/* //       _____ ACC LIST _____  */}
+                        {keyParam && <div className="self-stretch min-h-fit h-fit max-h-52 rounded-md flex-col justify-start items-start gap-[9px] flex px-2 bg-kb-background">
 
+                            {/* SHOW ADDED ACC */}
+                            {useIdShare?.length !== 0 && <div className="mt-2 flex flex-wrap w-full h-fit   gap-2.5 p-2 border rounded-lg bg-kb-neutral-white  overflow-y-scroll small-scrollbar">
 
-                            <div className="overflow-y-scroll  self-stretch   small-scrollbar">
+                                {useIdShare?.map(i => <div key={i} className="flex bg-kb-text-background h-7 items-center  gap-2 rounded px-2">
+                                    <div className="l4-b kb-text-primary-gradient">Oracle</div>
+                                    <i className="fa-solid fa-xmark fa-sm cursor-pointer text-kb-neutral-300/50 "></i>
+                                </div>)}
+
+                            </div>}
+
+                            <div className="overflow-y-scroll  self-stretch small-scrollbar">
                                 {userList?.map((i) => {
                                     return <div key={i?.id} className=" flex items-center gap-[0.46875rem] self-stretch ">
                                         <div className="flex items-center gap-[0.46875rem] flex-[1_0_0]">
@@ -114,12 +147,15 @@ function ShareList() {
                                         </div>
 
                                         <div
-                                            onClick={() => {
-                                                console.log(' i:', i)
-                                            }}
+
                                             className="flex justify-center items-center gap-[0.46875rem] p-[0.70313rem] text-kb-neutral-300">
-                                            <div className="cursor-pointer">
-                                                <input type="checkbox" />
+                                            <div
+                                                onClick={() => { handleAddAcc(i?.id) }}
+                                                className="cursor-pointer"
+                                            >
+
+                                                {useIdShare?.some(item => item === i?.id) ? <i className="fa-solid fa-check fa-sm text-green-500"></i>
+                                                    : <i className="fa-regular fa-square fa-sm"></i>}
                                             </div>
                                         </div>
 
@@ -136,7 +172,7 @@ function ShareList() {
                     </div>
 
 
-                    {/* SHARE LIST */}
+                    {/* SHARED LIST */}
                     <div className="overflow-y-scroll self-stretch small-scrollbar">
                         {sharedUsers?.map((i) => {
                             return <div key={i} className=" flex items-center gap-[0.46875rem] self-stretch ">

@@ -230,6 +230,9 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import CategogyOwnerOpt from "../optionDropdown/CategogyOwnerOpt";
 import BinOpt from "../optionDropdown/BinOpt";
+import useDownloadFile from "../../services/home/useDownloadFile";
+
+import FileItem from "../file/FileItem";
 
 
 
@@ -300,7 +303,6 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
       for (const child of container.children) {
 
-        console.log('loop')
         const childRect = child.getBoundingClientRect();
         if (childRect.bottom > containerRect.bottom) {
           isOverflowing = true;
@@ -312,13 +314,13 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
   }, [data]);
 
+
+
+
   return (
 
 
     <div className="relative">
-
-      {console.log('isExpand :', isExpand)}
-      {console.log('showButton :', showButton)}
 
       <HeaderContent titlePage={titlePage} headerChart={headerChart} isAll={isAll} setIsAll={setIsAll} />
 
@@ -422,6 +424,27 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
           </div>
         </div>
       </div>
+
+      {/* FILE LIST */}
+
+      {/* <div>
+        {file?.map(i => <div key={i?.id}>
+
+          <div
+            onClick={() => { localStorage.setItem('fileName', JSON.stringify(i?.name)); downloadFile(i?.id) }}
+          >{i?.name}</div>
+
+        </div>)}
+
+      </div> */}
+
+
+
+      <div className="flex flex-col items-start gap-3 flex-[1_0_0] px-[1.6875rem] rounded-md mb-4">
+        {file?.map(i => <FileItem key={i?.id} data={i} />)}
+      </div>
+
+
 
 
 

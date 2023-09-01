@@ -4,13 +4,14 @@ import Folder from '../../assets/image/folder.png'
 
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
-import { folderSchema } from '../../vadidations/content.schema';
+import { folderSchema, fileSchema } from '../../vadidations/content.schema';
 import { useLocation } from 'react-router-dom';
 import checkLogin from './../../utils/checkLogin';
 import useCreateContent from './../../services/home/useCreateContent';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContentPopup } from '../../redux/popupSlice';
 import useGetUserID from '../../services/auth/useGetUserID';
+import useUploadFile from '../../services/home/useUploadFile';
 
 function AddNewPopup() {
 
@@ -30,10 +31,12 @@ function AddNewPopup() {
     }
 
     const { createContent } = useCreateContent()
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(folderSchema),
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+        resolver: yupResolver((!isCateg || isOpenAdd === 3) ? fileSchema : folderSchema),
     })
 
+    console.log('isOpenAdd :', isOpenAdd)
     const { tokenInfo } = checkLogin()
     const { userID } = useGetUserID(tokenInfo?.preferred_username)
 
@@ -46,6 +49,19 @@ function AddNewPopup() {
         console.log('data :', data)
 
     }
+
+
+    const { uploadFile } = useUploadFile(userID, parentID)
+    const onUpload = (data) => {
+        console.log('fileData :', data?.file[0])
+        const formData = new FormData();
+        formData.append("file", data?.file[0]);
+        uploadFile(formData)
+    }
+    console.log('watch :', watch('file'))
+    console.log('errors :', errors)
+
+
     return (
         <div
             id='addBackDrop'
@@ -77,7 +93,7 @@ function AddNewPopup() {
                     </div>
 
                     {parentID && <div
-                        onClick={() => { setIsCateg(false) }}
+                        onClick={() => { setIsCateg(false); dispatch(addContentPopup(3)) }}
                         className={`flex flex-col items-start gap-1.5 px-3.5 py-1.5 rounded-[3.4rem] cursor-pointer
                         ${(!isCateg || isOpenAdd === 3) ? 'bg-kb-neutral-white text-kb-primary-color' : 'text-kb-neutral-white'}`}
 
@@ -91,22 +107,50 @@ function AddNewPopup() {
 
 
                 {/* NEW FILE */}
-                {(!isCateg || isOpenAdd === 3) && <div className="flex flex-col justify-center items-center gap-8 self-stretch pt-[2rem] pb-3.5 px-0 rounded-md mt-2 border-2 border-dashed border-kb-primary-color">
+                {(!isCateg || isOpenAdd === 3)
+                    && <form
+                        onSubmit={handleSubmit(onUpload)}
+                        className="flex flex-col justify-center items-center gap-8 self-stretch pt-[2rem] pb-3.5 px-0 rounded-md mt-2 border-2 border-dashed border-kb-primary-color "
+                    >
 
-                    <div className=" flex justify-center items-center w-[2rem] h-[1rem] text-kb-primary-color">
-                        <i className="fa-solid fa-upload fa-2xl "></i>
-                    </div>
+                        <div className=" flex justify-center items-center w-[2rem] h-[1rem] text-kb-primary-color">
+                            <i className="fa-solid fa-upload fa-2xl "></i>
+                        </div>
 
-                    <div className="flex flex-col justify-center items-center gap-1.5 self-stretch">
-                        <div className="l3-b text-kb-neutral-300">Upload your file here</div>
+                        <label className="flex flex-col justify-center items-center gap-1.5 self-stretch">
 
-                    </div>
-                    <div className="flex flex-col items-start gap-1.5 self-stretch pt-3.5 pb-0 px-14 ">
-                        <button className="flex justify-center items-center gap-1.5 self-stretch px-1.5 py-3 rounded-lg bg-kb-primary-gradient">
-                            <div className="l3-b kb-text-shadow-lg">Create</div>
-                        </button>
-                    </div>
-                </div>}
+                            {!watch('file')?.[0]?.name && <div className="l3-b cursor-pointer hover:text-blue-500 text-kb-neutral-300">Upload your file here</div>}
+
+                            {!!watch('file')?.[0]?.name && <div className="l3-b cursor-pointer hover:text-blue-500 text-kb-neutral-300">Change upload here</div>}
+
+                            {!!errors?.file?.message && <div className="italic text-red-500 ">
+                                {errors?.file?.message}
+                            </div>}
+
+                            {!!watch('file')?.[0]?.name && <div className="italic text-green-500 ">
+                                <span className="text-kb-second-color">Đã chọn: </span>
+                                {watch('file')?.[0]?.name}
+                            </div>}
+
+                            <input
+                                name='file'
+                                hidden
+                                type="file"
+                                {...register('file', { required: 'No file' })}
+                            />
+                        </label>
+
+
+
+                        <div className="flex flex-col items-start gap-1.5 self-stretch pt-3.5 pb-0 px-14 ">
+                            <button
+                                type='submit'
+                                className="flex justify-center items-center gap-1.5 self-stretch px-1.5 py-3 rounded-lg bg-kb-primary-gradient">
+                                <div className="l3-b kb-text-shadow-lg">Create</div>
+                            </button>
+                        </div>
+                    </form>}
+
 
                 {/* NEW CATEGORY */}
                 {isCateg && isOpenAdd === 1 && <form onSubmit={handleSubmit(onSubmit)}>

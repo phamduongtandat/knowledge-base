@@ -75,9 +75,9 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
             {data?.name}
           </h4>
 
-          <div className="self-stretch p3-r text-kb-second-color">
+          {/* <div className="self-stretch p3-r text-kb-second-color">
             {data?.content}
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-col justify-between items-end self-stretch">

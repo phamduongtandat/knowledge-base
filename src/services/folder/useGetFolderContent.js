@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from '../../config/axios';
-import { useSelector } from 'react-redux';
-//import axios from 'axios';
+
+
 
 
 const useGetFolderContent = (userID, folderID) => {

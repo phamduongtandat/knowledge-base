@@ -4,31 +4,29 @@ import axios from '../../config/axios';
 
 
 
-import { useDispatch } from 'react-redux';
-import { renamePopup } from '../../redux/popupSlice';
 
-const useRename = (contentID) => {
 
-    const dispatch = useDispatch()
 
-    const mutationFn = async (data) => {
+
+const useDeleteSharedAcc = () => {
+
+    //const dispatch = useDispatch()
+
+
+    const mutationFn = async (shareId) => {
         const res = await axios({
-            method: 'put',
-            url: `/api/content/rename/${contentID}`,
-            data,
+            method: 'delete',
+            url: `/api/content/share/${shareId}`,
+
         });
 
         return res?.data;
-
     };
 
     const onSuccess = async () => {
 
-        dispatch(renamePopup(false))
-        queryClient.invalidateQueries(['folderContent']);
-        queryClient.invalidateQueries(['homePageContent'])
-        queryClient.invalidateQueries(['searchData'])
-        queryClient.invalidateQueries(['favouriteContent'])
+        queryClient.invalidateQueries(['sharedUsers']);
+
     };
 
     const onError = (error) => {
@@ -43,7 +41,7 @@ const useRename = (contentID) => {
     });
 
     return {
-        renameContent: mutation.mutate,
+        deleteSharedAcc: mutation.mutate,
         isSuccess: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
@@ -51,4 +49,4 @@ const useRename = (contentID) => {
     };
 };
 
-export default useRename;
+export default useDeleteSharedAcc;
