@@ -233,6 +233,7 @@ import BinOpt from "../optionDropdown/BinOpt";
 
 
 import FileItem from "../file/FileItem";
+import { useSelector } from "react-redux";
 
 
 
@@ -256,6 +257,11 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
     case 'shared':
       linkpath = '/shared/content'
       break;
+
+    case 'Recent':
+      linkpath = '/home/content'
+      break;
+
     case 'recent':
       linkpath = '/recent/content'
       break;
@@ -278,15 +284,21 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
 
 
-  const folder = data?.filter(i => i.type === "folder")
-  const article = data?.filter(i => i.type === "article")
+  let folder = data?.filter(i => i.type === "folder")
+  let article = data?.filter(i => i.type === "article")
   const file = data?.filter(i => i.type === "file")
+  const isBlog = useSelector(state => state.filter.isBlog)
+  if (!isBlog) {
+    folder = []
+    article = []
+  }
+
 
   const [CategOpt, setCategOpt] = useState({ isOpen: false, itemID: '' })
   const [articleID, setAticleID] = useState('');
 
-
   const [isExpand, setIsExpand] = useState(false);
+
 
 
   const containerRef = useRef();
@@ -347,7 +359,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
         {folder?.map((i) => {
           return (
             <div
-              // onClick={() => { setTitleChart(pre => [...pre, i.name]) }}
+
               key={i.id}
               className={`relative flex min-w-[8.39063rem]  h-[6.09375rem] justify-center items-center p-[0.9375rem] rounded-md  ${CategOpt.isOpen && CategOpt.itemID === i.id ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
             >
@@ -358,7 +370,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
                       <img className="w-12 h-[2.10938rem]" src={Folder} />
 
                       <div className="flex flex-col items-start text-kb-second-color">
-                        <div className="l3-b">{i.name}</div>
+                        <div className="l3-b">{i?.name?.length >= 20 ? i?.name.slice(0, 20) + '...' : i?.name}</div>
                         <div className="l3-r">{i?.quantity} files</div>
                       </div>
                     </div>
@@ -368,7 +380,8 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
                       <img className="w-12 h-[2.10938rem]" src={Folder} />
 
                       <div className="flex flex-col items-start text-kb-second-color">
-                        <div className="l3-b">{i.name}</div>
+                        <div className="l3-b">{i?.name?.length >= 20 ? i?.name.slice(0, 20) + '...' : i?.name}</div>
+                        {console.log('aa', i?.name?.length)}
                         <div className="l3-r">{i?.quantity} files</div>
                       </div>
                     </div>
@@ -413,10 +426,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
       {/* ARTICLE LIST */}
       <div className="flex bottom-auto w-full items-start content-start gap-[1.5rem_1.125rem] flex-1 self-stretch px-[1.6875rem] ">
         <div className="flex flex-col items-start gap-[1.875rem] flex-[1_0_0] px-0 py-2 rounded-md">
-          {/* <div className="self-stretch h-[46px] flex-col justify-start items-start flex">
-                        <div className="self-stretch text-cyan-900 text-2xl font-bold leading-[30px]">Account List</div>
-                        <div className="self-stretch text-neutral-400 text-base font-normal leading-none">Showing 7 results</div>
-                    </div> */}
+
 
           <div className="flex flex-col self-stretch items-start content-start  w-auto gap-[1.125rem] ">
             {article?.map((i) => <Article key={i.id} articleID={articleID} setAticleID={setAticleID} data={i} itemID={i.id} titlePage={titlePage} />)}
@@ -427,26 +437,9 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
       {/* FILE LIST */}
 
-      {/* <div>
-        {file?.map(i => <div key={i?.id}>
-
-          <div
-            onClick={() => { localStorage.setItem('fileName', JSON.stringify(i?.name)); downloadFile(i?.id) }}
-          >{i?.name}</div>
-
-        </div>)}
-
-      </div> */}
-
-
-
-      <div className="flex flex-col items-start gap-3 flex-[1_0_0] px-[1.6875rem] rounded-md mb-4">
+      <div className="flex flex-col items-start gap-5 flex-[1_0_0] px-[1.6875rem] mt-3 rounded-md mb-4">
         {file?.map(i => <FileItem key={i?.id} data={i} articleID={articleID} setAticleID={setAticleID} itemID={i?.id} titlePage={titlePage} />)}
       </div>
-
-
-
-
 
     </div>
   );

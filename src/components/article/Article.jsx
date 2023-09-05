@@ -23,6 +23,9 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
     case 'shared':
       linkpathArt = '/shared'
       break;
+    case 'Shared history':
+      linkpathArt = '/shared'
+      break;
     case 'Favourite':
       linkpathArt = '/home'
       break;

@@ -29,6 +29,7 @@ const useDeleteLike = (userID) => {
         queryClient.invalidateQueries(['articleContent'])
         queryClient.invalidateQueries(['searchData'])
         queryClient.invalidateQueries(['favouriteContent'])
+        queryClient.invalidateQueries(['recentContent']);
     };
 
     const onError = (error) => {

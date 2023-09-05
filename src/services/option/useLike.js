@@ -21,10 +21,13 @@ const useLike = () => {
 
     const onSuccess = async () => {
 
-
+        queryClient.invalidateQueries(['recentContent']);
+        queryClient.invalidateQueries(['recentContent']);
         queryClient.invalidateQueries(['folderContent']);
         queryClient.invalidateQueries(['articleContent'])
         queryClient.invalidateQueries(['searchData'])
+        queryClient.invalidateQueries(['shareContent'])
+
     };
 
     const onError = (error) => {

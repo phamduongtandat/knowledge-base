@@ -6,7 +6,7 @@ import FileToggle from "../toggle/FileToggle";
 import AddOption from "../optionDropdown/AddOption";
 import FileFilterOpt from "../optionDropdown/FileFilterOpt";
 import BlogFilterOpt from "../optionDropdown/BlogFilterOpt";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addContentPopup } from "../../redux/popupSlice";
 
 
@@ -14,10 +14,10 @@ import { addContentPopup } from "../../redux/popupSlice";
 
 function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
   const dispatch = useDispatch()
-  const [isBlog, setIsBlog] = useState(true)
+  // const [isBlog, setIsBlog] = useState(true)
   const [isAdd, setIsAdd] = useState(false);
   const [isFilterOpt, setIsFilterOpt] = useState(false)
-
+  const isBlog = useSelector(state => state.filter.isBlog)
 
   return (
     <div className="flex items-center gap-[0.46875rem]  px-[1.6875rem] h-[1.8125rem] justify-between">
@@ -67,27 +67,18 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
         </div>
       }
 
-
-
-
-
-
-
-
-
-
-
       {/*TOGGLE & FILTER */}
       <div className="flex justify-end items-center gap-3 self-stretch">
 
-        {<FileToggle isBlog={isBlog} setIsBlog={setIsBlog} />}
+        {<FileToggle />}
 
-        <div
-
-          className="relative flex justify-center rounded-full items-center gap-[0.46875rem] kb-shadow-white-bg p-[0.70313rem] cursor-pointer"
+        {<div
+          onClick={() => { setIsFilterOpt(!isFilterOpt) }}
+          className={`relative flex justify-center rounded-full items-center gap-[0.46875rem] kb-shadow-white-bg p-[0.70313rem] cursor-pointer 
+          ${(titlePage === 'Home' || !isBlog) ? '' : 'invisible'}`}
         >
 
-          <img onClick={() => { setIsFilterOpt(!isFilterOpt) }} src={Filter} />
+          {<img src={Filter} />}
 
           {isFilterOpt && <div className="absolute z-20 top-full mt-2 right-0">
 
@@ -95,7 +86,7 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
             {titlePage === 'Home' && isBlog && <BlogFilterOpt isAll={isAll} setIsAll={setIsAll} />}
 
           </div>}
-        </div>
+        </div>}
 
       </div>
     </div>

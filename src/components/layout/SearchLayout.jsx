@@ -25,7 +25,7 @@ function SearchLayout() {
             </button>
 
             <input
-                className="font-[0.9rem] bg-transparent w-full h-full py-2.5 px-3 outline-none " placeholder="Search Folder" required type="text" maxLength="20"
+                className="font-[0.9rem] bg-transparent w-full h-full py-2.5 px-3 outline-none " placeholder="Search" required type="text" maxLength="20"
                 value={keyWord}
                 onChange={({ target }) => {
                     setKeyWord(target?.value)

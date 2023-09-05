@@ -1,4 +1,3 @@
-import React from 'react'
 import KB from '../../assets/image/KB.jpg'
 import LoginBtn from '../button/LoginBtn'
 import LoginKeyCloakBtn from '../button/LoginKeyCloakBtn'
@@ -7,13 +6,20 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import useLogin from '../../services/auth/useLogin'
 import { signInSchema } from '../../vadidations/auth.schema'
+import { useState } from 'react'
 
 function LoginForm() {
+
+    const [isRemember, setIsRemenber] = useState(false)
+    console.log(' isRemember:', isRemember)
+
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({
         resolver: yupResolver(signInSchema),
     })
     const { logIn, error } = useLogin()
     const onSubmit = (data) => {
+
+
         logIn(data)
         reset({ username: '', password: '' })
     }
@@ -36,7 +42,8 @@ function LoginForm() {
 
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex 2xl:h-[31.5rem] md:h-[22.4rem] flex-col items-center 2xl:gap-[2.125rem] md:gap-[1.51rem] self-stretch">
+                className="flex 2xl:h-[31.5rem] md:h-[22.4rem] flex-col items-center 2xl:gap-[2.125rem] md:gap-[1.51rem] self-stretch"
+            >
 
                 <div>
                     <h1 className="text-kb-second-color">Welcome to KnowBase</h1>
@@ -82,6 +89,8 @@ function LoginForm() {
                         className=" 2xl:w-5 2xl:h-5 md:w-4 md:h-4"
                         type="checkbox"
                         name=""
+                        onChange={() => { setIsRemenber(!isRemember) }}
+                        checked={isRemember}
                     />
                     <div className="l4-r 2xl:w-[8.5rem] md:w-[6.3rem] shrink-0">Remember me</div>
                 </div>

@@ -16,6 +16,8 @@ function MarkdownPage() {
     const isMarkDownEdit = useSelector(state => state.edit.isMarkDownEdit)
     const itemEdit = useSelector(state => state.edit.itemEdit)
 
+    const pagePath = useSelector(state => state.edit.pagePath)
+
     const { pathname } = useLocation()
     const editorType = pathname?.split('/')[1]
     console.log('editorType :', editorType)
@@ -97,7 +99,7 @@ function MarkdownPage() {
                     <div className="flex h-[2.92188rem] justify-between items-center self-stretch  py-0">
 
                         <div
-                            onClick={() => { dispatch(markdownEdit(false)); return navi(`/home/content/${parentID}`) }}
+                            onClick={() => { dispatch(markdownEdit(false)); return navi(pagePath) }}
                             className="flex items-start cursor-pointer">
 
                             <div className="kb-text-shadow-lg flex justify-center items-center gap-[0.487rem] self-stretch px-[0.487rem] py-[0.77919rem] rounded-[0.38956rem] bg-kb-primary-gradient">

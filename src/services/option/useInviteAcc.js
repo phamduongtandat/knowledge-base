@@ -5,19 +5,15 @@ import axios from '../../config/axios';
 
 
 
+const useInviteAcc = (contentID) => {
 
 
 
-const useDeleteSharedAcc = (contentID) => {
-
-    //const dispatch = useDispatch()
-
-
-    const mutationFn = async (shareId) => {
+    const mutationFn = async (data) => {
         const res = await axios({
-            method: 'delete',
-            url: `/api/content/share/${contentID}/user/${shareId}`,
-
+            method: 'post',
+            url: `/api/content/share/${contentID}`,
+            data,
         });
 
         return res?.data;
@@ -30,7 +26,7 @@ const useDeleteSharedAcc = (contentID) => {
     };
 
     const onError = (error) => {
-        const message = error.response?.data?.data;
+        const message = error.response?.data?.message;
         console.log(' message:', message)
     };
 
@@ -41,7 +37,7 @@ const useDeleteSharedAcc = (contentID) => {
     });
 
     return {
-        deleteSharedAcc: mutation.mutate,
+        inviteAcc: mutation.mutate,
         isSuccess: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
@@ -49,4 +45,4 @@ const useDeleteSharedAcc = (contentID) => {
     };
 };
 
-export default useDeleteSharedAcc;
+export default useInviteAcc;

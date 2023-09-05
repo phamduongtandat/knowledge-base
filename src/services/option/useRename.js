@@ -29,6 +29,9 @@ const useRename = (contentID) => {
         queryClient.invalidateQueries(['homePageContent'])
         queryClient.invalidateQueries(['searchData'])
         queryClient.invalidateQueries(['favouriteContent'])
+        queryClient.invalidateQueries(['recentContent']);
+        queryClient.invalidateQueries(['shareContent']);
+
     };
 
     const onError = (error) => {

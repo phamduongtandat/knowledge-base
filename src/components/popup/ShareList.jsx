@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux"
 import { sharePopup } from "../../redux/popupSlice"
 import useGetSharedUsers from "../../services/option/useGetSharedUsers"
-
+import UserAva from '../../assets/image/userava.png'
 import { useState } from "react"
 import useGetUserList from "../../services/userAccount/useGetUserList"
 import checkLogin from "../../utils/checkLogin"
 import useGetUserID from "../../services/auth/useGetUserID"
+import useInviteAcc from "../../services/option/useInviteAcc"
+import useDeleteSharedAcc from './../../services/option/useDeleteSharedAcc';
 
 
 
@@ -22,23 +24,30 @@ function ShareList() {
 
     const { userList } = useGetUserList({ name: keyParam })
     console.log('userList :', userList)
-    const [useIdShare, setUseIdShare] = useState([])
+    const [userIdShare, setUserIdShare] = useState([])
+    const [userShare, setUserShare] = useState([])
 
-    const handleAddAcc = (acc) => {
-        console.log('acc :', acc)
-        const isDelAcc = useIdShare.some(i => i === acc)
-        console.log('isDelAcc :', isDelAcc)
+    const { inviteAcc } = useInviteAcc(itemInfo?.id)
+    const { deleteSharedAcc } = useDeleteSharedAcc(itemInfo?.id)
+    console.log('IDDDD :', itemInfo?.id)
+
+    const handleAddAcc = (acc, item) => {
+        //console.log('acc :', acc)
+        const isDelAcc = userIdShare.some(i => i === acc)
+        //console.log('isDelAcc :', isDelAcc)
         if (isDelAcc) {
-            const xAcc = useIdShare.filter(i => i !== acc)
-            setUseIdShare(xAcc)
-
+            const xAcc = userIdShare.filter(i => i !== acc)
+            const xAccItem = userShare.filter(i => i?.id !== acc)
+            setUserIdShare(xAcc)
+            setUserShare(xAccItem)
             return
         }
-        setUseIdShare([...useIdShare, acc])
-
-
+        setUserIdShare([...userIdShare, acc])
+        setUserShare([...userShare, item])
+        inviteAcc({ userIdShare, userId: userID })
     }
-    console.log('useIdShare :', useIdShare)
+
+    console.log('userShare :', userShare)
     return (
         <div
             id='addBackDrop'
@@ -105,11 +114,12 @@ function ShareList() {
                             <div
                                 onClick={() => {
                                     const data = {
-                                        useIdShare,
+                                        userIdShare,
                                         userId: userID
                                     }
                                     console.log('dataSend :', data)
                                     setKeyParam('')
+                                    inviteAcc(data)
                                 }}
                                 className="bg-kb-primary-gradient kb-text-shadow-sm flex justify-center items-center gap-[0.46875rem] px-1.5 py-[0.5625rem] rounded-md cursor-pointer">
                                 <i className="fa-solid fa-paper-plane fa-sm"></i>
@@ -122,11 +132,11 @@ function ShareList() {
                         {keyParam && <div className="self-stretch min-h-fit h-fit max-h-52 rounded-md flex-col justify-start items-start gap-[9px] flex px-2 bg-kb-background">
 
                             {/* SHOW ADDED ACC */}
-                            {useIdShare?.length !== 0 && <div className="mt-2 flex flex-wrap w-full h-fit   gap-2.5 p-2 border rounded-lg bg-kb-neutral-white  overflow-y-scroll small-scrollbar">
+                            {userShare?.length !== 0 && <div className="mt-2 flex flex-wrap w-full h-fit   gap-2.5 p-2 border rounded-lg bg-kb-neutral-white  overflow-y-scroll small-scrollbar">
 
-                                {useIdShare?.map(i => <div key={i} className="flex bg-kb-text-background h-7 items-center  gap-2 rounded px-2">
-                                    <div className="l4-b kb-text-primary-gradient">Oracle</div>
-                                    <i className="fa-solid fa-xmark fa-sm cursor-pointer text-kb-neutral-300/50 "></i>
+                                {userShare?.map(i => <div key={i?.id} className="flex bg-kb-text-background h-7 items-center  gap-2 rounded px-2">
+                                    <div className="l4-b kb-text-primary-gradient">{i?.name}</div>
+
                                 </div>)}
 
                             </div>}
@@ -135,7 +145,7 @@ function ShareList() {
                                 {userList?.map((i) => {
                                     return <div key={i?.id} className=" flex items-center gap-[0.46875rem] self-stretch ">
                                         <div className="flex items-center gap-[0.46875rem] flex-[1_0_0]">
-                                            <img className="w-6 h-6 rounded-3xl border-yellow-300" src="https://via.placeholder.com/24x24" />
+                                            <img className="w-6 h-6 rounded-3xl border-yellow-300" src={UserAva} />
 
                                             <div className="flex flex-col justify-center items-start self-stretch">
                                                 <div className="flex flex-col justify-center items-center">
@@ -150,11 +160,11 @@ function ShareList() {
 
                                             className="flex justify-center items-center gap-[0.46875rem] p-[0.70313rem] text-kb-neutral-300">
                                             <div
-                                                onClick={() => { handleAddAcc(i?.id) }}
+                                                onClick={() => { handleAddAcc(i?.id, i) }}
                                                 className="cursor-pointer"
                                             >
 
-                                                {useIdShare?.some(item => item === i?.id) ? <i className="fa-solid fa-check fa-sm text-green-500"></i>
+                                                {userIdShare?.some(item => item === i?.id) ? <i className="fa-solid fa-check fa-sm text-green-500"></i>
                                                     : <i className="fa-regular fa-square fa-sm"></i>}
                                             </div>
                                         </div>
@@ -175,20 +185,23 @@ function ShareList() {
                     {/* SHARED LIST */}
                     <div className="overflow-y-scroll self-stretch small-scrollbar">
                         {sharedUsers?.map((i) => {
-                            return <div key={i} className=" flex items-center gap-[0.46875rem] self-stretch ">
+                            return <div key={i?.id} className=" flex items-center gap-[0.46875rem] self-stretch ">
                                 <div className="flex items-center gap-[0.46875rem] flex-[1_0_0]">
-                                    <img className="w-6 h-6 rounded-3xl border-yellow-300" src="https://via.placeholder.com/24x24" />
+                                    <img className="w-6 h-6 rounded-3xl border-yellow-300" src={UserAva} />
 
                                     <div className="flex flex-col justify-center items-start self-stretch">
                                         <div className="flex flex-col justify-center items-center">
-                                            <div className="self-stretch text-kb-second-color p2-b">{sharedUsers?.userName}</div>
+                                            <div className="self-stretch text-kb-second-color p2-b">{i?.userName}</div>
                                         </div>
                                         <div className="p3-r text-kb-neutral-300">Send at June 22, 2023</div>
                                     </div>
 
                                 </div>
 
-                                <div className="flex justify-center items-center gap-[0.46875rem] p-[0.70313rem] text-kb-neutral-300">
+                                <div
+                                    onClick={() => { deleteSharedAcc(i?.shareId) }}
+                                    className="flex justify-center items-center gap-[0.46875rem] p-[0.70313rem] text-kb-neutral-300"
+                                >
                                     <div title="REMOVE" className="cursor-pointer">
                                         <i className="fa-solid fa-xmark fa-sm"></i>
                                     </div>

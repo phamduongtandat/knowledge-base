@@ -25,7 +25,7 @@ function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
 
                         <div className="flex items-center gap-[0.23438rem] flex-[1_0_0] self-stretch">
                             <i className="fa-solid fa-paperclip fa-sm text-kb-neutral-300"></i>
-                            <div className="p3-b text-kb-neutral-300">2 files</div>
+                            <div className="p3-b text-kb-neutral-300">0 files</div>
                         </div>
                     </div>
 

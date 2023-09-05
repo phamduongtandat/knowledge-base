@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import checkLogin from '../../utils/checkLogin';
+
 
 
 function ProfileOption() {
