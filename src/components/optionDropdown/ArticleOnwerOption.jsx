@@ -6,7 +6,7 @@ import { getItemEdit, getPagePath, markdownEdit } from "../../redux/editSlice"
 import useLike from "../../services/option/useLike"
 import useDeleteLike from './../../services/option/useDeleteLike';
 
-function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
+function ArticleOnwerOption({ info, setIsArticleOnwerOption, }) {
 
     const navi = useNavigate()
 
@@ -18,6 +18,12 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
         { label: 5, name: 'Properties', img: 'fa-solid fa-info fa-sm' },
         { label: 6, name: 'Delete', img: 'fa-solid fa-trash-can fa-sm' },
     ]
+    console.log('info :', info?.type)
+
+    if (info?.type === 'file') {
+        optionList.splice(1, 3)
+
+    }
 
     //const isProper = useSelector(state=>state.popup.isProper )
     const dispatch = useDispatch()
@@ -54,7 +60,8 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption }) {
             setIsArticleOnwerOption(false)
             dispatch(getPagePath(pathname))
             //console.log('pathname :', pathname)
-            navi(`/markdown/write/${local}`)
+
+            navi(`/${info?.editor}/write/${local}`)
             return
         }
 

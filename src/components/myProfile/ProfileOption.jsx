@@ -6,11 +6,14 @@ function ProfileOption() {
 
     const backLogin = useNavigate()
     const handleLogOut = () => {
+
         document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
         document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
-        backLogin('login')
-        checkLogin(false)
-        console.log('can')
+
+        //checkLogin(false)
+        backLogin('/login')
+        location.reload()
+
     }
 
     return (

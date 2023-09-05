@@ -88,8 +88,8 @@ function BlogPage({ titlePage, data }) {
 
                             </div>
 
-                            <ReactMarkdown children={data?.content} remarkPlugins={[remarkGfm]} />
-
+                            {data?.editor === 'markdown' && <ReactMarkdown children={data?.content} remarkPlugins={[remarkGfm]} />}
+                            {data?.editor === "wysiwyg" && <div dangerouslySetInnerHTML={{ __html: data?.content }}></div>}
                         </div>
 
                     </div>

@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import Dot from '../../assets/image/dot.svg'
+import BlogAva from '../../assets/image/blogava.png'
+import UserAva from '../../assets/image/userava.png'
 import ArticleOnwerOption from '../optionDropdown/ArticleOnwerOption';
 import BinOpt from '../optionDropdown/BinOpt';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import formatDate from '../../utils/formatDate';
 
 
 function Article({ titlePage, articleID, setAticleID, itemID, data }) {
@@ -54,8 +57,8 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
 
 
       <img
-        className="self-stretch w-[3.75444rem] h-[3.4375rem] rounded-[0.1875rem]"
-        src="https://via.placeholder.com/60x55"
+        className="self-stretch w-[3.75rem] h-[3.75rem] bg-cyan-200/70 p-0.5 rounded-sm"
+        src={BlogAva}
       />
 
       <div onClick={() => { navi(`${linkpathArt}/content/page/${itemID}`) }} className="flex justify-between items-start flex-[1_0_0] self-stretch">
@@ -67,7 +70,7 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
 
             <div className="flex items-center gap-[0.23438rem] flex-[1_0_0] self-stretch">
               <i className="fa-solid fa-paperclip fa-sm text-kb-neutral-300"></i>
-              <div className="p3-b text-kb-neutral-300">2 files</div>
+              <div className="p3-b text-kb-neutral-300">0 files</div>
             </div>
           </div>
 
@@ -83,15 +86,15 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
         <div className="flex flex-col justify-between items-end self-stretch">
           <img
             className="w-6 h-6 rounded-3xl border border-kb-primary-color"
-            src="https://via.placeholder.com/24x24"
+            src={UserAva}
           />
 
           <div className="flex flex-col justify-end items-end flex-[1_0_0]">
             <div className="self-end p2-b text-kb-second-color">
               {data?.author}
             </div>
-            <div className="self-stretch text-kb-neutral-300 p3-r">
-              {data?.createAt}
+            <div className="self-end text-kb-neutral-300 p3-r">
+              {formatDate(data?.createAt)}
             </div>
           </div>
         </div>

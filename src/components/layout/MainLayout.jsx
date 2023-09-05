@@ -5,9 +5,9 @@ import { Outlet } from "react-router-dom";
 import ProfileOption from '../myProfile/ProfileOption';
 import checkLogin from '../../utils/checkLogin';
 import { useNavigate } from 'react-router-dom';
-import useGetUserID from '../../services/auth/useGetUserID';
-import { useDispatch } from 'react-redux';
-import { getUserId } from '../../redux/authSlice';
+import UserAva from '../../assets/image/userava.png'
+
+
 function MainLayout() {
 
     const { isLogin, tokenInfo } = checkLogin()
@@ -43,7 +43,7 @@ function MainLayout() {
                             <h3 className="text-kb-second-color">{tokenInfo?.name}</h3>
                             <img
                                 onClick={() => { setIsDrop(!isDrop) }}
-                                className="w-12 h-12 rounded-full border-2 cursor-pointer border-kb-primary-color" src="https://via.placeholder.com/48x48" />
+                                className="w-12 h-12 rounded-full border-2 cursor-pointer border-kb-primary-color" src={UserAva} />
                             {isDrop && <div className="absolute top-14 z-10 min-w-[135px] ">
                                 <ProfileOption />
                             </div>}

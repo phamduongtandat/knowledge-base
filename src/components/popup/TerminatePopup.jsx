@@ -28,7 +28,7 @@ function TerminatePopup() {
                     <div className="text-cyan-900 text-4xl font-bold leading-9">Delete forever?</div>
                 </div>
                 <div className="self-stretch py-2.5 justify-center items-center gap-2.5 inline-flex">
-                    <div className="grow shrink basis-0 text-center text-cyan-900 text-base font-medium leading-normal">“Name of article” will be delete forever and can not be recovered again. Are your sure?</div>
+                    <div className="grow shrink basis-0 text-center text-cyan-900 text-base font-medium leading-normal">The item will be deleted forever and can not recover. Are your sure?</div>
                 </div>
                 <div className="self-stretch h-[72px] pt-5 flex-col justify-start items-start gap-2.5 flex">
                     <div className="self-stretch justify-start items-start gap-2.5 inline-flex">

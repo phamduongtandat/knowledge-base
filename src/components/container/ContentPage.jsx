@@ -230,7 +230,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import CategogyOwnerOpt from "../optionDropdown/CategogyOwnerOpt";
 import BinOpt from "../optionDropdown/BinOpt";
-import useDownloadFile from "../../services/home/useDownloadFile";
+
 
 import FileItem from "../file/FileItem";
 
@@ -441,7 +441,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
 
       <div className="flex flex-col items-start gap-3 flex-[1_0_0] px-[1.6875rem] rounded-md mb-4">
-        {file?.map(i => <FileItem key={i?.id} data={i} />)}
+        {file?.map(i => <FileItem key={i?.id} data={i} articleID={articleID} setAticleID={setAticleID} itemID={i?.id} titlePage={titlePage} />)}
       </div>
 
 

@@ -35,6 +35,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/markdown/write/:parentID" element={<MarkdownPage />} />
+        <Route path="/wysiwyg/write/:parentID" element={<MarkdownPage />} />
 
 
         <Route

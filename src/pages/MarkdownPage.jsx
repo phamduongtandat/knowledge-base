@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import checkLogin from "../utils/checkLogin"
 import { useEffect, useState } from "react"
 import MarkdownArea from "../components/MarkdownArea"
@@ -7,12 +7,18 @@ import { selectEditorPopup } from "../redux/popupSlice"
 import WriteToggle from "../components/toggle/WriteToggle"
 import useCreateContent from "../services/home/useCreateContent"
 import useUpdateArt from "../services/article/useUpdateArt"
+import { markdownEdit } from "../redux/editSlice"
+import WysiwygArea from "../components/editor/WysiwygArea"
 
 
 
 function MarkdownPage() {
     const isMarkDownEdit = useSelector(state => state.edit.isMarkDownEdit)
     const itemEdit = useSelector(state => state.edit.itemEdit)
+
+    const { pathname } = useLocation()
+    const editorType = pathname?.split('/')[1]
+    console.log('editorType :', editorType)
 
 
     useEffect(() => {
@@ -56,7 +62,7 @@ function MarkdownPage() {
             parentId: parentID,
             userId: userID,
             status,
-            editor: "Markdown"
+            editor: editorType
         }
 
         createContent(data)
@@ -65,6 +71,7 @@ function MarkdownPage() {
     }
 
     const { updateArt } = useUpdateArt(itemEdit?.id)
+
     const handEdit = () => {
         if (!artName || !!error) {
             return
@@ -90,14 +97,12 @@ function MarkdownPage() {
                     <div className="flex h-[2.92188rem] justify-between items-center self-stretch  py-0">
 
                         <div
-                            onClick={() => { navi('/') }}
+                            onClick={() => { dispatch(markdownEdit(false)); return navi(`/home/content/${parentID}`) }}
                             className="flex items-start cursor-pointer">
 
                             <div className="kb-text-shadow-lg flex justify-center items-center gap-[0.487rem] self-stretch px-[0.487rem] py-[0.77919rem] rounded-[0.38956rem] bg-kb-primary-gradient">
 
                                 <i className="flex w-[0.97394rem] h-[0.97394rem] flex-col justify-center items-center gap-[0.487rem] fa-solid fa-house fa-sm" />
-
-
 
                                 <div className="l3-b ">Back to Homepage</div>
                             </div>
@@ -214,7 +219,8 @@ function MarkdownPage() {
 
                         {/* MARKDOWN */}
 
-                        <MarkdownArea isWrite={isWrite} article={article} setArticle={setArticle} />
+                        {editorType === 'markdown' && <MarkdownArea isWrite={isWrite} article={article} setArticle={setArticle} />}
+                        {editorType === 'wysiwyg' && <WysiwygArea isWrite={isWrite} article={article} setArticle={setArticle} />}
 
 
 

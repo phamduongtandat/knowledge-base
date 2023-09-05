@@ -2,8 +2,12 @@ import { useState } from 'react'
 import bgProfile from '../../assets/image/bg-profile.png'
 import Copy from '../../assets/icon/Copy.png'
 import Pen from '../../assets/icon/Pen.png'
+import UserAva from '../../assets/image/userava.png'
+
 function PersonalInfo() {
+
     const [isEdit, setIsEdit] = useState({ email: false, phone: false, birth: false })
+
     return (
         <div className="flex flex-col h-fit items-start 2xl:gap-2.5 md:gap-[0.444rem] self-stretch flex-grow">
 
@@ -18,7 +22,7 @@ function PersonalInfo() {
 
                             <div className="flex flex-col justify-center items-center 2xl:gap-[1.125rem] md:gap-[0.8rem]">
 
-                                <img className="2xl:w-[11.4375rem] 2xl:h-[11.4375rem] rounded 2xl:border-2 md:w-[8.1rem] md:h-[8.1rem] md:border border-kb-primary-color" src="https://via.placeholder.com/183x183" />
+                                <img className="2xl:w-[11.4375rem] 2xl:h-[11.4375rem] rounded 2xl:border-2 md:w-[8.1rem] md:h-[8.1rem] md:border border-kb-primary-color bg-kb-neutral-white" src={UserAva} />
 
                                 <div className="flex items-start 2xl:gap-[1.0625rem] md:gap-[0.75rem] l4-b text-kb-primary-color">
                                     <div >Change</div>

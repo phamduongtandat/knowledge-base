@@ -15,6 +15,7 @@ function LoginForm() {
     const { logIn, error } = useLogin()
     const onSubmit = (data) => {
         logIn(data)
+        reset({ username: '', password: '' })
     }
 
     return (
