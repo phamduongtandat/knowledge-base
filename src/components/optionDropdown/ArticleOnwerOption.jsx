@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from "react-redux"
-import { getInfo, properPopup, renamePopup, sharePopup } from "../../redux/popupSlice"
+import { getInfo, movePopup, properPopup, renamePopup, sharePopup } from "../../redux/popupSlice"
 import useMoveAFToBin from "../../services/option/useMoveAFToBin"
 import { useLocation, useNavigate } from "react-router-dom"
 import { getItemEdit, getPagePath, markdownEdit } from "../../redux/editSlice"
 import useLike from "../../services/option/useLike"
 import useDeleteLike from './../../services/option/useDeleteLike';
+import checkLogin from "../../utils/checkLogin"
 
-function ArticleOnwerOption({ info, setIsArticleOnwerOption, }) {
+function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
     const navi = useNavigate()
 
@@ -15,14 +16,32 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, }) {
         { label: 2, name: 'Edit', img: 'fa-solid fa-pen fa-sm' },
         { label: 3, name: 'Rename', img: 'fa-solid fa-pen-to-square fa-sm' },
         { label: 4, name: 'Share', img: 'fa-solid fa-share-nodes fa-sm' },
+        { label: 7, name: 'Move', img: 'fa-solid fa-arrows-up-down-left-right fa-sm' },
         { label: 5, name: 'Properties', img: 'fa-solid fa-info fa-sm' },
         { label: 6, name: 'Delete', img: 'fa-solid fa-trash-can fa-sm' },
     ]
     console.log('info :', info?.type)
 
-    if (info?.type === 'file') {
-        optionList.splice(1, 3)
+    const { tokenInfo } = checkLogin()
 
+    if (info?.type === 'file' && info?.author === tokenInfo?.name) {
+        optionList.splice(1, 3)
+    }
+
+    if (titlePage === 'Favourite' && info?.author === tokenInfo?.name) {
+        optionList?.pop()
+    }
+
+    if (info?.author !== tokenInfo?.name && titlePage !== 'Shared history') {
+        optionList?.splice(1, 4)
+        optionList?.pop()
+    }
+
+    if (info?.author !== tokenInfo?.name && titlePage === 'Shared history') {
+        optionList?.splice(1, 2)
+        optionList?.splice(2, 1)
+
+        optionList?.pop()
     }
 
     //const isProper = useSelector(state=>state.popup.isProper )
@@ -91,6 +110,14 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, }) {
             MoveAFToBin(info?.id)
             return
         }
+
+        if (label === 7) {
+
+            dispatch(getInfo(info))
+            dispatch(movePopup(true))
+            return setIsArticleOnwerOption(false)
+        }
+
         console.log(' label:', label)
         //console.log('info :', info)
     }

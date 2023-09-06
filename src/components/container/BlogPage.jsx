@@ -6,6 +6,7 @@ import useLike from '../../services/option/useLike'
 import checkLogin from '../../utils/checkLogin'
 import useGetUserID from './../../services/auth/useGetUserID';
 import useDeleteLike from '../../services/option/useDeleteLike'
+import formatDate from '../../utils/formatDate'
 
 
 function BlogPage({ titlePage, data }) {
@@ -27,12 +28,12 @@ function BlogPage({ titlePage, data }) {
 
             <div className="flex flex-col items-start gap-9 flex-[1_0_0] self-stretch px-[1.6875rem] py-[1.125rem]">
 
-                <div className="flex flex-col justify-center items-center gap-6 self-stretch px-[1.875rem] py-6 rounded-[0.5625rem] kb-shadow-white-bg">
+                <div className="flex flex-col justify-center items-center gap-6 self-stretch px-[1.5rem] py-6 rounded-[0.5625rem] kb-shadow-white-bg  md:max-w-[1112px] 2xl:max-w-full w-full">
 
 
 
                     <div className="flex flex-col items-start gap-3 self-stretch">
-                        <div className="flex flex-col items-start gap-[1.875rem] self-stretch">
+                        <div className="flex flex-col items-start gap-[1.875rem] self-stretch overflow-hidden ">
 
                             <div className="flex justify-between items-center self-stretch">
 
@@ -73,10 +74,10 @@ function BlogPage({ titlePage, data }) {
 
                                     <img className="w-6 h-6 rounded-3xl border border-kb-primary-color" src="https://via.placeholder.com/24x24" />
 
-                                    <div className="flex flex-col justify-center items-center self-stretch">
+                                    <div className="flex flex-col justify-center items-end self-stretch">
                                         <div className="text-kb-second-color p2-b">{data?.author}</div>
 
-                                        <div className="text-kb-neutral-300 p2-b">June 22, 2023 | at 19:00</div>
+                                        <div className="text-kb-neutral-300 p2-b">{formatDate(data?.createAt)}</div>
                                     </div>
 
                                 </div>

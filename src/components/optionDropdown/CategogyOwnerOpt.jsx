@@ -2,10 +2,11 @@
 import { useDispatch } from "react-redux"
 import { getInfo, movePopup, properPopup, renamePopup, sharePopup } from "../../redux/popupSlice"
 import useMoveCategToBin from './../../services/option/useMoveCategToBin';
+import checkLogin from "../../utils/checkLogin";
 
 
 
-function CategogyOwnerOpt({ info, setCategOpt }) {
+function CategogyOwnerOpt({ info, setCategOpt, titlePage }) {
     const { moveCategToBin } = useMoveCategToBin()
 
     const dispatch = useDispatch()
@@ -18,7 +19,18 @@ function CategogyOwnerOpt({ info, setCategOpt }) {
         { label: 4, name: 'Delete', img: 'fa-solid fa-trash-can fa-sm' },
     ]
 
+    const { tokenInfo } = checkLogin()
 
+
+    if (info?.author !== tokenInfo?.name && titlePage !== 'Shared history') {
+        optionList?.splice(0, 3)
+        optionList?.pop()
+    }
+
+    if (info?.author !== tokenInfo?.name && titlePage === 'Shared history') {
+        optionList?.splice(0, 2)
+        optionList?.pop()
+    }
 
     const handleSelect = (label) => {
         console.log(' label:', label)

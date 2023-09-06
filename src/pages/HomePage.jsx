@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ContentPage from "../components/container/ContentPage";
 import EmptyPage from "../components/noData/EmptyPage";
 

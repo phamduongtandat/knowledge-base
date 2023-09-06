@@ -128,7 +128,7 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
 
         <div className={`absolute bottom-7 right-7 ease-linear duration-200
          ${isArticleOnwerOption && articleID === itemID ? '' : 'translate-y-2/4 scale-0'}`}>
-          {titlePage !== 'Bin' && <ArticleOnwerOption info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
+          {titlePage !== 'Bin' && <ArticleOnwerOption titlePage={titlePage} info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
           {titlePage === 'Bin' && <BinOpt info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
         </div>
 

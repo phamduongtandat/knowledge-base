@@ -169,22 +169,25 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
                   </div>
               }
 
-              <div className="flex justify-center items-start gap-[0.46875rem] self-stretch  ">
+              <div
+                onClick={() => {
+                  if (CategOpt.itemID !== i.id && CategOpt.isOpen) {
+                    return setCategOpt({ itemID: i.id, isOpen: true })
+                  }
+                  setCategOpt({ itemID: i.id, isOpen: !CategOpt.isOpen })
+                }}
+                className="flex justify-center items-start gap-[0.46875rem] self-stretch hover:outline-blue-200 hover:outline-double h-fit px-2 cursor-pointer"
+              >
                 <img
-                  className="cursor-pointer hover:outline-blue-200 hover:outline-double" src={Dot}
-                  onClick={() => {
-                    if (CategOpt.itemID !== i.id && CategOpt.isOpen) {
-                      return setCategOpt({ itemID: i.id, isOpen: true })
-                    }
-                    setCategOpt({ itemID: i.id, isOpen: !CategOpt.isOpen })
-                  }}
+                  className="  w-1.5" src={Dot}
+
                 />
 
-                <div className={`  z-50  ease-linear duration-200
+                <div className={`z-50 ease-linear duration-200
                 ${titlePage !== 'Home' && showButton && !isExpand ? 'fixed -translate-x-2/3 -translate-y-2/3 ' : 'absolute bottom-2/3 right-1/4'}
                 ${CategOpt.isOpen && CategOpt.itemID === i.id ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
                 >
-                  {titlePage !== 'Bin' && <CategogyOwnerOpt setCategOpt={setCategOpt} info={i} />}
+                  {titlePage !== 'Bin' && <CategogyOwnerOpt titlePage={titlePage} setCategOpt={setCategOpt} info={i} />}
                   {titlePage === 'Bin' && <BinOpt info={i} />}
                 </div>
 

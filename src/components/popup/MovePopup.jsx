@@ -49,6 +49,7 @@ function MovePopup() {
                 <div className="flex justify-center items-center gap-[1.125rem] self-stretch">
 
                     <h2 className="text-kb-second-color flex-1">Move {itemInfo?.name} to {child?.name || 'Home'} </h2>
+                    <div className="text-red-700/70 italic" >{itemInfo?.type !== 'folder' && !child?.name ? 'Home Page only accept Folder ' : ''}</div>
                     <div
                         onClick={() => { dispatch(movePopup(false)) }}
                         className="flex justify-end items-center gap-[0.46875rem]">
@@ -64,7 +65,7 @@ function MovePopup() {
                         return (
                             <div
                                 onClick={() => {
-                                    //dispatch(getInfo(i))
+
                                     setChild(i)
                                 }}
                                 key={i.id}
