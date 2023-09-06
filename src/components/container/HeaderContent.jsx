@@ -8,13 +8,17 @@ import FileFilterOpt from "../optionDropdown/FileFilterOpt";
 import BlogFilterOpt from "../optionDropdown/BlogFilterOpt";
 import { useDispatch, useSelector } from "react-redux";
 import { addContentPopup } from "../../redux/popupSlice";
-
-
-
+import { useParams } from "react-router-dom";
+import useGetProperties from "../../services/option/useGetProperties";
+import checkLogin from "../../utils/checkLogin";
 
 function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
   const dispatch = useDispatch()
-  // const [isBlog, setIsBlog] = useState(true)
+  const { id } = useParams()
+  const { properties } = useGetProperties(id)
+
+  const { tokenInfo } = checkLogin()
+
   const [isAdd, setIsAdd] = useState(false);
   const [isFilterOpt, setIsFilterOpt] = useState(false)
   const isBlog = useSelector(state => state.filter.isBlog)
@@ -31,7 +35,7 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
 
 
       {/* ADD MORE */}
-      {(titlePage === 'home') &&
+      {(titlePage === 'home' && properties?.author === tokenInfo?.name) &&
         <div onClick={() => { setIsAdd(!isAdd) }} className="relative flex items-start">
           <button
 

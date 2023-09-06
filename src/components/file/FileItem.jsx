@@ -22,11 +22,6 @@ function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
                         <div className="p1-b kb-text-primary-gradient">
                             {data?.parentName}
                         </div>
-
-                        <div className="flex items-center gap-[0.23438rem] flex-[1_0_0] self-stretch">
-                            <i className="fa-solid fa-paperclip fa-sm text-kb-neutral-300"></i>
-                            <div className="p3-b text-kb-neutral-300">0 files</div>
-                        </div>
                     </div>
 
                     <h4 className="self-stretch text-kb-second-color">
@@ -34,18 +29,16 @@ function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
                     </h4>
 
                     <div
-                        onClick={() => { localStorage.setItem('fileName', JSON.stringify(data?.name)); downloadFile(data?.id) }}
                         className="self-stretch ml-5"
                         title='Download File'
                     >
 
                         <img
+                            onClick={() => { localStorage.setItem('fileName', JSON.stringify(data?.name)); downloadFile(data?.id) }}
                             src={Download}
-                            onClick={() => { }}
                             width={22}
-
-
                         />
+
                     </div>
                 </div>
 

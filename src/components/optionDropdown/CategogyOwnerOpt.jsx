@@ -1,6 +1,6 @@
 
 import { useDispatch } from "react-redux"
-import { getInfo, movePopup, properPopup, renamePopup } from "../../redux/popupSlice"
+import { getInfo, movePopup, properPopup, renamePopup, sharePopup } from "../../redux/popupSlice"
 import useMoveCategToBin from './../../services/option/useMoveCategToBin';
 
 
@@ -13,9 +13,12 @@ function CategogyOwnerOpt({ info, setCategOpt }) {
 
         { label: 1, name: 'Move to', img: 'fa-solid fa-arrows-up-down-left-right fa-sm' },
         { label: 2, name: 'Rename', img: 'fa-solid fa-pen-to-square fa-sm' },
+        { label: 5, name: 'Share', img: 'fa-solid fa-share-nodes fa-sm' },
         { label: 3, name: 'Properties', img: 'fa-solid fa-info fa-sm' },
         { label: 4, name: 'Delete', img: 'fa-solid fa-trash-can fa-sm' },
     ]
+
+
 
     const handleSelect = (label) => {
         console.log(' label:', label)
@@ -40,6 +43,13 @@ function CategogyOwnerOpt({ info, setCategOpt }) {
         if (label === 4) {
             moveCategToBin(info?.id)
             return setCategOpt(pre => { return { ...pre, isOpen: false } })
+        }
+
+        if (label === 5) {
+            dispatch(getInfo(info))
+            dispatch(sharePopup(true))
+            return setCategOpt(pre => { return { ...pre, isOpen: false } })
+
         }
 
     }

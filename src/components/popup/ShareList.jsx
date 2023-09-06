@@ -48,6 +48,19 @@ function ShareList() {
     }
 
     console.log('userShare :', userShare)
+
+    const [isCopied, setIsCopied] = useState(false);
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(`/share/content/${itemInfo?.id}`);
+            setIsCopied(true);
+            //setTimeout(() => setIsCopied(false), 3000);
+        } catch (err) {
+            console.error('Không thể sao chép văn bản vào clipboard', err);
+        }
+    };
+
+
     return (
         <div
             id='addBackDrop'
@@ -82,9 +95,12 @@ function ShareList() {
                             <div className="p1-b ">/share/content/{itemInfo?.id}</div>
                         </div>
 
-                        <div className="bg-kb-primary-gradient kb-text-shadow-sm flex justify-center items-center gap-[0.46875rem] px-1.5 py-[0.5625rem] rounded-md cursor-pointer">
+                        <div
+                            onClick={handleCopy}
+                            className="bg-kb-primary-gradient kb-text-shadow-sm flex justify-center items-center gap-[0.46875rem] px-1.5 py-[0.5625rem] rounded-md cursor-pointer"
+                        >
                             <i className="fa-solid fa-copy fa-sm"></i>
-                            <div className="l4-b">Copy</div>
+                            <div className="l4-b">{isCopied ? 'Copied' : 'Copy'}</div>
                         </div>
 
                     </div>
@@ -185,7 +201,7 @@ function ShareList() {
                     {/* SHARED LIST */}
                     <div className="overflow-y-scroll self-stretch small-scrollbar">
                         {sharedUsers?.map((i) => {
-                            return <div key={i?.id} className=" flex items-center gap-[0.46875rem] self-stretch ">
+                            return <div key={i?.shareId} className=" flex items-center gap-[0.46875rem] self-stretch ">
                                 <div className="flex items-center gap-[0.46875rem] flex-[1_0_0]">
                                     <img className="w-6 h-6 rounded-3xl border-yellow-300" src={UserAva} />
 

@@ -48,7 +48,7 @@ function MovePopup() {
 
                 <div className="flex justify-center items-center gap-[1.125rem] self-stretch">
 
-                    <h2 className="text-kb-second-color flex-1">Move {itemInfo?.name} to {child?.name} </h2>
+                    <h2 className="text-kb-second-color flex-1">Move {itemInfo?.name} to {child?.name || 'Home'} </h2>
                     <div
                         onClick={() => { dispatch(movePopup(false)) }}
                         className="flex justify-end items-center gap-[0.46875rem]">
@@ -71,14 +71,13 @@ function MovePopup() {
                                 className={` flex min-w-[8rem]  h-[6rem] justify-center items-center p-[0.9375rem] rounded-md cursor-pointer`}
                             >
 
-
                                 <div className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
                                     <div className="flex flex-col gap-2 justify-between items-start flex-[1_0_0]">
                                         <img className="w-12 h-[2.10938rem]" src={Folder} />
 
                                         <div className="flex flex-col items-start text-kb-second-color">
                                             <div className="l3-b">{i?.name}</div>
-                                            <div className="l3-r">48 files</div>
+                                            <div className="l3-r">{i?.quantity} files</div>
                                         </div>
                                     </div>
                                 </div>

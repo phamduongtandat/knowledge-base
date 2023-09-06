@@ -16,13 +16,6 @@ function HomePage() {
     const { userID } = useGetUserID(tokenInfo?.preferred_username)
     const dispatch = useDispatch()
     dispatch(getUserId(userID))
-    console.log('userID :', userID)
-    // const [uid, setUId] = useState()
-    // console.log('userID :', userID)
-    // useEffect(() => {
-    //     setUId(userID)
-
-    // }, [])
 
     const [isAll, setIsAll] = useState('all')
 
