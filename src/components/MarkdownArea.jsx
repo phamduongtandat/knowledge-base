@@ -11,7 +11,7 @@ function MarkdownArea({ isWrite, setArticle, article }) {
             <div className="flex min-h-full max-h-fit w-full  ">
                 {isWrite && <textarea
                     onChange={(e) => { setArticle(e.target.value) }}
-                    value={article}
+                    value={article || ''}
                     className="  rounded-[0.77919rem] border-[0.779px] border-solid  p-2 outline-none h-screen min-h-full max-h-fit w-full"
                 />}
 

@@ -24,8 +24,8 @@ const useUpdateArt = (contentID) => {
 
     const onSuccess = async () => {
 
-        dispatch(markdownEdit(false))
-        navi(pagePath)
+        // dispatch(markdownEdit(false))
+        // navi(pagePath)
         queryClient.invalidateQueries(['folderContent']);
 
     };
@@ -43,7 +43,7 @@ const useUpdateArt = (contentID) => {
 
     return {
         updateArt: mutation.mutate,
-        isSuccess: mutation.isSuccess,
+        isSuccessU: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
         error: mutation.error?.response?.data?.data,

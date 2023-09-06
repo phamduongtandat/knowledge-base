@@ -20,7 +20,7 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
         { label: 5, name: 'Properties', img: 'fa-solid fa-info fa-sm' },
         { label: 6, name: 'Delete', img: 'fa-solid fa-trash-can fa-sm' },
     ]
-    console.log('info :', info?.type)
+
 
     const { tokenInfo } = checkLogin()
 
@@ -53,6 +53,7 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
 
     const { pathname } = useLocation()
+    console.log('pathname :', pathname)
     const local = pathname?.split('/').pop()
 
     const handleSelect = (label) => {
@@ -80,7 +81,7 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
             dispatch(getPagePath(pathname))
             //console.log('pathname :', pathname)
 
-            navi(`/${info?.editor}/write/${local}`)
+            navi(`/${info?.editor}/edit/${local}/${info?.id}`)
             return
         }
 
@@ -131,7 +132,7 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
                     className="flex  justify-start items-center gap-3 pl-7 py-3 rounded-lg cursor-pointer hover:bg-kb-neutral-50/50 "
                     onClick={() => { handleSelect(label) }}
                 >
-                    <div className={`w-3 flex justify-center shrink-0 ${label === 1 && info?.isLike ? 'text-kb-primary-color' : 'text-kb-neutral-300'} `}>
+                    <div className={`w-3 flex justify-center shrink-0 ${label === 1 && info?.isLike ? 'text-red-600' : 'text-kb-neutral-300'} `}>
                         <i className={` ${img} `}></i>
                     </div>
 

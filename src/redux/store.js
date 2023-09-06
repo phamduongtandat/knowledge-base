@@ -3,6 +3,7 @@ import { popupReducer } from './popupSlice'
 import { authReducer } from './authSlice'
 import { editReducer } from './editSlice'
 import { filterReducer } from './filterSlice'
+import { optionReducer } from './optionSlice'
 
 
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
         popup: popupReducer,
         edit: editReducer,
         filter: filterReducer,
+        option: optionReducer,
     }
 })
 export default store

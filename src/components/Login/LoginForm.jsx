@@ -9,7 +9,7 @@ import { signInSchema } from '../../vadidations/auth.schema'
 import { useState } from 'react'
 
 function LoginForm() {
-
+    const [isPass, setIsPass] = useState(false)
     const [isRemember, setIsRemenber] = useState(false)
     console.log(' isRemember:', isRemember)
 
@@ -77,9 +77,11 @@ function LoginForm() {
                         name='password'
                         {...register('password')}
                         className="flex 2xl:p-4 md:p-[2.84px]  2xl:h-12 md:h-9 justify-between items-center 2xl:gap-1 md:gap-[2.84px] self-stretch border 2xl:rounded-lg md:rounded-[5.68px] border-solid border-[#CBD2E0]"
-                        type="text"
+                        type={isPass ? "text" : "password"}
                     />
-                    <img className="absolute cursor-pointer 2xl:right-4 2xl:w-5 2xl:h-4 2xl:bottom-4 md:right-3 md:w-3 md:h-3 md:bottom-3" src={Eye} />
+                    <img
+                        onClick={() => { setIsPass(!isPass) }}
+                        className="absolute cursor-pointer 2xl:right-4 2xl:w-5 2xl:h-4 2xl:bottom-4 md:right-3 md:w-3 md:h-3 md:bottom-3" src={Eye} />
 
 
                 </div>

@@ -6,6 +6,8 @@ import ArticleOnwerOption from '../optionDropdown/ArticleOnwerOption';
 import BinOpt from '../optionDropdown/BinOpt';
 import { useNavigate } from 'react-router-dom';
 import formatDate from '../../utils/formatDate';
+import { useDispatch, useSelector } from 'react-redux';
+import { turnOnOpt } from '../../redux/optionSlice';
 
 
 function Article({ titlePage, articleID, setAticleID, itemID, data }) {
@@ -52,8 +54,11 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
   const navi = useNavigate()
 
   const [isArticleOnwerOption, setIsArticleOnwerOption] = useState(false)
+  const dispatch = useDispatch()
+  const isTurnOnOpt = useSelector(state => state.option.isTurnOnOpt)
 
   return (
+
     <div className={`relative flex w-full rounded-[0.42188rem] justify-center items-center gap-[0.70313rem] self-stretch p-[0.70313rem] 
     ${isArticleOnwerOption && articleID === itemID ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
     >
@@ -112,7 +117,14 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
       <div className="relative w-[15px] h-[52px] justify-end items-start gap-[7.50px]">
         <img
           src={Dot}
+
           onClick={() => {
+
+            // if (!isTurnOnOpt && isArticleOnwerOption) {
+            //   setIsArticleOnwerOption(true)
+            //   setAticleID(itemID)
+            //   return dispatch(turnOnOpt(true))
+            // }
 
             if (isArticleOnwerOption && articleID !== itemID) {
               setIsArticleOnwerOption(true)
@@ -123,11 +135,12 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
             setIsArticleOnwerOption(!isArticleOnwerOption)
 
           }}
+
           className="cursor-pointer w-[15px] h-[15px] justify-center items-center gap-[7.50px] flex hover:outline-blue-200 hover:outline-double"
         />
 
-        <div className={`absolute bottom-7 right-7 ease-linear duration-200
-         ${isArticleOnwerOption && articleID === itemID ? '' : 'translate-y-2/4 scale-0'}`}>
+        <div className={`absolute bottom-0 right-7 ease-linear duration-200
+         ${isArticleOnwerOption && articleID === itemID ? '' : 'translate-y-1/4 scale-0'}`}>
           {titlePage !== 'Bin' && <ArticleOnwerOption titlePage={titlePage} info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
           {titlePage === 'Bin' && <BinOpt info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
         </div>

@@ -11,6 +11,7 @@ import { addContentPopup } from "../../redux/popupSlice";
 import { useParams } from "react-router-dom";
 import useGetProperties from "../../services/option/useGetProperties";
 import checkLogin from "../../utils/checkLogin";
+import { turnOnOpt } from "../../redux/optionSlice";
 
 function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
   const dispatch = useDispatch()
@@ -23,8 +24,19 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
   const [isFilterOpt, setIsFilterOpt] = useState(false)
   const isBlog = useSelector(state => state.filter.isBlog)
 
+
+
+
   return (
-    <div className="flex items-center gap-[0.46875rem]  px-[1.6875rem] h-[1.8125rem] justify-between">
+    <div
+      id='headerContentBg'
+      onClick={({ target }) => {
+        if (target.id === 'headerContentBg') {
+          dispatch(turnOnOpt(false))
+        }
+      }}
+
+      className="flex items-center gap-[0.46875rem]  px-[1.6875rem] h-[1.8125rem] justify-between">
       {titlePage === 'Home' || titlePage === 'Shared history' || titlePage === 'Recent' || titlePage === 'Favourite' || titlePage === 'Bin' || titlePage === 'Search' ? (
         <div className="text-kb-second-color l1-b">{titlePage}</div>
       ) : (

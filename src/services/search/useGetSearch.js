@@ -4,12 +4,12 @@ import axios from '../../config/axios';
 
 
 
-const useGetSearch = (keyWord) => {
+const useGetSearch = (userId, keyWord) => {
 
     const queryFn = async () => {
         const res = await axios({
             method: 'get',
-            url: `/api/content/search/${keyWord}`,
+            url: `/api/content/search/${keyWord}/user/${userId}`,
 
         });
 

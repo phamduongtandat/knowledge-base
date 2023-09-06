@@ -11,7 +11,8 @@ import BinOpt from "../optionDropdown/BinOpt";
 
 
 import FileItem from "../file/FileItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { turnOnOpt } from "../../redux/optionSlice";
 
 
 
@@ -75,6 +76,9 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
     article = []
   }
 
+  const dispatch = useDispatch()
+
+  const isTurnOnOpt = useSelector(state => state.option.isTurnOnOpt)
 
   const [CategOpt, setCategOpt] = useState({ isOpen: false, itemID: '' })
   const [articleID, setAticleID] = useState('');
@@ -130,6 +134,13 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
       )}
 
       <div
+        id="folderBackground"
+        onClick={({ target }) => {
+          if (target.id === 'folderBackground') {
+            dispatch(turnOnOpt(false))
+          }
+        }}
+
         ref={containerRef}
         className={`flex relative  gap-[1.125rem] px-[1.6875rem] w-full py-4 flex-wrap
         ${titlePage !== 'Home' && showButton ? 'overflow-hidden' : ''}
@@ -143,7 +154,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
             <div
 
               key={i.id}
-              className={`relative flex min-w-[8.39063rem]  h-[6.09375rem] justify-center items-center p-[0.9375rem] rounded-md  ${CategOpt.isOpen && CategOpt.itemID === i.id ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
+              className={`relative flex min-w-[8.39063rem]  h-[6.09375rem] justify-center items-center p-[0.9375rem] rounded-md  ${isTurnOnOpt && CategOpt.isOpen && CategOpt.itemID === i.id ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
             >
               {
                 titlePage !== 'Bin'
@@ -171,6 +182,11 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
               <div
                 onClick={() => {
+                  if (!isTurnOnOpt && (CategOpt.isOpen || !CategOpt.isOpen)) {
+                    setCategOpt({ itemID: i.id, isOpen: true })
+                    return dispatch(turnOnOpt(true))
+                  }
+
                   if (CategOpt.itemID !== i.id && CategOpt.isOpen) {
                     return setCategOpt({ itemID: i.id, isOpen: true })
                   }
@@ -185,7 +201,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
                 <div className={`z-50 ease-linear duration-200
                 ${titlePage !== 'Home' && showButton && !isExpand ? 'fixed -translate-x-2/3 -translate-y-2/3 ' : 'absolute bottom-2/3 right-1/4'}
-                ${CategOpt.isOpen && CategOpt.itemID === i.id ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
+                ${isTurnOnOpt && CategOpt.isOpen && CategOpt.itemID === i.id ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
                 >
                   {titlePage !== 'Bin' && <CategogyOwnerOpt titlePage={titlePage} setCategOpt={setCategOpt} info={i} />}
                   {titlePage === 'Bin' && <BinOpt info={i} />}

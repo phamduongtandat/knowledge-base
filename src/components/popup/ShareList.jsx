@@ -153,13 +153,14 @@ function ShareList() {
                                 {userShare?.map(i => <div key={i?.id} className="flex bg-kb-text-background h-7 items-center  gap-2 rounded px-2">
                                     <div className="l4-b kb-text-primary-gradient">{i?.name}</div>
 
-                                </div>)}
+                                </div>
+                                )}
 
                             </div>}
 
                             <div className="overflow-y-scroll  self-stretch small-scrollbar">
                                 {userList?.map((i) => {
-                                    return <div key={i?.id} className=" flex items-center gap-[0.46875rem] self-stretch ">
+                                    return itemInfo?.author !== i?.name && <div key={i?.id} className=" flex items-center gap-[0.46875rem] self-stretch ">
                                         <div className="flex items-center gap-[0.46875rem] flex-[1_0_0]">
                                             <img className="w-6 h-6 rounded-3xl border-yellow-300" src={UserAva} />
 

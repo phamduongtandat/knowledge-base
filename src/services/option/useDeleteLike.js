@@ -25,6 +25,7 @@ const useDeleteLike = (userID) => {
 
     const onSuccess = async () => {
 
+        queryClient.invalidateQueries(['shareContent']);
         queryClient.invalidateQueries(['folderContent']);
         queryClient.invalidateQueries(['articleContent'])
         queryClient.invalidateQueries(['searchData'])

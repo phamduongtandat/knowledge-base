@@ -20,7 +20,7 @@ const useMoveCategToBin = () => {
 
     const onSuccess = async () => {
 
-
+        queryClient.invalidateQueries(['recentContent']);
         queryClient.invalidateQueries(['folderContent']);
         queryClient.invalidateQueries(['homePageContent'])
         queryClient.invalidateQueries(['searchData'])

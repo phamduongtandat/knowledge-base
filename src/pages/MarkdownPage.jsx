@@ -2,44 +2,48 @@ import { useLocation, useNavigate, useParams } from "react-router-dom"
 import checkLogin from "../utils/checkLogin"
 import { useEffect, useState } from "react"
 import MarkdownArea from "../components/MarkdownArea"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { selectEditorPopup } from "../redux/popupSlice"
 import WriteToggle from "../components/toggle/WriteToggle"
 import useCreateContent from "../services/home/useCreateContent"
 import useUpdateArt from "../services/article/useUpdateArt"
-import { markdownEdit } from "../redux/editSlice"
 import WysiwygArea from "../components/editor/WysiwygArea"
+import useGetUserID from "../services/auth/useGetUserID"
+import useGetArticle from "../services/article/useGetArticle"
 
 
 
 function MarkdownPage() {
-    const isMarkDownEdit = useSelector(state => state.edit.isMarkDownEdit)
-    const itemEdit = useSelector(state => state.edit.itemEdit)
 
-    const pagePath = useSelector(state => state.edit.pagePath)
+    const { parentID, editorType, id } = useParams()
+    const { articleContent } = useGetArticle(id)
+    console.log('parentID :', parentID)
+    // const pagePath = useSelector(state => state.edit.pagePath)
+    // console.log('pagePath :', pagePath)
 
     const { pathname } = useLocation()
-    const editorType = pathname?.split('/')[1]
-    console.log('editorType :', editorType)
-
-
-    useEffect(() => {
-        if (isMarkDownEdit) {
-            setArticle(itemEdit?.content)
-            setArtName(itemEdit?.name)
-        }
-
-    }, [])
-
-
-    const { parentID } = useParams()
-    const [isWrite, setIsWrite] = useState(true)
+    const isMarkDownEdit = pathname?.split('/')[2] === 'edit'
     const [article, setArticle] = useState('')
     const [artName, setArtName] = useState('')
+    useEffect(() => {
+        if (isMarkDownEdit) {
+            setArticle(articleContent?.content)
+            setArtName(articleContent?.name)
+        }
+
+    }, [isMarkDownEdit, articleContent])
+
+
+
+    const [isWrite, setIsWrite] = useState(true)
+
+
     const dispatch = useDispatch()
 
     const { isLogin } = checkLogin()
-    const userID = useSelector(state => state.auth.userId)
+    const { tokenInfo } = checkLogin()
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
+
 
     const navi = useNavigate()
 
@@ -48,8 +52,10 @@ function MarkdownPage() {
         dispatch(selectEditorPopup(false))
     }, [isLogin])
 
-    const { createContent, error, } = useCreateContent()
+    const { createContent, error, isSuccess, } = useCreateContent()
     console.log('error :', error)
+
+
 
     const handPost = (status) => {
         if (!artName) {
@@ -72,7 +78,16 @@ function MarkdownPage() {
 
     }
 
-    const { updateArt } = useUpdateArt(itemEdit?.id)
+    const { updateArt, isSuccessU } = useUpdateArt(id)
+
+    useEffect(() => {
+        if (isSuccess || isSuccessU) {
+            if (parentID === 'recent' || parentID === 'favourite') {
+                return navi(`/${parentID}`)
+            }
+            return navi(`/home/content/${parentID}`)
+        }
+    }, [isSuccess, isSuccessU])
 
     const handEdit = () => {
         if (!artName || !!error) {
@@ -99,7 +114,14 @@ function MarkdownPage() {
                     <div className="flex h-[2.92188rem] justify-between items-center self-stretch  py-0">
 
                         <div
-                            onClick={() => { dispatch(markdownEdit(false)); return navi(pagePath) }}
+                            //onClick={() => { dispatch(markdownEdit(false)); return navi(pagePath) }}
+                            onClick={() => {
+                                if (parentID === 'recent' || parentID === 'favourite') {
+                                    return navi(`/${parentID}`)
+                                }
+                                return navi(`/home/content/${parentID}`)
+                            }}
+
                             className="flex items-start cursor-pointer">
 
                             <div className="kb-text-shadow-lg flex justify-center items-center gap-[0.487rem] self-stretch px-[0.487rem] py-[0.77919rem] rounded-[0.38956rem] bg-kb-primary-gradient">
@@ -176,7 +198,7 @@ function MarkdownPage() {
 
                                         {/* FILL NAME */}
                                         <input
-                                            value={artName}
+                                            value={artName || ''}
                                             onChange={({ target }) => { setArtName(target.value) }} className="border-2 border-kb-second-color h-10 rounded-md pl-2" placeholder="Your article name" />
                                         <i className="fa-solid fa-pen-to-square fa-2xl "></i>
 

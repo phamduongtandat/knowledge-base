@@ -24,6 +24,7 @@ import MarkdownPage from './pages/MarkdownPage';
 import BlogHomePage from './pages/BlogHomePage';
 
 
+
 function App() {
 
 
@@ -34,8 +35,9 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/markdown/write/:parentID" element={<MarkdownPage />} />
-        <Route path="/wysiwyg/write/:parentID" element={<MarkdownPage />} />
+        <Route path="/:editorType/write/:parentID" element={<MarkdownPage />} />
+        {/* <Route path="/wysiwyg/write/:parentID" element={<MarkdownPage />} /> */}
+        <Route path="/:editorType/edit/:parentID/:id" element={<MarkdownPage />} />
 
 
         <Route

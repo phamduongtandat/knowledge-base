@@ -6,10 +6,12 @@ import ProfileOption from '../myProfile/ProfileOption';
 import checkLogin from '../../utils/checkLogin';
 import { useNavigate } from 'react-router-dom';
 import UserAva from '../../assets/image/userava.png'
+import { useDispatch } from 'react-redux';
+import { turnOnOpt } from '../../redux/optionSlice';
 
 
 function MainLayout() {
-
+    const dispatch = useDispatch()
     const { isLogin, tokenInfo } = checkLogin()
     //const { userID } = useGetUserID(tokenInfo?.preferred_username)
 
@@ -26,10 +28,28 @@ function MainLayout() {
 
                 <MenuLayout />
 
-                <div className="flex flex-col items-start flex-[1_0_0] self-stretch">
+                <div
+                    id='mainBackground'
+                    onClick={({ target }) => {
+                        if (target.id === 'mainBackground') {
+                            dispatch(turnOnOpt(false))
+                            console.log('target.id :', target.id)
+                        }
+                    }}
+                    className="flex flex-col items-start flex-[1_0_0] self-stretch"
+                >
 
                     {/* HEADER */}
-                    <div className="flex justify-end items-center gap-3 self-stretch pt-[2.625rem] pb-[2.8125rem] px-[1.6875rem]">
+                    <div
+                        id='mainHeader'
+                        onClick={({ target }) => {
+                            if (target.id === 'mainHeader') {
+                                dispatch(turnOnOpt(false))
+                            }
+                        }}
+
+
+                        className="flex justify-end items-center gap-3 self-stretch pt-[2.625rem] pb-[2.8125rem] px-[1.6875rem]">
 
                         <SearchLayout />
 

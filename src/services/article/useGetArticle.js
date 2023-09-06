@@ -23,7 +23,7 @@ const useGetArticle = (articleID) => {
     const res = useQuery({
         queryFn,
         queryKey: ['articleContent'],
-        //enabled: !!folderID,
+        enabled: !!articleID,
         keepPreviousData: true,
 
     });

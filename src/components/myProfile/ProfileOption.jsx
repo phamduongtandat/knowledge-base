@@ -13,7 +13,7 @@ function ProfileOption() {
         //checkLogin(false)
         backLogin('/login')
         location.reload()
-
+        backLogin('/login')
     }
 
     return (

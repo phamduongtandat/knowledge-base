@@ -7,7 +7,7 @@ import checkLogin from '../../utils/checkLogin'
 import useGetUserID from './../../services/auth/useGetUserID';
 import useDeleteLike from '../../services/option/useDeleteLike'
 import formatDate from '../../utils/formatDate'
-
+import UserAva from '../../assets/image/userava.png'
 
 function BlogPage({ titlePage, data }) {
 
@@ -46,7 +46,7 @@ function BlogPage({ titlePage, data }) {
                                     onClick={() => {
                                         deleteLike(data?.id)
                                     }}
-                                    className="cursor-pointer flex items-start gap-[0.23438rem] text-kb-primary-color">
+                                    className="cursor-pointer flex items-start gap-[0.23438rem] text-red-600">
                                     <i className="fa-solid fa-heart fa-sm flex w-[0.9375rem] h-[0.9375rem] flex-col justify-center items-center gap-[0.46875rem]"></i>
                                     <div className="l3-b">Liked</div>
                                 </div>}
@@ -72,7 +72,7 @@ function BlogPage({ titlePage, data }) {
 
                                 <div className="flex justify-end items-center gap-[0.46875rem] flex-[1_0_0] self-stretch">
 
-                                    <img className="w-6 h-6 rounded-3xl border border-kb-primary-color" src="https://via.placeholder.com/24x24" />
+                                    <img className="w-6 h-6 rounded-3xl border border-kb-primary-color" src={UserAva} />
 
                                     <div className="flex flex-col justify-center items-end self-stretch">
                                         <div className="text-kb-second-color p2-b">{data?.author}</div>
