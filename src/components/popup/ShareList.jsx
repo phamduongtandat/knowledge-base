@@ -8,6 +8,7 @@ import checkLogin from "../../utils/checkLogin"
 import useGetUserID from "../../services/auth/useGetUserID"
 import useInviteAcc from "../../services/option/useInviteAcc"
 import useDeleteSharedAcc from './../../services/option/useDeleteSharedAcc';
+import formatDate from './../../utils/formatDate';
 
 
 
@@ -210,7 +211,7 @@ function ShareList() {
                                         <div className="flex flex-col justify-center items-center">
                                             <div className="self-stretch text-kb-second-color p2-b">{i?.userName}</div>
                                         </div>
-                                        <div className="p3-r text-kb-neutral-300">Send at June 22, 2023</div>
+                                        <div className="p3-r text-kb-neutral-300">{formatDate(i?.shareAt)}</div>
                                     </div>
 
                                 </div>

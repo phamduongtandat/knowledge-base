@@ -17,12 +17,16 @@ function ShareDetailPage() {
     const { pathname } = useLocation()
     const contentID = pathname?.split('/').slice(-1)[0]
     const { properties } = useGetProperties(contentID)
-    console.log('properties :', properties)
-    const headerChart = [properties?.parentName, properties?.name]
+
+    const headerChart = [
+        { name: properties?.parentName, id: properties?.parentId },
+        { name: properties?.name, id: properties?.id }
+    ]
     if (!properties?.parentName) {
         headerChart?.shift()
     }
 
+    console.log('headerChart :', headerChart)
 
     return (
         <ContentPage titlePage='shared' data={folderContent} headerChart={headerChart} />

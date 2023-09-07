@@ -69,7 +69,7 @@ function MovePopup() {
                                     setChild(i)
                                 }}
                                 key={i.id}
-                                className={` flex min-w-[8rem]  h-[6rem] justify-center items-center p-[0.9375rem] rounded-md cursor-pointer`}
+                                className={`flex min-w-[8rem]  h-[6rem] justify-center items-center p-[0.9375rem] rounded-md cursor-pointer`}
                             >
 
                                 <div className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">

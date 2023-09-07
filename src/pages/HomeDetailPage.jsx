@@ -3,7 +3,7 @@ import ContentPage from "../components/container/ContentPage";
 import useGetFolderContent from "../services/folder/useGetFolderContent";
 
 import useGetProperties from "../services/option/useGetProperties";
-import { useSelector } from "react-redux";
+
 import checkLogin from "../utils/checkLogin";
 import useGetUserID from "../services/auth/useGetUserID";
 
@@ -19,7 +19,10 @@ function HomeDetailPage() {
     const contentID = pathname?.split('/').slice(-1)[0]
     const { properties } = useGetProperties(contentID)
 
-    const headerChart = [properties?.parentName, properties?.name]
+    const headerChart = [
+        { name: properties?.parentName, id: properties?.parentId },
+        { name: properties?.name, id: properties?.id }
+    ]
     if (!properties?.parentName) {
         headerChart?.shift()
     }

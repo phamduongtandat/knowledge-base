@@ -26,7 +26,7 @@ function FolderTreePopup() {
             className="bg-kb-neutral-200 fixed z-50 inset-0"
         >
 
-            <div className="absolute md:top-1/4 2xl:top-52 left-2 kb-shadow-white-bg inline-flex pl-5 h-fit py-2.5 rounded-lg ">
+            <div className="absolute md:top-1/4 2xl:top-52 left-2 kb-shadow-white-bg inline-flex pl-5 h-1/2 min-h-fit py-2.5 rounded-lg ">
                 <ItemContainer explore={homePageContent} />
             </div>
 

@@ -69,7 +69,12 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
         src={BlogAva}
       />
 
-      <div onClick={() => { navi(`${linkpathArt}/content/page/${itemID}`) }} className="flex justify-between items-start flex-[1_0_0] self-stretch">
+      <div onClick={() => {
+        if (titlePage === 'Bin') {
+          return
+        }
+        navi(`${linkpathArt}/content/page/${itemID}`)
+      }} className="flex justify-between items-start flex-[1_0_0] self-stretch">
         <div className="flex flex-col items-center gap-[0.1875rem] flex-[1_0_0]">
           <div className="flex items-start gap-[0.5625rem] self-stretch">
             <div className="p1-b kb-text-primary-gradient">

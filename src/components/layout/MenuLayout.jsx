@@ -45,14 +45,16 @@ function MenuLayout() {
                 <NavLink to='/' className={({ isActive }) => `self-stretch  items-center inline-flex  2xl:px-2.5 2xl:py-4 2xl:gap-2.5 2xl:rounded-lg md:px-[0.444rem] md:py-[0.71rem] md:gap-[0.7rem] md:rounded-md
                 ${isActive ? 'bg-kb-primary-gradient text-kb-neutral-white kb-text-shadow-lg' : 'text-kb-neutral-300 '}
                 ${local === 'home' ? 'bg-kb-primary-gradient text-kb-neutral-white kb-text-shadow-lg' : ''}
-                ${isOpenMenu ? 'justify-start 2xl:pl-[2.62rem] md:pl-[1.9rem] ' : 'justify-center'}`}>
+                ${isOpenMenu ? 'justify-start 2xl:pl-[2.62rem] md:pl-[1.9rem] ' : 'justify-center'}`}
+                >
                     <i className="fa-solid fa-house fa-sm flex-col justify-center items-center inline-flex 2xl:w-5 2xl:h-5 2xl:gap-2.5 md:w-[0.9rem] md:h-[0.9rem] md:gap-[0.444rem]"></i>
                     {isOpenMenu && <div className="l3-b  ">Home</div>}
                 </NavLink>
 
 
-                <NavLink to='../shared' className={({ isActive }) => `self-stretch  items-center inline-flex  2xl:px-2.5 2xl:py-4 2xl:gap-2.5 2xl:rounded-lg md:px-[0.444rem] md:py-[0.71rem] md:gap-[0.7rem] md:rounded-md
+                <NavLink to='../shared-history' className={({ isActive }) => `self-stretch  items-center inline-flex  2xl:px-2.5 2xl:py-4 2xl:gap-2.5 2xl:rounded-lg md:px-[0.444rem] md:py-[0.71rem] md:gap-[0.7rem] md:rounded-md
                 ${isActive ? 'bg-kb-primary-gradient text-kb-neutral-white kb-text-shadow-lg' : 'text-kb-neutral-300 '}
+                ${local === 'shared' ? 'bg-kb-primary-gradient text-kb-neutral-white kb-text-shadow-lg' : ''}
                 ${isOpenMenu ? ' justify-start 2xl:pl-[2.62rem] md:pl-[1.9rem]' : 'justify-center'}`}>
 
                     <i className="fa-solid fa-share-nodes fa-sm flex-col justify-center items-center inline-flex 2xl:w-5 2xl:h-5 2xl:gap-2.5 md:w-[0.9rem] md:h-[0.9rem] md:gap-[0.444rem]"></i>

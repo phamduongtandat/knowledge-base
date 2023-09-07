@@ -81,7 +81,7 @@ function ProperPopup() {
                     </div>
                 </div>
 
-                <div className="flex items-start justify-between w-full ">
+                {itemInfo?.type === 'article' && <div className="flex items-start justify-between w-full ">
                     <div className="flex justify-start items-start gap-2.5 px-0 py-1">
                         <h4 className="flex-1">Editor Type</h4>
                     </div>
@@ -89,7 +89,7 @@ function ProperPopup() {
                     <div className="flex justify-center items-center gap-2.5 px-0 py-1">
                         <div className="p1-b flex-1">{properties?.editor}</div>
                     </div>
-                </div>
+                </div>}
 
                 <div className="flex items-start justify-between w-full ">
                     <div className="flex justify-center items-center gap-2.5  px-0 py-1">

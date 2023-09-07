@@ -10,7 +10,7 @@ function SharedPage() {
 
     const { shareContent } = useGetSharePage(userID)
     console.log('shareContent :', shareContent)
-
+    localStorage.setItem('isSPage', JSON.stringify('Shared history'))
     return (
         <ContentPage titlePage='Shared history' data={shareContent} />
     )

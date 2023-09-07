@@ -49,7 +49,7 @@ function App() {
           <Route path="home/content/page/:id" element={<BlogHomePage />} />
           <Route path="search/:keyWord" element={<SearchPage />} />
 
-          <Route path="/shared" element={<SharedPage />} />
+          <Route path="/shared-history" element={<SharedPage />} />
           <Route path="shared/content/:id" element={<ShareDetailPage />} />
           <Route path="shared/content/page/:id" element={<BlogHomePage />} />
 

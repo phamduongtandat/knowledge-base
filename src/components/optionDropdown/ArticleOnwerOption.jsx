@@ -6,6 +6,7 @@ import { getItemEdit, getPagePath, markdownEdit } from "../../redux/editSlice"
 import useLike from "../../services/option/useLike"
 import useDeleteLike from './../../services/option/useDeleteLike';
 import checkLogin from "../../utils/checkLogin"
+import useDownloadFile from "../../services/home/useDownloadFile"
 
 function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
@@ -23,9 +24,12 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
 
     const { tokenInfo } = checkLogin()
+    const { downloadFile } = useDownloadFile()
+
 
     if (info?.type === 'file' && info?.author === tokenInfo?.name) {
-        optionList.splice(1, 3)
+        optionList.splice(1, 2)
+        optionList.unshift({ label: 8, name: 'Download', img: 'fa-solid fa-download fa-sm' },)
     }
 
     if (titlePage === 'Favourite' && info?.author === tokenInfo?.name) {
@@ -116,6 +120,12 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
             dispatch(getInfo(info))
             dispatch(movePopup(true))
+            return setIsArticleOnwerOption(false)
+        }
+
+        if (label === 8) {
+            localStorage.setItem('fileName', JSON.stringify(info?.name))
+            downloadFile(info?.id)
             return setIsArticleOnwerOption(false)
         }
 

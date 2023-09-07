@@ -6,23 +6,39 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import useLogin from '../../services/auth/useLogin'
 import { signInSchema } from '../../vadidations/auth.schema'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function LoginForm() {
     const [isPass, setIsPass] = useState(false)
     const [isRemember, setIsRemenber] = useState(false)
-    console.log(' isRemember:', isRemember)
+
+
+    let isRe = JSON.parse(localStorage.getItem('isRemember')) || false
+    let remember = JSON.parse(localStorage.getItem('remember')) || { username: '', password: '' }
 
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({
         resolver: yupResolver(signInSchema),
+        defaultValues: remember
     })
     const { logIn, error } = useLogin()
-    const onSubmit = (data) => {
 
+
+    const onSubmit = (data) => {
+        if (isRe) {
+            localStorage.setItem('remember', JSON.stringify(data))
+        }
 
         logIn(data)
         reset({ username: '', password: '' })
     }
+
+
+    useEffect(() => {
+        if (!isRe) {
+            localStorage.setItem('remember', JSON.stringify({ username: '', password: '' }))
+            reset({ username: '', password: '' })
+        }
+    }, [isRe])
 
     return (
         <div className=" flex flex-col 2xl:gap-[38px] md:gap-[26.98px] 2xl:p-[52px] md:p-[36.92px] md:w-[29rem] 2xl:w-[40.75rem] h-auto 2xl:rounded-[20px] md:rounded-[14.2px] kb-shadow-white-bg ">
@@ -91,8 +107,8 @@ function LoginForm() {
                         className=" 2xl:w-5 2xl:h-5 md:w-4 md:h-4"
                         type="checkbox"
                         name=""
-                        onChange={() => { setIsRemenber(!isRemember) }}
-                        checked={isRemember}
+                        onChange={() => { setIsRemenber(!isRemember); return localStorage.setItem('isRemember', JSON.stringify(!isRe)) }}
+                        checked={isRe}
                     />
                     <div className="l4-r 2xl:w-[8.5rem] md:w-[6.3rem] shrink-0">Remember me</div>
                 </div>

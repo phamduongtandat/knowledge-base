@@ -9,7 +9,7 @@ import { useState } from 'react';
 import formatDate from './../../utils/formatDate';
 function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
 
-    const { downloadFile } = useDownloadFile()
+
     const [isFileOnwerOption, setIsFileOnwerOption] = useState(false)
     return (
         <div className={`relative flex w-full rounded-[0.42188rem] justify-start items-start gap-[0.70313rem] p-2 kb-shadow-white-bg`}>
@@ -28,18 +28,18 @@ function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
                         {data?.name}
                     </h4>
 
-                    <div
-                        className="self-stretch ml-5"
+                    {/* <div
+                        className="self-stretch w-3 border "
                         title='Download File'
                     >
 
                         <img
-                            onClick={() => { localStorage.setItem('fileName', JSON.stringify(data?.name)); downloadFile(data?.id) }}
+                            onClick={() => {downloadFile(data?.id) }}
                             src={Download}
-                            width={22}
+                        //width={15}
                         />
 
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="flex flex-col justify-between items-end self-stretch">

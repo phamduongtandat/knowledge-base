@@ -19,10 +19,10 @@ import { turnOnOpt } from "../../redux/optionSlice";
 
 function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
+  // if(titlePage==='Shared history' )
+  console.log(' headerChart:', headerChart)
 
-
-
-  // console.log('titleChart :', titleChart)
+  console.log('titlePage :', titlePage)
   let linkpath
 
   switch (titlePage) {

@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from '../../config/axios';
 
-
-
-
 const useGetHomePage = (userID, status) => {
 
     //console.log('status :', status)
@@ -17,12 +14,10 @@ const useGetHomePage = (userID, status) => {
         return res.data;
     };
 
-
-
     const res = useQuery({
         queryFn,
         queryKey: ['homePageContent', status, userID],
-        //enabled: !!userID,
+        enabled: !!userID,
         keepPreviousData: true,
 
     });

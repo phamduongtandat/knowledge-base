@@ -11,8 +11,11 @@ import UserAva from '../../assets/image/userava.png'
 
 function BlogPage({ titlePage, data }) {
 
+    const headerChart = [
+        { name: data?.parentName, id: data?.parentId },
+        { name: data?.name, id: data?.id }
+    ]
 
-    const headerChart = [data?.parentName, data?.name]
     const { tokenInfo } = checkLogin()
     const { userID } = useGetUserID(tokenInfo?.preferred_username)
 

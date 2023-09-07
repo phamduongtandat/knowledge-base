@@ -20,7 +20,7 @@ function FolderLink({ data }) {
 
                 {isOpen && <i onClick={() => { setIsOpen(!isOpen) }} className="fa-solid fa-folder-open fa-sm text-kb-primary-color"></i>}
 
-                <Link to={`/home/content/${data?.id}`} className="text-kb-neutral-300 l3-b hover:underline">{data?.name}</Link>
+                <Link to={`/home/content/${data?.id}`} className="text-kb-neutral-300 l3-b hover:underline">{data?.name?.length >= 25 ? data?.name?.slice(0, 25) + '...' : data?.name}</Link>
 
             </div>
 
