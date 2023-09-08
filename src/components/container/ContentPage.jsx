@@ -207,11 +207,13 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
                 />
 
                 <div className={`z-50 ease-linear duration-200
-                ${titlePage !== 'Home' && showButton && !isExpand ? 'fixed -translate-x-2/3 -translate-y-2/3 ' : 'absolute bottom-2/3 right-1/4'}
+                ${titlePage !== 'Home' && showButton && !isExpand ? 'fixed -translate-x-2/3 -translate-y-2/3 ' : 'absolute bottom-1/3 right-1/4'}
                 ${isTurnOnOpt && CategOpt.isOpen && CategOpt.itemID === i.id ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
                 >
+
                   {titlePage !== 'Bin' && <CategogyOwnerOpt titlePage={titlePage} setCategOpt={setCategOpt} info={i} />}
                   {titlePage === 'Bin' && <BinOpt info={i} />}
+
                 </div>
 
               </div>
@@ -232,7 +234,16 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
       {/* ARTICLE LIST */}
       <div className="flex bottom-auto w-full items-start content-start flex-1 self-stretch md:px-[1.6875rem] md:gap-[1.5rem_1.125rem] 2xl:px-[2.4rem] 2xl:gap-[2rem_1.6rem]">
-        <div className="flex flex-col items-start  rounded-md  flex-[1_0_0] md:py-2 md:gap-[1.875rem] 2xl:py-3 2xl:gap-[2.64rem]">
+
+        <div
+
+          id="articleBackground"
+          onClick={({ target }) => {
+            if (target.id === 'articleBackground') {
+              dispatch(turnOnOpt(false))
+            }
+          }}
+          className="flex flex-col items-start  rounded-md  flex-[1_0_0] md:py-2 md:gap-[1.875rem] 2xl:py-3 2xl:gap-[2.64rem]">
 
 
           <div className="flex flex-col self-stretch items-start content-start  w-auto md:gap-[1.125rem] 2xl:gap-[1.6rem] ">

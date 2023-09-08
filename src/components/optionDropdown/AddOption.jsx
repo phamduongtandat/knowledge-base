@@ -28,16 +28,16 @@ function AddOption({ titlePage }) {
     return (
         <div>
 
-            <div className="kb-shadow-white-bg w-48 flex-col px-4 items-start  py-2.5 rounded-lg">
+            <div className="kb-shadow-white-bg flex-col items-start  rounded-lg md:w-48  md:px-4  md:py-2.5 2xl:w-[17rem]  2xl:px-5  2xl:py-[0.9rem]">
 
                 {optionList.map(({ label, name, img }) => {
                     return <div
                         key={label}
-                        className="flex  justify-start items-center gap-2.5 px-2 py-3 rounded-lg cursor-pointer"
+                        className="flex justify-start items-center md:gap-2.5 md:px-2 md:py-3 2xl:gap-3.5 2xl:px-3 2xl:py-4 rounded-lg cursor-pointer"
                         onClick={() => { handleSelect(label) }}
                     >
 
-                        <img src={img} className=" w-5 h-[1.09375rem] shrink-0" />
+                        <img src={img} className=" md:w-5 md:h-[1.09375rem] 2xl:w-7 2xl:h-[1.55rem] shrink-0" />
                         <div className="l3-b text-kb-neutral-300">{name}</div>
 
                     </div>

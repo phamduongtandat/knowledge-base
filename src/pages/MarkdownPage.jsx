@@ -14,9 +14,12 @@ import useGetArticle from "../services/article/useGetArticle"
 
 
 function MarkdownPage() {
+    const { isLogin } = checkLogin()
+    const { tokenInfo } = checkLogin()
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
 
     const { parentID, editorType, id } = useParams()
-    const { articleContent } = useGetArticle(id)
+    const { articleContent } = useGetArticle(userID, id)
     console.log('parentID :', parentID)
     // const pagePath = useSelector(state => state.edit.pagePath)
     // console.log('pagePath :', pagePath)
@@ -40,9 +43,7 @@ function MarkdownPage() {
 
     const dispatch = useDispatch()
 
-    const { isLogin } = checkLogin()
-    const { tokenInfo } = checkLogin()
-    const { userID } = useGetUserID(tokenInfo?.preferred_username)
+
 
 
     const navi = useNavigate()
@@ -109,7 +110,7 @@ function MarkdownPage() {
         <div className="flex items-start max-h-fit min-h-screen">
             {isLogin &&
 
-                <div className=" flex flex-col w-[85.375rem] items-start px-[1.75313rem] py-[28.05px]">
+                <div className=" flex flex-col  items-start md:px-[1.75313rem] md:py-[28.05px] md:w-[85.375rem]  2xl:px-[2.5rem] 2xl:py-[39.44px] 2xl:w-[120.25rem]">
 
                     <div className="flex h-[2.92188rem] justify-between items-center self-stretch  py-0">
 

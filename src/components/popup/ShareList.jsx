@@ -72,11 +72,11 @@ function ShareList() {
                 }
             }}
             className="fixed left-0 top-0 inset-0 bg-kb-neutral-500/20">
-            <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex w-[26.67188rem] flex-col items-start gap-[1.6875rem] p-[1.875rem] rounded-xl bg-kb-neutral-white">
+            <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-start md:gap-[1.6875rem] md:p-[1.875rem] md:w-[26.67188rem] rounded-xl   2xl:gap-[2.4rem] 2xl:p-[2.6rem] 2xl:w-[37.6rem] bg-kb-neutral-white">
 
                 <div className="flex justify-center items-center gap-[1.125rem] self-stretch">
 
-                    <h2 className="kb-text-primary-gradient flex-1">Share {itemInfo.name}</h2>
+                    <h2 className="kb-text-primary-gradient flex-1 truncate">Share {itemInfo?.name}</h2>
                     <div
                         onClick={() => { dispatch(sharePopup(false)) }}
                         className="flex justify-end items-center gap-[0.46875rem]">

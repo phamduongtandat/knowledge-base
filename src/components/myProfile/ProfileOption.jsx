@@ -1,18 +1,22 @@
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { getLogOut } from '../../redux/popupSlice';
 
 
 
 function ProfileOption() {
-
-    const backLogin = useNavigate()
+    const dispatch = useDispatch()
+    // const backLogin = useNavigate()
     const handleLogOut = () => {
 
-        document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
-        document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
+        // document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
+        // document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
 
-        //checkLogin(false)
-        backLogin('/login')
+        // //checkLogin(false)
+        // backLogin('/login')
         location.reload()
+        localStorage.setItem('isLogOut', JSON.stringify(true))
+        dispatch(getLogOut(true))
     }
 
     return (

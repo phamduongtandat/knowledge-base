@@ -48,7 +48,11 @@ function MovePopup() {
 
                 <div className="flex justify-center items-center gap-[1.125rem] self-stretch">
 
-                    <h2 className="text-kb-second-color flex-1">Move {itemInfo?.name} to {child?.name || 'Home'} </h2>
+                    <h2 className="text-kb-second-color flex-1">
+
+                        Move {itemInfo?.name?.length >= 25 ? itemInfo?.name?.slice(0, 25) + '...' : itemInfo?.name} to {child?.name?.length >= 25 ? child?.name?.slice(0, 25) + '...' : child?.name || 'Home'}
+                    </h2>
+
                     <div className="text-red-700/70 italic" >{itemInfo?.type !== 'folder' && !child?.name ? 'Home Page only accept Folder ' : ''}</div>
                     <div
                         onClick={() => { dispatch(movePopup(false)) }}
@@ -70,6 +74,7 @@ function MovePopup() {
                                 }}
                                 key={i.id}
                                 className={`flex min-w-[8rem]  h-[6rem] justify-center items-center p-[0.9375rem] rounded-md cursor-pointer`}
+                                title={i?.name}
                             >
 
                                 <div className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
@@ -77,7 +82,7 @@ function MovePopup() {
                                         <img className="w-12 h-[2.10938rem]" src={Folder} />
 
                                         <div className="flex flex-col items-start text-kb-second-color">
-                                            <div className="l3-b">{i?.name}</div>
+                                            <div className="l3-b truncate md:w-[100px] 2xl:w-[141px]">{i?.name}</div>
                                             <div className="l3-r">{i?.quantity} files</div>
                                         </div>
                                     </div>

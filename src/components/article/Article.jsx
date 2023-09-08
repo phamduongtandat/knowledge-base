@@ -144,7 +144,7 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
           className="cursor-pointer justify-center items-center md:w-[15px] md:h-[15px]  md:gap-[7.50px] flex hover:outline-blue-200 hover:outline-double 2xl:w-[21px] 2xl:h-[21px]  2xl:gap-[10.6px]"
         />
 
-        <div className={`absolute bottom-0 right-7 ease-linear duration-200
+        <div className={`absolute md:-bottom-12 2xl:-bottom-16 right-7 ease-linear duration-200
          ${isArticleOnwerOption && articleID === itemID ? '' : 'translate-y-1/4 scale-0'}`}>
           {titlePage !== 'Bin' && <ArticleOnwerOption titlePage={titlePage} info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
           {titlePage === 'Bin' && <BinOpt info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}

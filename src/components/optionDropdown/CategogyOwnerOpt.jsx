@@ -12,11 +12,11 @@ function CategogyOwnerOpt({ info, setCategOpt, titlePage }) {
     const dispatch = useDispatch()
     const optionList = [
 
-        { label: 1, name: 'Move to', img: 'fa-solid fa-arrows-up-down-left-right fa-sm' },
-        { label: 2, name: 'Rename', img: 'fa-solid fa-pen-to-square fa-sm' },
-        { label: 5, name: 'Share', img: 'fa-solid fa-share-nodes fa-sm' },
-        { label: 3, name: 'Properties', img: 'fa-solid fa-info fa-sm' },
-        { label: 4, name: 'Delete', img: 'fa-solid fa-trash-can fa-sm' },
+        { label: 1, name: 'Move to', img: 'fa-solid fa-arrows-up-down-left-right md:fa-sm 2xl:fa-xl' },
+        { label: 2, name: 'Rename', img: 'fa-solid fa-pen-to-square md:fa-sm 2xl:fa-xl' },
+        { label: 5, name: 'Share', img: 'fa-solid fa-share-nodes md:fa-sm 2xl:fa-xl' },
+        { label: 3, name: 'Properties', img: 'fa-solid fa-info md:fa-sm 2xl:fa-xl' },
+        { label: 4, name: 'Delete', img: 'fa-solid fa-trash-can md:fa-sm 2xl:fa-xl' },
     ]
 
     const { tokenInfo } = checkLogin()
@@ -67,16 +67,16 @@ function CategogyOwnerOpt({ info, setCategOpt, titlePage }) {
     }
 
     return (
-        <div className="relative kb-shadow-white-bg w-40 rounded-lg ">
+        <div className="relative kb-shadow-white-bg md:w-40 2xl:w-56 rounded-lg ">
 
 
             {optionList.map(({ label, name, img }) => {
                 return <div
                     key={label}
-                    className="flex  justify-start items-center gap-3 pl-7 py-3 rounded-lg cursor-pointer hover:bg-kb-neutral-50/50 "
+                    className="flex  justify-start items-center md:gap-3 md:pl-7 md:py-3 2xl:gap-4 2xl:pl-10 2xl:py-4 rounded-lg cursor-pointer hover:bg-kb-neutral-50/50 "
                     onClick={() => { handleSelect(label) }}
                 >
-                    <div className="w-3 flex justify-center shrink-0 text-kb-neutral-300">
+                    <div className="md:w-3 2xl:w-4 flex justify-center shrink-0 pb-1 text-kb-neutral-300">
                         <i className={` ${img} `}></i>
                     </div>
 

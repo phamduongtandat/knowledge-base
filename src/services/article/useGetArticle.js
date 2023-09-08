@@ -4,14 +4,14 @@ import axios from '../../config/axios';
 
 
 
-const useGetArticle = (articleID) => {
+const useGetArticle = (userID, articleID) => {
 
 
 
     const queryFn = async () => {
         const res = await axios({
             method: 'get',
-            url: `/api/content/page/${articleID}`,
+            url: `/api/content/page/${articleID}/user/${userID}`,
 
         });
 
@@ -22,7 +22,7 @@ const useGetArticle = (articleID) => {
 
     const res = useQuery({
         queryFn,
-        queryKey: ['articleContent'],
+        queryKey: ['articleContent', userID],
         enabled: !!articleID,
         keepPreviousData: true,
 

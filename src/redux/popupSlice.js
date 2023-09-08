@@ -9,6 +9,7 @@ const initialState = {
     isMove: false,
     isTerminate: false,
     isSelect: false,
+    isLogOut: false,
     itemInfo: {}
 }
 
@@ -41,11 +42,14 @@ const popupSlice = createSlice({
         selectEditorPopup(state, action) {
             state.isSelect = action.payload
         },
+        getLogOut(state, action) {
+            state.isLogOut = action.payload
+        },
         getInfo(state, action) {
             state.itemInfo = action.payload
         }
     },
 })
 
-export const { treePopup, addContentPopup, renamePopup, properPopup, sharePopup, movePopup, selectEditorPopup, terminatePopup, getInfo } = popupSlice.actions
+export const { treePopup, addContentPopup, renamePopup, properPopup, sharePopup, movePopup, selectEditorPopup, terminatePopup, getInfo, getLogOut } = popupSlice.actions
 export const popupReducer = popupSlice.reducer

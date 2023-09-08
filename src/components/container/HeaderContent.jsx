@@ -60,7 +60,7 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
             <div className="l3-b kb-text-shadow-lg">Add more</div>
           </button>
 
-          <div className={`absolute top-12 z-10 -right-11 ease-out duration-200  ${isAdd ? '' : '-translate-y-1/3 scale-0'}`}>
+          <div className={`absolute md:top-12 2xl:top-14 z-10 md:-right-11 2xl:-left-[75px] ease-out duration-200  ${isAdd ? '' : '-translate-y-1/3 scale-0'}`}>
             {<AddOption />}
           </div>
 
