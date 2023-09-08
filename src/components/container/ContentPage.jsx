@@ -12,7 +12,7 @@ import BinOpt from "../optionDropdown/BinOpt";
 
 import FileItem from "../file/FileItem";
 import { useDispatch, useSelector } from "react-redux";
-import { turnOnOpt } from "../../redux/optionSlice";
+import { turnOnArtOpt, turnOnFiletOpt, turnOnOpt } from "../../redux/optionSlice";
 
 
 
@@ -139,6 +139,8 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
         onClick={({ target }) => {
           if (target.id === 'folderBackground') {
             dispatch(turnOnOpt(false))
+            dispatch(turnOnArtOpt(false))
+            dispatch(turnOnFiletOpt(false))
           }
         }}
 
@@ -189,6 +191,8 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
               <div
                 onClick={() => {
+                  dispatch(turnOnFiletOpt(false))
+                  dispatch(turnOnArtOpt(false))
                   if (!isTurnOnOpt && (CategOpt.isOpen || !CategOpt.isOpen)) {
                     setCategOpt({ itemID: i.id, isOpen: true })
                     return dispatch(turnOnOpt(true))
@@ -233,7 +237,17 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
       </div>
 
       {/* ARTICLE LIST */}
-      <div className="flex bottom-auto w-full items-start content-start flex-1 self-stretch md:px-[1.6875rem] md:gap-[1.5rem_1.125rem] 2xl:px-[2.4rem] 2xl:gap-[2rem_1.6rem]">
+      <div
+        id="articleContainer"
+        onClick={({ target }) => {
+          if (target.id === 'articleContainer') {
+            dispatch(turnOnOpt(false))
+            dispatch(turnOnArtOpt(false))
+            dispatch(turnOnFiletOpt(false))
+          }
+        }}
+
+        className="flex bottom-auto w-full items-start content-start flex-1 self-stretch md:px-[1.6875rem] md:gap-[1.5rem_1.125rem] 2xl:px-[2.4rem] 2xl:gap-[2rem_1.6rem]">
 
         <div
 
@@ -241,6 +255,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
           onClick={({ target }) => {
             if (target.id === 'articleBackground') {
               dispatch(turnOnOpt(false))
+              //dispatch(turnOnArtOpt(false))
             }
           }}
           className="flex flex-col items-start  rounded-md  flex-[1_0_0] md:py-2 md:gap-[1.875rem] 2xl:py-3 2xl:gap-[2.64rem]">
@@ -255,7 +270,18 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
       {/* FILE LIST */}
 
-      <div className="flex flex-col items-start flex-[1_0_0] rounded-md md:px-[1.6875rem] md:mt-3  md:gap-5  md:mb-4 2xl:px-[2.4rem] 2xl:mt-3.5  2xl:gap-7  2xl:mb-6">
+      <div
+
+        id="fileContainer"
+        onClick={({ target }) => {
+          if (target.id === 'fileContainer') {
+            dispatch(turnOnOpt(false))
+            dispatch(turnOnArtOpt(false))
+            dispatch(turnOnFiletOpt(false))
+          }
+        }}
+
+        className="flex flex-col items-start flex-[1_0_0] rounded-md md:px-[1.6875rem] md:mt-3  md:gap-5  md:mb-4 2xl:px-[2.4rem] 2xl:mt-3.5  2xl:gap-7  2xl:mb-6">
         {file?.map(i => <FileItem key={i?.id} data={i} articleID={articleID} setAticleID={setAticleID} itemID={i?.id} titlePage={titlePage} />)}
       </div>
 

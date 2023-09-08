@@ -34,9 +34,11 @@ function LogOutPopup() {
 
                         <div
                             onClick={() => {
+                                document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
+                                document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
                                 localStorage.setItem('isLogOut', JSON.stringify(false))
                                 dispatch(getLogOut(false))
-                                // backLogin('/login')
+
                                 document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
                                 document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
                                 location.reload()

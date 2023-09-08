@@ -11,7 +11,7 @@ import { addContentPopup } from "../../redux/popupSlice";
 import { useParams } from "react-router-dom";
 import useGetProperties from "../../services/option/useGetProperties";
 import checkLogin from "../../utils/checkLogin";
-import { turnOnOpt } from "../../redux/optionSlice";
+import { turnOnArtOpt, turnOnFiletOpt, turnOnOpt } from "../../redux/optionSlice";
 
 function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
   const dispatch = useDispatch()
@@ -33,6 +33,8 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
       onClick={({ target }) => {
         if (target.id === 'headerContentBg') {
           dispatch(turnOnOpt(false))
+          dispatch(turnOnArtOpt(false))
+          dispatch(turnOnFiletOpt(false))
         }
       }}
 

@@ -7,7 +7,7 @@ import BinOpt from '../optionDropdown/BinOpt';
 import { useNavigate } from 'react-router-dom';
 import formatDate from '../../utils/formatDate';
 import { useDispatch, useSelector } from 'react-redux';
-import { turnOnOpt } from '../../redux/optionSlice';
+import { turnOnArtOpt, turnOnOpt } from '../../redux/optionSlice';
 
 
 function Article({ titlePage, articleID, setAticleID, itemID, data }) {
@@ -55,12 +55,12 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
 
   const [isArticleOnwerOption, setIsArticleOnwerOption] = useState(false)
   const dispatch = useDispatch()
-  const isTurnOnOpt = useSelector(state => state.option.isTurnOnOpt)
+  const isTurnOnArtOpt = useSelector(state => state.option.isTurnOnArtOpt)
 
   return (
 
     <div className={`relative self-stretch flex w-full justify-center items-center md:rounded-[0.42188rem] md:gap-[0.70313rem]  md:px-[0.5rem] md:py-[0.25rem] 2xl:px-[0.5rem] 2xl:py-[0.4rem] 2xl:rounded-[0.6rem] 2xl:gap-[1rem]
-    ${isArticleOnwerOption && articleID === itemID ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
+    ${isTurnOnArtOpt && isArticleOnwerOption && articleID === itemID ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
     >
 
 
@@ -76,15 +76,17 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
         navi(`${linkpathArt}/content/page/${itemID}`)
       }} className="flex justify-between items-start flex-[1_0_0] self-stretch">
         <div className="flex flex-col items-center md:gap-[0.1875rem] 2xl:gap-[0.3rem] flex-[1_0_0]">
+
           <div className="flex items-start md:gap-[0.5625rem] 2xl:gap-[0.85rem] self-stretch">
             <div className="p1-b kb-text-primary-gradient">
               {data?.parentName}
             </div>
 
-            <div className="flex items-center md:gap-[0.23438rem] 2xl:gap-[0.33rem] flex-[1_0_0] self-stretch">
+            {/* <div className="flex items-center md:gap-[0.23438rem] 2xl:gap-[0.33rem] flex-[1_0_0] self-stretch">
               <i className="fa-solid fa-paperclip md:fa-sm 2xl:fa-xl text-kb-neutral-300"></i>
               <div className="p3-b text-kb-neutral-300">0 files</div>
-            </div>
+            </div> */}
+
           </div>
 
           <h4 className="self-stretch text-kb-second-color">
@@ -124,12 +126,12 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
           src={Dot}
 
           onClick={() => {
-
-            // if (!isTurnOnOpt && isArticleOnwerOption) {
-            //   setIsArticleOnwerOption(true)
-            //   setAticleID(itemID)
-            //   return dispatch(turnOnOpt(true))
-            // }
+            dispatch(turnOnOpt(false))
+            if (!isTurnOnArtOpt && (isArticleOnwerOption || !isArticleOnwerOption)) {
+              setIsArticleOnwerOption(true)
+              setAticleID(itemID)
+              return dispatch(turnOnArtOpt(true))
+            }
 
             if (isArticleOnwerOption && articleID !== itemID) {
               setIsArticleOnwerOption(true)
@@ -145,7 +147,7 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
         />
 
         <div className={`absolute md:-bottom-12 2xl:-bottom-16 right-7 ease-linear duration-200
-         ${isArticleOnwerOption && articleID === itemID ? '' : 'translate-y-1/4 scale-0'}`}>
+         ${isTurnOnArtOpt && isArticleOnwerOption && articleID === itemID ? '' : 'translate-y-1/4 scale-0'}`}>
           {titlePage !== 'Bin' && <ArticleOnwerOption titlePage={titlePage} info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
           {titlePage === 'Bin' && <BinOpt info={data} setIsArticleOnwerOption={setIsArticleOnwerOption} />}
         </div>

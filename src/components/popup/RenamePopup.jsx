@@ -46,7 +46,7 @@ function RenamePopup() {
         >
 
 
-            <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-start gap-1.5 p-4 rounded-[0.5rem] kb-shadow-white-bg">
+            <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-start gap-1.5 p-4 rounded-[0.5rem] kb-shadow-white-bg w-1/3">
                 <div className="flex justify-center items-center gap-1.5 rounded-[0.4rem] ">
 
                     <div className="l3-b ">Rename</div>
@@ -56,16 +56,16 @@ function RenamePopup() {
                     <div className="flex flex-col justify-center items-center gap-2.5 self-stretch pt-[2.625rem] pb-5 px-0">
                         <img className="w-[3.85rem] h-[2.71rem]" src={Folder} />
                     </div>
-                    <div className="text-red-700 italic">{error}</div>
-                    <div className="flex justify-center items-center gap-2.5 self-stretch px-0 py-2.5 text-kb-second-color">
-                        <input name='name' {...register('name')} className="border-2 pl-2" />
+                    <div className="text-red-700 italic text-center">{error}</div>
+                    <div className="flex justify-center items-center gap-2.5 self-stretch px-0 py-2.5 text-kb-second-color w-full">
+                        <input name='name' {...register('name')} className="border-2 pl-2 w-full" />
 
                     </div>
 
-                    <div className={`flex flex-col items-start gap-1.5 self-stretch pt-3.5 pb-0 px-14  `}>
+                    <div className={`flex flex-col items-center gap-1.5  pt-3.5 pb-0 px-14  `}>
                         <button
                             type='submit'
-                            className={` flex justify-center items-center gap-1.5 self-stretch px-1.5 py-3 rounded-lg bg-kb-primary-gradient`}>
+                            className={` flex justify-center items-center gap-1.5 w-1/2  px-1.5 py-3 rounded-lg bg-kb-primary-gradient`}>
                             <div className="l3-b kb-text-shadow-lg">Done</div>
                         </button>
                     </div>

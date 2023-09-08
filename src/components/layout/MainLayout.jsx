@@ -7,7 +7,7 @@ import checkLogin from '../../utils/checkLogin';
 import { useNavigate } from 'react-router-dom';
 import UserAva from '../../assets/image/userava.png'
 import { useDispatch } from 'react-redux';
-import { turnOnOpt } from '../../redux/optionSlice';
+import { turnOnArtOpt, turnOnFiletOpt, turnOnOpt } from '../../redux/optionSlice';
 
 
 function MainLayout() {
@@ -33,6 +33,8 @@ function MainLayout() {
                     onClick={({ target }) => {
                         if (target.id === 'mainBackground') {
                             dispatch(turnOnOpt(false))
+                            dispatch(turnOnArtOpt(false))
+                            dispatch(turnOnFiletOpt(false))
                             console.log('target.id :', target.id)
                         }
                     }}
@@ -45,6 +47,8 @@ function MainLayout() {
                         onClick={({ target }) => {
                             if (target.id === 'mainHeader') {
                                 dispatch(turnOnOpt(false))
+                                dispatch(turnOnArtOpt(false))
+                                dispatch(turnOnFiletOpt(false))
                             }
                         }}
 

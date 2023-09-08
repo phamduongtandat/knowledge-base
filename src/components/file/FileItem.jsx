@@ -7,13 +7,19 @@ import ArticleOnwerOption from '../optionDropdown/ArticleOnwerOption';
 import BinOpt from '../optionDropdown/BinOpt';
 import { useState } from 'react';
 import formatDate from './../../utils/formatDate';
+import { useDispatch, useSelector } from 'react-redux';
+import { turnOnFiletOpt, turnOnOpt } from '../../redux/optionSlice';
+
+
 function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
-
-
+    const isTurnOnFileOpt = useSelector(state => state.option.isTurnOnFileOpt)
+    const dispatch = useDispatch()
     const [isFileOnwerOption, setIsFileOnwerOption] = useState(false)
+
     return (
+
         <div className={`relative self-stretch flex w-full justify-center items-center md:rounded-[0.42188rem] md:gap-[0.70313rem]  md:px-[0.5rem] md:py-[0.25rem] 2xl:px-[0.5rem] 2xl:py-[0.4rem] 2xl:rounded-[0.6rem] 2xl:gap-[1rem]
-        ${isFileOnwerOption && articleID === itemID ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}
+        ${isTurnOnFileOpt && isFileOnwerOption && articleID === itemID ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}
         `}>
 
             <AvatarFile name={data?.name} />
@@ -67,6 +73,14 @@ function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
                 <img
                     src={Dot}
                     onClick={() => {
+                        dispatch(turnOnOpt(false))
+
+                        if (!isTurnOnFileOpt && (isFileOnwerOption || !isFileOnwerOption)) {
+                            setIsFileOnwerOption(true)
+                            setAticleID(itemID)
+                            return dispatch(turnOnFiletOpt(true))
+                        }
+
 
                         if (isFileOnwerOption && articleID !== itemID) {
                             setIsFileOnwerOption(true)
@@ -81,7 +95,7 @@ function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
                 />
 
                 <div className={`absolute md:bottom-0 2xl:bottom-0 right-7 ease-linear duration-200
-         ${isFileOnwerOption && articleID === itemID ? '' : 'translate-y-2/4 scale-0'}`}>
+         ${isTurnOnFileOpt && isFileOnwerOption && articleID === itemID ? '' : 'translate-y-2/4 scale-0'}`}>
                     {titlePage !== 'Bin' && <ArticleOnwerOption info={data} setIsArticleOnwerOption={setIsFileOnwerOption} />}
                     {titlePage === 'Bin' && <BinOpt info={data} setIsArticleOnwerOption={setIsFileOnwerOption} />}
                 </div>
