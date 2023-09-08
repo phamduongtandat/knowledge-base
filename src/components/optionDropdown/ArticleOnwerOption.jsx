@@ -38,6 +38,7 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
     if (info?.author !== tokenInfo?.name && titlePage !== 'Shared history') {
         optionList?.splice(1, 4)
+        optionList.unshift({ label: 8, name: 'Download', img: 'fa-solid fa-download fa-sm' },)
         optionList?.pop()
     }
 

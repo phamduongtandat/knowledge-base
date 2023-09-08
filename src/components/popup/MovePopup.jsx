@@ -13,22 +13,22 @@ import useGetUserID from "../../services/auth/useGetUserID";
 function MovePopup() {
     let itemInfo = useSelector(state => state.popup.itemInfo)
 
-    const [child, setChild] = useState('')
-    console.log('child :', child)
+    const [child, setChild] = useState([])
 
-    const { folderContent } = useGetFolderContent(child?.id)
+
     const { moveTo } = useMoveTo(itemInfo?.id)
     const { tokenInfo } = checkLogin()
     const { userID } = useGetUserID(tokenInfo?.preferred_username)
     const { homePageContent } = useGetHomePage(userID, 'only-me')
-    const folder = child
-        ? folderContent?.filter(i => i.type === "folder")
+    const { folderContent } = useGetFolderContent(userID, child?.id)
+    const folder = child?.length !== 0
+        ? folderContent?.filter(i => i.type === "folder" && i.name !== itemInfo?.name)
         : homePageContent?.filter(i => i.type === "folder" && i.name !== itemInfo?.name)
 
 
     const dispatch = useDispatch()
 
-
+    console.log('folderContent :', folderContent)
     return (
         <div
             id='addBackDrop'
@@ -59,7 +59,7 @@ function MovePopup() {
                     </div>
                 </div>
 
-
+                {/* FOLDER */}
                 <div className="flex flex-wrap  ml-7">
                     {folder?.map((i) => {
                         return (

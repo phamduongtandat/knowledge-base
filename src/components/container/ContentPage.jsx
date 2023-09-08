@@ -123,10 +123,11 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
       <HeaderContent titlePage={titlePage} headerChart={headerChart} isAll={isAll} setIsAll={setIsAll} />
 
       {/* FOLDER LIST */}
+
       {titlePage !== 'Home' && showButton && !isExpand && (
         <img
           src={Expand}
-          className="absolute right-7 top-20 w-8 rotate-180 rounded-md z-10 opacity-80 hover:opacity-100 bg-kb-primary-color "
+          className="absolute md:right-7 md:top-20 md:w-8 2xl:right-10 2xl:top-28 2xl:w-11 rotate-180 rounded-md z-10 opacity-80 hover:opacity-100 bg-kb-primary-color "
           onClick={() => {
             setIsExpand(!isExpand);
           }}
@@ -142,9 +143,9 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
         }}
 
         ref={containerRef}
-        className={`flex relative  gap-[1.125rem] px-[1.6875rem] w-full py-4 flex-wrap
+        className={`flex relative  md:gap-[1.125rem] md:px-[1.6875rem]  md:py-4 2xl:gap-[1.6rem] 2xl:px-[2.4rem]  2xl:py-6 flex-wrap w-full
         ${titlePage !== 'Home' && showButton ? 'overflow-hidden' : ''}
-        ${isExpand ? "max-h-fit overflow-visible" : "max-h-[8rem]"
+        ${isExpand ? "max-h-fit overflow-visible" : "md:max-h-[8rem] 2xl:max-h-[11rem]"
           }`}
       >
 
@@ -154,26 +155,32 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
             <div
 
               key={i.id}
-              className={`relative flex min-w-[8.39063rem]  h-[6.09375rem] justify-center items-center p-[0.9375rem] rounded-md  ${isTurnOnOpt && CategOpt.isOpen && CategOpt.itemID === i.id ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
+              className={`relative flex justify-center items-center md:min-w-[8.39063rem] md:h-[6.09375rem]  md:p-[0.9375rem] 2xl:min-w-[12rem] 2xl:h-[8.5rem]  2xl:p-[1.3rem] rounded-md  ${isTurnOnOpt && CategOpt.isOpen && CategOpt.itemID === i.id ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
             >
               {
                 titlePage !== 'Bin'
                   ? <Link to={`${linkpath}/${i.id}`} className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
-                    <div className="flex flex-col gap-2 justify-between items-start flex-[1_0_0]">
-                      <img className="w-12 h-[2.10938rem]" src={Folder} />
+                    <div
+                      title={i?.name}
+                      className="flex flex-col md:gap-2 2xl:gap-3 justify-between items-start flex-[1_0_0] "
+                    >
+                      <img className="md:w-12 md:h-[2.10938rem] 2xl:w-14 2xl:h-[2.5rem]" src={Folder} />
 
-                      <div className="flex flex-col items-start text-kb-second-color">
-                        <div className="l3-b">{i?.name?.length >= 20 ? i?.name.slice(0, 20) + '...' : i?.name}</div>
+                      <div className="flex flex-col items-start text-kb-second-color ">
+                        <div className="l3-b truncate md:w-[100px] 2xl:w-[141px] ">{i?.name}</div>
                         <div className="l3-r">{i?.quantity} files</div>
                       </div>
                     </div>
                   </Link>
-                  : <div className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch">
-                    <div className="flex flex-col gap-2 justify-between items-start flex-[1_0_0]">
-                      <img className="w-12 h-[2.10938rem]" src={Folder} />
+                  : <div
+                    title={i?.name}
+                    className="flex flex-col justify-between items-start flex-[1_0_0] self-stretch"
+                  >
+                    <div className="flex flex-col md:gap-2 2xl:gap-3 justify-between items-start flex-[1_0_0]">
+                      <img className="md:w-12 md:h-[2.10938rem] 2xl:w-16 2xl:h-[3rem]" src={Folder} />
 
                       <div className="flex flex-col items-start text-kb-second-color">
-                        <div className="l3-b">{i?.name?.length >= 20 ? i?.name.slice(0, 20) + '...' : i?.name}</div>
+                        <div className="l3-b truncate md:w-[100px] 2xl:w-[141px]">{i?.name}</div>
                         <div className="l3-r">{i?.quantity} files</div>
                       </div>
                     </div>
@@ -192,10 +199,10 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
                   }
                   setCategOpt({ itemID: i.id, isOpen: !CategOpt.isOpen })
                 }}
-                className="flex justify-center items-start gap-[0.46875rem] self-stretch hover:outline-blue-200 hover:outline-double h-fit px-2 cursor-pointer"
+                className="flex justify-center items-start self-stretch hover:outline-blue-200 hover:outline-double h-fit md:px-2  md:gap-[0.46875rem] 2xl:px-3  2xl:gap-[0.7rem] cursor-pointer"
               >
                 <img
-                  className="  w-1.5" src={Dot}
+                  className="  md:w-1.5 2xl:w-2" src={Dot}
 
                 />
 
@@ -215,7 +222,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
         {isExpand && (
           <img
             src={Expand}
-            className="absolute rounded-md w-8 z-10 opacity-70 hover:opacity-100 bg-kb-primary-color right-7 bottom-2"
+            className="absolute rounded-md  z-10 opacity-70 hover:opacity-100 bg-kb-primary-color md:right-7 md:bottom-2 md:w-8 2xl:right-10 2xl:bottom-3 2xl:w-11"
             onClick={() => {
               setIsExpand(!isExpand);
             }}
@@ -224,11 +231,11 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
       </div>
 
       {/* ARTICLE LIST */}
-      <div className="flex bottom-auto w-full items-start content-start gap-[1.5rem_1.125rem] flex-1 self-stretch px-[1.6875rem] ">
-        <div className="flex flex-col items-start gap-[1.875rem] flex-[1_0_0] px-0 py-2 rounded-md">
+      <div className="flex bottom-auto w-full items-start content-start flex-1 self-stretch md:px-[1.6875rem] md:gap-[1.5rem_1.125rem] 2xl:px-[2.4rem] 2xl:gap-[2rem_1.6rem]">
+        <div className="flex flex-col items-start  rounded-md  flex-[1_0_0] md:py-2 md:gap-[1.875rem] 2xl:py-3 2xl:gap-[2.64rem]">
 
 
-          <div className="flex flex-col self-stretch items-start content-start  w-auto gap-[1.125rem] ">
+          <div className="flex flex-col self-stretch items-start content-start  w-auto md:gap-[1.125rem] 2xl:gap-[1.6rem] ">
             {article?.map((i) => <Article key={i.id} articleID={articleID} setAticleID={setAticleID} data={i} itemID={i.id} titlePage={titlePage} />)}
 
           </div>
@@ -237,7 +244,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
       {/* FILE LIST */}
 
-      <div className="flex flex-col items-start gap-5 flex-[1_0_0] px-[1.6875rem] mt-3 rounded-md mb-4">
+      <div className="flex flex-col items-start flex-[1_0_0] rounded-md md:px-[1.6875rem] md:mt-3  md:gap-5  md:mb-4 2xl:px-[2.4rem] 2xl:mt-3.5  2xl:gap-7  2xl:mb-6">
         {file?.map(i => <FileItem key={i?.id} data={i} articleID={articleID} setAticleID={setAticleID} itemID={i?.id} titlePage={titlePage} />)}
       </div>
 

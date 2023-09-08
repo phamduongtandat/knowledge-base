@@ -34,9 +34,17 @@ function PageTitleLayout({ titlePage, headerChart }) {
 
         <div className="flex items-center 2xl:gap-2.5 md:gap-[0.444rem]">
 
-            {titlePage === 'home' && local !== 'shared' && <img src={Home} className="flex  flex-col justify-center items-center 2xl:w-5 2xl:h-5 2xl:gap-2.5 md:w-[0.9rem] md:h-[0.9rem] md:gap-[0.444rem]" />}
+            {titlePage === 'home' && local !== 'shared' && <img
+                onClick={() => { navi('/') }}
+                src={Home}
+                className="flex  flex-col justify-center items-center 2xl:w-5 2xl:h-5 2xl:gap-2.5 md:w-[0.9rem] md:h-[0.9rem] md:gap-[0.444rem] cursor-pointer"
+            />}
 
-            {(titlePage === 'shared' || local === 'shared') && <img src={Shared} className="flex  flex-col justify-center items-center 2xl:w-5 2xl:h-5 2xl:gap-2.5 md:w-[0.9rem] md:h-[0.9rem] md:gap-[0.444rem]" />}
+            {(titlePage === 'shared' || local === 'shared') && <img
+                onClick={() => { navi('/shared-history') }}
+                src={Shared}
+                className="flex  flex-col justify-center items-center 2xl:w-5 2xl:h-5 2xl:gap-2.5 md:w-[0.9rem] md:h-[0.9rem] md:gap-[0.444rem] cursor-pointer"
+            />}
 
             {titlePage === 'recent' && <img src={Recent} className="flex  flex-col justify-center items-center 2xl:w-5 2xl:h-5 2xl:gap-2.5 md:w-[0.9rem] md:h-[0.9rem] md:gap-[0.444rem]" />}
 
@@ -49,6 +57,7 @@ function PageTitleLayout({ titlePage, headerChart }) {
 
             {headerChart?.map((i, index) => {
                 return <div key={index} className="flex items-center 2xl:gap-2.5 md:gap-[0.444rem]">
+
                     <img src={Arrow} className="flex  rotate-360 flex-col justify-center items-center 2xl:w-5 2xl:h-5 2xl:gap-2.5 md:w-[0.9rem] md:h-[0.9rem] md:gap-[0.444rem]" />
 
                     <div
@@ -59,6 +68,7 @@ function PageTitleLayout({ titlePage, headerChart }) {
                             navi(`/${titlePage}/content/${i?.id}`)
                         }}
                         className="l3-b text-kb-neutral-300 hover:text-blue-700 hover:underline cursor-pointer"
+                        title={i?.name}
                     >
                         {i?.name?.length >= 20 ? i?.name.slice(0, 20) + '...' : i?.name}
                     </div>

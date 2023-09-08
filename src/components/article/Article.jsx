@@ -59,13 +59,13 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
 
   return (
 
-    <div className={`relative flex w-full rounded-[0.42188rem] justify-center items-center gap-[0.70313rem] self-stretch p-[0.70313rem] 
+    <div className={`relative self-stretch flex w-full justify-center items-center md:rounded-[0.42188rem] md:gap-[0.70313rem]  md:px-[0.5rem] md:py-[0.25rem] 2xl:px-[0.5rem] 2xl:py-[0.4rem] 2xl:rounded-[0.6rem] 2xl:gap-[1rem]
     ${isArticleOnwerOption && articleID === itemID ? 'bg-blue-200/50' : 'kb-shadow-white-bg'}`}
     >
 
 
       <img
-        className="self-stretch w-[3.75rem] h-[3.75rem] bg-cyan-200/70 p-0.5 rounded-sm"
+        className=" bg-cyan-200/70 md:w-[3.75rem] md:h-[3.75rem]  md:p-0.5 md:rounded-sm 2xl:w-[5.3rem] 2xl:h-[5.3rem] 2xl:p-1 2xl:rounded-xl"
         src={BlogAva}
       />
 
@@ -75,14 +75,14 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
         }
         navi(`${linkpathArt}/content/page/${itemID}`)
       }} className="flex justify-between items-start flex-[1_0_0] self-stretch">
-        <div className="flex flex-col items-center gap-[0.1875rem] flex-[1_0_0]">
-          <div className="flex items-start gap-[0.5625rem] self-stretch">
+        <div className="flex flex-col items-center md:gap-[0.1875rem] 2xl:gap-[0.3rem] flex-[1_0_0]">
+          <div className="flex items-start md:gap-[0.5625rem] 2xl:gap-[0.85rem] self-stretch">
             <div className="p1-b kb-text-primary-gradient">
               {data?.parentName}
             </div>
 
-            <div className="flex items-center gap-[0.23438rem] flex-[1_0_0] self-stretch">
-              <i className="fa-solid fa-paperclip fa-sm text-kb-neutral-300"></i>
+            <div className="flex items-center md:gap-[0.23438rem] 2xl:gap-[0.33rem] flex-[1_0_0] self-stretch">
+              <i className="fa-solid fa-paperclip md:fa-sm 2xl:fa-xl text-kb-neutral-300"></i>
               <div className="p3-b text-kb-neutral-300">0 files</div>
             </div>
           </div>
@@ -96,13 +96,13 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
           </div> */}
         </div>
 
-        <div className="flex flex-col justify-between items-end self-stretch">
+        <div className="flex flex-col items-end justify-center py-2 gap-1 self-stretch">
           <img
-            className="w-6 h-6 rounded-3xl border border-kb-primary-color"
+            className="md:w-6 md:h-6 2xl:w-9 2xl:h-w-9 flex-1  md:rounded-3xl border border-kb-primary-color"
             src={UserAva}
           />
 
-          <div className="flex flex-col justify-end items-end flex-[1_0_0]">
+          <div className="flex flex-col justify-end items-end">
             <div className="self-end p2-b text-kb-second-color">
               {data?.author}
             </div>
@@ -119,7 +119,7 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
 
 
       {/* THREE DOT */}
-      <div className="relative w-[15px] h-[52px] justify-end items-start gap-[7.50px]">
+      <div className="relative md:w-[15px] md:h-[52px] md:gap-[7.50px] 2xl:w-[21px] 2xl:h-[73px] 2xl:gap-[10.5px] justify-end items-start ">
         <img
           src={Dot}
 
@@ -141,7 +141,7 @@ function Article({ titlePage, articleID, setAticleID, itemID, data }) {
 
           }}
 
-          className="cursor-pointer w-[15px] h-[15px] justify-center items-center gap-[7.50px] flex hover:outline-blue-200 hover:outline-double"
+          className="cursor-pointer justify-center items-center md:w-[15px] md:h-[15px]  md:gap-[7.50px] flex hover:outline-blue-200 hover:outline-double 2xl:w-[21px] 2xl:h-[21px]  2xl:gap-[10.6px]"
         />
 
         <div className={`absolute bottom-0 right-7 ease-linear duration-200

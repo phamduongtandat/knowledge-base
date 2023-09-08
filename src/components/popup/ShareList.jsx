@@ -53,7 +53,7 @@ function ShareList() {
     const [isCopied, setIsCopied] = useState(false);
     const handleCopy = async () => {
         try {
-            await navigator.clipboard.writeText(`/share/content/${itemInfo?.id}`);
+            await navigator.clipboard.writeText(`http://103.116.106.153:49219/share/content/${itemInfo?.id}`);
             setIsCopied(true);
             //setTimeout(() => setIsCopied(false), 3000);
         } catch (err) {
@@ -93,7 +93,7 @@ function ShareList() {
 
                         <div className="flex items-center gap-[0.5625rem] flex-[1_0_0] pl-[0.56rem] text-kb-neutral-100">
                             <i className="fa-solid fa-link fa-sm"></i>
-                            <div className="p1-b ">/share/content/{itemInfo?.id}</div>
+                            <div className="p1-b break-words">/share/content/{itemInfo?.id}</div>
                         </div>
 
                         <div
