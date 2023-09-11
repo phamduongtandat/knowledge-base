@@ -8,6 +8,7 @@ import ChangPassForm from '../components/myProfile/ChangPassForm'
 //import Blogs from '../components/myProfile/Blogs'
 import checkLogin from '../utils/checkLogin'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 function ProfilePage() {
     const { isLogin } = checkLogin()
@@ -23,14 +24,22 @@ function ProfilePage() {
         if (label === 2) setIsSwitch(false)
     }
 
-
+    const isDummmyMainMenu = useSelector(state => state.globalUX.isDummmyMainMenu)
 
     return (
         <>
 
             {isLogin && <div className=''>
                 <ProfileLayout>
-                    <MenuLayout />
+                    {/* <MenuLayout /> */}
+                    <div className="fixed z-40">
+                        <MenuLayout />
+                    </div>
+
+                    <div className={`invisible ${isDummmyMainMenu ? '2xl:w-[16.1rem] md:w-[11.431rem]' : '2xl:w-[7.75rem] md:w-[5.5rem]'}    `}>
+
+                    </div>
+
                     <div className="flex flex-col items-start flex-[1_0_0] self-stretch">
                         <div className="flex items-center self-stretch 2xl:gap-2.5 2xl:pt-11 2xl:pb-0 2xl:px-9 md:gap-[0.444rem] md:pt-[1.95rem] md:pb-0 md:px-[1.6rem">
 

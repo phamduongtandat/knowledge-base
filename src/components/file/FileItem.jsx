@@ -1,8 +1,6 @@
 import AvatarFile from './avatarFile'
-import Download from '../../assets/image/download.png'
 import Dot from '../../assets/image/dot.svg'
 import UserAva from '../../assets/image/userava.png'
-import useDownloadFile from '../../services/home/useDownloadFile';
 import ArticleOnwerOption from '../optionDropdown/ArticleOnwerOption';
 import BinOpt from '../optionDropdown/BinOpt';
 import { useState } from 'react';
@@ -11,10 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { turnOnFiletOpt, turnOnOpt } from '../../redux/optionSlice';
 
 
-function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
+function FileItem({ data, articleID, setAticleID, itemID, titlePage, refBottom }) {
     const isTurnOnFileOpt = useSelector(state => state.option.isTurnOnFileOpt)
     const dispatch = useDispatch()
     const [isFileOnwerOption, setIsFileOnwerOption] = useState(false)
+
+    const [Yaxis, setYAxis] = useState(0)
 
     return (
 
@@ -72,7 +72,11 @@ function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
             <div className="relative justify-end items-start md:gap-[7.50px] md:w-[15px] md:h-[52px] 2xl:gap-[10.6px] 2xl:w-[21px] 2xl:h-[73.2px]">
                 <img
                     src={Dot}
-                    onClick={() => {
+                    onClick={(e) => {
+
+                        setYAxis(e.clientY)
+
+
                         dispatch(turnOnOpt(false))
 
                         if (!isTurnOnFileOpt && (isFileOnwerOption || !isFileOnwerOption)) {
@@ -94,8 +98,11 @@ function FileItem({ data, articleID, setAticleID, itemID, titlePage }) {
                     className="cursor-pointer justify-center items-center md:gap-[7.50px] md:w-[15px] md:h-[15px] 2xl:gap-[10.6px] 2xl:w-[21px] 2xl:h-[21px] flex hover:outline-blue-200 hover:outline-double"
                 />
 
-                <div className={`absolute md:bottom-0 2xl:bottom-0 right-7 ease-linear duration-200
-         ${isTurnOnFileOpt && isFileOnwerOption && articleID === itemID ? '' : 'translate-y-2/4 scale-0'}`}>
+                <div className={`absolute mt-2 z-30  md:right-4 2xl:right-6 ease-linear duration-150 
+
+                    ${Yaxis > (refBottom - 290) ? 'md:bottom-7 2xl:bottom-10' : 'md:top-1/4 2xl:-bottom-16'}
+
+                    ${isTurnOnFileOpt && isFileOnwerOption && articleID === itemID ? '' : 'translate-y-2/4 scale-0'}`}>
                     {titlePage !== 'Bin' && <ArticleOnwerOption info={data} setIsArticleOnwerOption={setIsFileOnwerOption} />}
                     {titlePage === 'Bin' && <BinOpt info={data} setIsArticleOnwerOption={setIsFileOnwerOption} />}
                 </div>

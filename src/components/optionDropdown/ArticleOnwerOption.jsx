@@ -7,6 +7,7 @@ import useLike from "../../services/option/useLike"
 import useDeleteLike from './../../services/option/useDeleteLike';
 import checkLogin from "../../utils/checkLogin"
 import useDownloadFile from "../../services/home/useDownloadFile"
+import { useRef } from "react"
 
 function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
@@ -38,8 +39,10 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
     if (info?.author !== tokenInfo?.name && titlePage !== 'Shared history') {
         optionList?.splice(1, 4)
-        optionList.unshift({ label: 8, name: 'Download', img: 'fa-solid fa-download md:fa-sm 2xl:fa-xl' },)
         optionList?.pop()
+        if (info?.type === 'file') {
+            optionList.unshift({ label: 8, name: 'Download', img: 'fa-solid fa-download md:fa-sm 2xl:fa-xl' },)
+        }
     }
 
     if (info?.author !== tokenInfo?.name && titlePage === 'Shared history') {
@@ -134,8 +137,11 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
         //console.log('info :', info)
     }
 
+
     return (
-        <div className="relative kb-shadow-white-bg md:w-40 2xl:w-56 rounded-lg z-20 ">
+        <div
+
+            className="relative kb-shadow-white-bg md:w-40 2xl:w-56 rounded-lg z-20 ">
 
             {optionList.map(({ label, name, img }) => {
                 return <div

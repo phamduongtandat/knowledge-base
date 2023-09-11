@@ -4,6 +4,7 @@ import { authReducer } from './authSlice'
 import { editReducer } from './editSlice'
 import { filterReducer } from './filterSlice'
 import { optionReducer } from './optionSlice'
+import { globalUXReducer } from './globalUXSlice'
 
 
 const store = configureStore({
@@ -13,6 +14,7 @@ const store = configureStore({
         edit: editReducer,
         filter: filterReducer,
         option: optionReducer,
+        globalUX: globalUXReducer,
     }
 })
 export default store

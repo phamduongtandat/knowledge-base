@@ -102,16 +102,34 @@ function LoginForm() {
 
                 </div>
 
-                <div className="flex 2xl:gap-[0.375rem] md:gap-[0.27rem] justify-start items-center self-stretch text-kb-neutral-500">
-                    <input
-                        className=" 2xl:w-5 2xl:h-5 md:w-4 md:h-4"
-                        type="checkbox"
-                        name=""
-                        onChange={() => { setIsRemenber(!isRemember); return localStorage.setItem('isRemember', JSON.stringify(!isRe)) }}
-                        checked={isRe}
-                    />
-                    <div className="l4-r 2xl:w-[8.5rem] md:w-[6.3rem] shrink-0">Remember me</div>
+
+                <div className="flex 2xl:gap-[0.375rem] md:gap-[0.27rem] justify-between items-center self-stretch text-kb-neutral-500">
+                    <div className='flex  items-center gap-2'>
+                        <input
+                            className=" 2xl:w-5 2xl:h-5 md:w-4 md:h-4"
+                            type="checkbox"
+                            name=""
+                            onChange={() => { setIsRemenber(!isRemember); return localStorage.setItem('isRemember', JSON.stringify(!isRe)) }}
+                            checked={isRe}
+                        />
+                        <div className="l4-r 2xl:w-[8.5rem] md:w-[6.3rem] shrink-0">Remember me</div>
+                    </div>
+
+                    <a
+                        target='_blank'
+                        rel="noreferrer"
+                        href='http://103.116.106.153:8080/realms/hiptech-portal/login-actions/reset-credentials?client_id=account-console&tab_id=rEszzCUy-Ak'
+                        className="p2-b text-right text-kb-neutral-300"
+                    >
+                        Forget password?
+                    </a>
                 </div>
+
+
+
+
+
+
 
                 <LoginKeyCloakBtn />
             </form>

@@ -115,10 +115,29 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
 
 
+  const refContent = useRef()
+  //console.log(' refMain:', refContent?.current?.getBoundingClientRect().right)
+
+  const [isChangeFolderPos, setIsChangeFolderPos] = useState(false)
+  //const [isChangeArtrPos, setIsChangeArtPos] = useState(false)
+
+  //console.log('isChangeFolderPos :', isChangeFolderPos)
   return (
 
 
-    <div className="relative">
+
+    <div
+
+      id="allCntBackground"
+      onClick={({ target }) => {
+        if (target.id === 'allCntBackground') {
+          dispatch(turnOnOpt(false))
+          dispatch(turnOnArtOpt(false))
+          dispatch(turnOnFiletOpt(false))
+        }
+      }}
+
+      ref={refContent} className="relative md:min-h-[476px] 2xl:min-h-[787px] max-h-full" >
 
       <HeaderContent titlePage={titlePage} headerChart={headerChart} isAll={isAll} setIsAll={setIsAll} />
 
@@ -132,7 +151,8 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
             setIsExpand(!isExpand);
           }}
         />
-      )}
+      )
+      }
 
       <div
         id="folderBackground"
@@ -190,7 +210,14 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
               }
 
               <div
-                onClick={() => {
+                onClick={(e) => {
+
+                  if (e.clientX >= (refContent?.current?.getBoundingClientRect().right - 150)) {
+                    setIsChangeFolderPos(true)
+                  } else {
+                    setIsChangeFolderPos(false)
+                  }
+
                   dispatch(turnOnFiletOpt(false))
                   dispatch(turnOnArtOpt(false))
                   if (!isTurnOnOpt && (CategOpt.isOpen || !CategOpt.isOpen)) {
@@ -210,9 +237,13 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
                 />
 
-                <div className={`z-50 ease-linear duration-200
-                ${titlePage !== 'Home' && showButton && !isExpand ? 'fixed -translate-x-2/3 -translate-y-2/3 ' : 'absolute bottom-1/3 right-1/4'}
-                ${isTurnOnOpt && CategOpt.isOpen && CategOpt.itemID === i.id ? '' : 'translate-x-1/4 translate-y-1/3 scale-0'}`}
+                <div
+
+                  className={`z-50 ease-linear duration-200 mt-3
+
+                ${titlePage !== 'Home' && showButton && !isExpand ? `${isChangeFolderPos ? 'fixed -translate-x-1/2 translate-y-2 ' : 'fixed translate-x-1/2 translate-y-2 '} ` : `${isChangeFolderPos ? 'absolute top-1/4 md:right-7 2xl:right-7' : 'absolute top-1/4 md:-right-32 2xl:-right-44 '}`}
+
+                ${isTurnOnOpt && CategOpt.isOpen && CategOpt.itemID === i.id ? '' : '-translate-x-1/4 -translate-y-1/3 scale-0'}`}
                 >
 
                   {titlePage !== 'Bin' && <CategogyOwnerOpt titlePage={titlePage} setCategOpt={setCategOpt} info={i} />}
@@ -262,7 +293,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
 
           <div className="flex flex-col self-stretch items-start content-start  w-auto md:gap-[1.125rem] 2xl:gap-[1.6rem] ">
-            {article?.map((i) => <Article key={i.id} articleID={articleID} setAticleID={setAticleID} data={i} itemID={i.id} titlePage={titlePage} />)}
+            {article?.map((i) => <Article refBottom={refContent?.current?.getBoundingClientRect().bottom} key={i.id} articleID={articleID} setAticleID={setAticleID} data={i} itemID={i.id} titlePage={titlePage} />)}
 
           </div>
         </div>
@@ -282,10 +313,10 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
         }}
 
         className="flex flex-col items-start flex-[1_0_0] rounded-md md:px-[1.6875rem] md:mt-3  md:gap-5  md:mb-4 2xl:px-[2.4rem] 2xl:mt-3.5  2xl:gap-7  2xl:mb-6">
-        {file?.map(i => <FileItem key={i?.id} data={i} articleID={articleID} setAticleID={setAticleID} itemID={i?.id} titlePage={titlePage} />)}
+        {file?.map(i => <FileItem key={i?.id} data={i} articleID={articleID} setAticleID={setAticleID} itemID={i?.id} titlePage={titlePage} refBottom={refContent?.current?.getBoundingClientRect().bottom} />)}
       </div>
 
-    </div>
+    </div >
   );
 }
 

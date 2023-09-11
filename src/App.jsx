@@ -25,12 +25,12 @@ import BlogHomePage from './pages/BlogHomePage';
 
 
 
+
 function App() {
 
 
-
   return (
-    <div className="bg-kb-background">
+    <div className="bg-kb-background ">
 
       <Routes>
         <Route path="/login" element={<LoginPage />} />

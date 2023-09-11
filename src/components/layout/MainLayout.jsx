@@ -6,7 +6,7 @@ import ProfileOption from '../myProfile/ProfileOption';
 import checkLogin from '../../utils/checkLogin';
 import { useNavigate } from 'react-router-dom';
 import UserAva from '../../assets/image/userava.png'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { turnOnArtOpt, turnOnFiletOpt, turnOnOpt } from '../../redux/optionSlice';
 
 
@@ -22,11 +22,18 @@ function MainLayout() {
         if (!isLogin) navigate('/login')
     }, [isLogin])
 
+    const isDummmyMainMenu = useSelector(state => state.globalUX.isDummmyMainMenu)
+
     return (
         <>
             {isLogin && <div className="flex w-full items-start ">
+                <div className="fixed z-40">
+                    <MenuLayout />
+                </div>
+                <div className={`invisible ${isDummmyMainMenu ? '2xl:w-[16.1rem] md:w-[11.431rem]' : '2xl:w-[7.75rem] md:w-[5.5rem]'}    `}>
 
-                <MenuLayout />
+                </div>
+
 
                 <div
                     id='mainBackground'
