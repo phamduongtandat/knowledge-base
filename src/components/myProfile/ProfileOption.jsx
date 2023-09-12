@@ -4,6 +4,7 @@ import { getLogOut } from '../../redux/popupSlice';
 
 
 
+
 function ProfileOption() {
     const dispatch = useDispatch()
     // const backLogin = useNavigate()
@@ -17,6 +18,7 @@ function ProfileOption() {
         location.reload()
         localStorage.setItem('isLogOut', JSON.stringify(true))
         dispatch(getLogOut(true))
+
     }
 
     return (

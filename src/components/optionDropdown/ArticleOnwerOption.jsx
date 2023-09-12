@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { getInfo, movePopup, properPopup, renamePopup, sharePopup } from "../../redux/popupSlice"
 import useMoveAFToBin from "../../services/option/useMoveAFToBin"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -7,7 +7,8 @@ import useLike from "../../services/option/useLike"
 import useDeleteLike from './../../services/option/useDeleteLike';
 import checkLogin from "../../utils/checkLogin"
 import useDownloadFile from "../../services/home/useDownloadFile"
-import { useRef } from "react"
+import useGetUserID from "../../services/auth/useGetUserID"
+
 
 function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
@@ -54,7 +55,9 @@ function ArticleOnwerOption({ info, setIsArticleOnwerOption, titlePage }) {
 
     //const isProper = useSelector(state=>state.popup.isProper )
     const dispatch = useDispatch()
-    const userID = useSelector(state => state.auth.userId)
+    //const userID = useSelector(state => state.auth.userId)
+
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
     const { MoveAFToBin } = useMoveAFToBin()
     const { likeArticle } = useLike()
     const { deleteLike } = useDeleteLike(userID)

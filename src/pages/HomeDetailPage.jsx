@@ -6,6 +6,7 @@ import useGetProperties from "../services/option/useGetProperties";
 
 import checkLogin from "../utils/checkLogin";
 import useGetUserID from "../services/auth/useGetUserID";
+import ContentLoader from "../components/loader/ContentLoader";
 
 
 function HomeDetailPage() {
@@ -13,7 +14,7 @@ function HomeDetailPage() {
     const { tokenInfo } = checkLogin()
     const { userID } = useGetUserID(tokenInfo?.preferred_username)
 
-    const { folderContent } = useGetFolderContent(userID, id)
+    const { folderContent, isLoading } = useGetFolderContent(userID, id)
     console.log('folderContent :', folderContent)
     const { pathname } = useLocation()
     const contentID = pathname?.split('/').slice(-1)[0]
@@ -32,7 +33,14 @@ function HomeDetailPage() {
     // console.log('headerChart :', headerChart)
 
     return (
-        <ContentPage data={folderContent} titlePage='home' headerChart={headerChart} />
+        <>
+            {isLoading && <div className="flex justify-center items-center md:min-h-[476px] 2xl:min-h-[787px] max-h-full">
+                <ContentLoader />
+            </div>}
+
+            {!isLoading && <ContentPage data={folderContent} titlePage='home' headerChart={headerChart} />}
+        </>
+
     )
 }
 

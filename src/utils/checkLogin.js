@@ -1,10 +1,12 @@
 import jwtDecode from "jwt-decode";
 
 
-const checkLogin = (out) => {
+const checkLogin = () => {
 
     const accessToken = document.cookie?.split('; ').find(row => row.startsWith('access_token'))?.split('=')[1];
-    if (!accessToken) {
+    const refreshToken = document.cookie?.split('; ').find(row => row.startsWith('refresh_token'))?.split('=')[1];
+
+    if (!accessToken || !refreshToken) {
         return {
             isLogin: false,
             tokenInfo: null
@@ -12,20 +14,21 @@ const checkLogin = (out) => {
     }
     const { name, resource_access, exp, preferred_username } = jwtDecode(accessToken)
     let isAdmin = resource_access?.['knowledge-base']?.roles?.includes('ROLE_ADMIN')
+    const rfs = jwtDecode(refreshToken)
 
-
-    if (exp < new Date().getTime() / 1000) {
+    if (rfs?.exp < new Date().getTime() / 1000) {
         return ({
             isLogin: false,
             tokenInfo: null
         })
 
     }
-    //console.log('isLogin :', isLogin)
+
     return {
 
-        isLogin: out ?? true,
+        isLogin: true,
         accessToken,
+        refreshToken,
         tokenInfo: { exp, name, isAdmin, preferred_username }
     }
 }

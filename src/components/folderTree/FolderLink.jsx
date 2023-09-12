@@ -3,10 +3,12 @@ import ItemContainer from "./ItemContainer"
 import useGetFolderContent from "../../services/folder/useGetFolderContent"
 import { Link } from "react-router-dom"
 import checkLogin from "../../utils/checkLogin"
-import { useSelector } from "react-redux"
+import useGetUserID from "../../services/auth/useGetUserID"
 
 function FolderLink({ data }) {
-    const userID = useSelector(state => state.auth.userId)
+    //const userID = useSelector(state => state.auth.userId)
+    const { tokenInfo } = checkLogin()
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
     const { folderContent } = useGetFolderContent(userID, data?.id)
     const [isOpen, setIsOpen] = useState(false)
     return (

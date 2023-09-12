@@ -17,7 +17,7 @@ import { turnOnArtOpt, turnOnFiletOpt, turnOnOpt } from "../../redux/optionSlice
 
 
 
-function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
+function ContentPage({ data, titlePage, headerChart }) {
 
   // if(titlePage==='Shared history' )
   console.log(' headerChart:', headerChart)
@@ -139,7 +139,7 @@ function ContentPage({ data, titlePage, headerChart, isAll, setIsAll }) {
 
       ref={refContent} className="relative md:min-h-[476px] 2xl:min-h-[787px] max-h-full" >
 
-      <HeaderContent titlePage={titlePage} headerChart={headerChart} isAll={isAll} setIsAll={setIsAll} />
+      <HeaderContent titlePage={titlePage} headerChart={headerChart} />
 
       {/* FOLDER LIST */}
 

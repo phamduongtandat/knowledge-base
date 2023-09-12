@@ -13,7 +13,7 @@ import useGetProperties from "../../services/option/useGetProperties";
 import checkLogin from "../../utils/checkLogin";
 import { turnOnArtOpt, turnOnFiletOpt, turnOnOpt } from "../../redux/optionSlice";
 
-function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
+function HeaderContent({ titlePage, headerChart }) {
   const dispatch = useDispatch()
   const { id } = useParams()
   const { properties } = useGetProperties(id)
@@ -101,7 +101,7 @@ function HeaderContent({ titlePage, headerChart, isAll, setIsAll }) {
           {isFilterOpt && <div className="absolute z-20 top-full mt-2 right-0">
 
             {!isBlog && <FileFilterOpt />}
-            {titlePage === 'Home' && isBlog && <BlogFilterOpt isAll={isAll} setIsAll={setIsAll} />}
+            {titlePage === 'Home' && isBlog && <BlogFilterOpt />}
 
           </div>}
         </div>}

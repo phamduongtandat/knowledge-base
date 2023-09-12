@@ -23,7 +23,7 @@ const useGetArticle = (userID, articleID) => {
     const res = useQuery({
         queryFn,
         queryKey: ['articleContent', userID],
-        enabled: !!articleID,
+        enabled: !!articleID && !!userID,
         keepPreviousData: true,
 
     });

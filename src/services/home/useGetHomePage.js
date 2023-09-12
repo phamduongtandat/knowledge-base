@@ -17,7 +17,7 @@ const useGetHomePage = (userID, status) => {
     const res = useQuery({
         queryFn,
         queryKey: ['homePageContent', status, userID],
-        enabled: !!userID,
+        enabled: !!userID && !!status,
         keepPreviousData: true,
 
     });

@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import checkLogin from './../utils/checkLogin';
+import useGetRefresh from '../services/auth/useGetRefresh';
 
 
 const axios = Axios.create({
@@ -12,14 +13,22 @@ const axios = Axios.create({
 });
 
 axios.interceptors.request.use(async function (config) {
-    const { tokenInfo, accessToken } = checkLogin()
+
+
+    const { tokenInfo, accessToken, refreshToken } = checkLogin()
     config.headers['Authorization'] = 'Bearer' + ' ' + accessToken
 
     if (tokenInfo?.exp < new Date().getTime() / 1000) {
-        //const data = await 
-        //document.cookie = `access_token=${}`
-        //config.headers['Authorization']='Bearer'+
+        const data = await useGetRefresh(refreshToken)
+        document.cookie = `access_token=${data?.data?.access_token}`
+        document.cookie = `refresh_token=${data?.data?.refresh_token}`
+        config.headers['Authorization'] = 'Bearer' + ' ' + data?.data?.access_token
     }
+
+    // const dataRfs = await useGetRefresh(refreshToken)
+    // console.log('dataRfs :', dataRfs)
+
+
     return config;
 }, function (error) {
     // Làm gì đó với lỗi request

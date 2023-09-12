@@ -5,6 +5,7 @@ import BlogPage from '../components/container/BlogPage';
 import useGetArticle from '../services/article/useGetArticle';
 import useGetUserID from '../services/auth/useGetUserID';
 import checkLogin from '../utils/checkLogin';
+import ContentLoader from '../components/loader/ContentLoader';
 
 function BlogHomePage() {
 
@@ -15,11 +16,15 @@ function BlogHomePage() {
 
     const titlePage = pathname?.split('/')[1]
     const { id } = useParams()
-    const { articleContent } = useGetArticle(userID, id)
+    const { articleContent, isLoading } = useGetArticle(userID, id)
     console.log('articleContent :', articleContent)
     return (
         <div>
-            <BlogPage titlePage={titlePage} data={articleContent} />
+            {isLoading && <div className="flex justify-center items-center md:min-h-[476px] 2xl:min-h-[787px] max-h-full">
+                <ContentLoader />
+            </div>}
+
+            {!isLoading && <BlogPage titlePage={titlePage} data={articleContent} />}
 
         </div>
     )

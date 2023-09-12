@@ -1,8 +1,8 @@
-import React from 'react'
+
 
 function ChangPassForm() {
     return (
-        <div className=" bg-kb-neutral-white flex items-start flex-[1_0_0] md:gap-[0.333rem] md:px-4 md:py-[2rem] md:rounded-[0.4rem] 2xl:gap-[0.46875rem] 2xl:px-6 2xl:py-[2.8125rem] 2xl:rounded-[0.5625rem]">
+        <div className=" bg-kb-neutral-white flex items-start flex-[1_0_0] md:gap-[0.333rem] md:px-4 md:py-[2rem] md:rounded-[0.4rem] 2xl:gap-[0.46875rem] 2xl:px-6 2xl:py-[2.8125rem] 2xl:rounded-[0.5625rem] ">
 
             <form className="2xl:h-[18rem] md:h-[13.3rem] flex-[1_0_0]">
 

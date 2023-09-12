@@ -21,7 +21,7 @@ const useGetFolderContent = (userID, folderID) => {
     const res = useQuery({
         queryFn,
         queryKey: ['folderContent', folderID, userID],
-        enabled: !!folderID,
+        enabled: !!folderID && !!userID,
         keepPreviousData: true,
 
     });

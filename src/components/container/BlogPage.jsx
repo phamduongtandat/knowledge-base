@@ -23,7 +23,7 @@ function BlogPage({ titlePage, data }) {
     const { likeArticle } = useLike()
 
     return (
-        <div className="flex flex-col items-start flex-[1_0_0] self-stretch">
+        <div className="flex flex-col items-start flex-[1_0_0] self-stretch md:min-h-[476px] 2xl:min-h-[787px] max-h-full">
             <div className="flex justify-between items-center self-stretch px-[1.6875rem] py-0">
 
                 <PageTitleLayout titlePage={titlePage} headerChart={headerChart} />

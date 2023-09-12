@@ -4,6 +4,7 @@ import checkLogin from "../utils/checkLogin"
 import useGetUserID from "../services/auth/useGetUserID"
 import useGetFolderContent from "../services/folder/useGetFolderContent"
 import useGetProperties from "../services/option/useGetProperties"
+import ContentLoader from "../components/loader/ContentLoader"
 
 
 function ShareDetailPage() {
@@ -12,7 +13,7 @@ function ShareDetailPage() {
     const { tokenInfo } = checkLogin()
     const { userID } = useGetUserID(tokenInfo?.preferred_username)
 
-    const { folderContent } = useGetFolderContent(userID, id)
+    const { folderContent, isLoading } = useGetFolderContent(userID, id)
     console.log('folderContent :', folderContent)
     const { pathname } = useLocation()
     const contentID = pathname?.split('/').slice(-1)[0]
@@ -29,7 +30,12 @@ function ShareDetailPage() {
     console.log('headerChart :', headerChart)
 
     return (
-        <ContentPage titlePage='shared' data={folderContent} headerChart={headerChart} />
+        <>
+            {isLoading && <div className="flex justify-center items-center md:min-h-[476px] 2xl:min-h-[787px] max-h-full">
+                <ContentLoader />
+            </div>}
+            {!isLoading && <ContentPage titlePage='shared' data={folderContent} headerChart={headerChart} />}
+        </>
     )
 }
 

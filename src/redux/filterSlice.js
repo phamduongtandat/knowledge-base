@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     isBlog: true,
+    isAll: 'all'
 
 }
 
@@ -13,9 +14,12 @@ const filterSlice = createSlice({
         activeBlog(state, action) {
             state.isBlog = action.payload
         },
+        getHome(state, action) {
+            state.isAll = action.payload
+        },
 
     },
 })
 
-export const { activeBlog } = filterSlice.actions
+export const { activeBlog, getHome } = filterSlice.actions
 export const filterReducer = filterSlice.reducer

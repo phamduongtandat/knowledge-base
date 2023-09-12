@@ -29,6 +29,7 @@ function MovePopup() {
     const dispatch = useDispatch()
 
     console.log('folderContent :', folderContent)
+
     return (
         <div
             id='addBackDrop'

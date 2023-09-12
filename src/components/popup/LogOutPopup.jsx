@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux"
 import { getLogOut } from "../../redux/popupSlice"
-import { useNavigate } from "react-router-dom"
+
+
 
 
 function LogOutPopup() {
-    const backLogin = useNavigate()
+
     const dispatch = useDispatch()
     return (
         <div
