@@ -15,7 +15,7 @@ function ProfileOption() {
 
         // //checkLogin(false)
         // backLogin('/login')
-        location.reload()
+        //location.reload()
         localStorage.setItem('isLogOut', JSON.stringify(true))
         dispatch(getLogOut(true))
 

@@ -19,7 +19,7 @@ function MarkdownArea({ isWrite, setArticle, article }) {
 
             </div>
 
-            {!isWrite && !!article && <div className=" w-full min-h-full max-h-fit p-2">
+            {!isWrite && !!article && <div className=" w-full min-h-full max-h-fit p-2 break-words">
                 {/* eslint-disable-next-line react/no-children-prop */}
                 <ReactMarkdown children={article} remarkPlugins={[remarkGfm]} />
             </div>}

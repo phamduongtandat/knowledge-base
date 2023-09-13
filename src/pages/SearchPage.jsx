@@ -9,7 +9,7 @@ import ContentLoader from '../components/loader/ContentLoader';
 function SearchPage() {
 
     const { keyWord } = useParams()
-
+    console.log(' keyWord:', keyWord)
     const { tokenInfo } = checkLogin()
     const { userID } = useGetUserID(tokenInfo?.preferred_username)
 

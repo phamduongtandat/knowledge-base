@@ -28,10 +28,12 @@ function MarkdownPage() {
     const isMarkDownEdit = pathname?.split('/')[2] === 'edit'
     const [article, setArticle] = useState('')
     const [artName, setArtName] = useState('')
+    const [hashTag, setHashTag] = useState('')
     useEffect(() => {
         if (isMarkDownEdit) {
             setArticle(articleContent?.content)
             setArtName(articleContent?.name)
+            setHashTag(articleContent?.hashTag)
         }
 
     }, [isMarkDownEdit, articleContent])
@@ -71,6 +73,7 @@ function MarkdownPage() {
             parentId: parentID,
             userId: userID,
             status,
+            hashTag,
             editor: editorType
         }
 
@@ -98,6 +101,7 @@ function MarkdownPage() {
         const data = {
             name: artName,
             content: article,
+            hashTag,
             file: []
 
         }
@@ -106,6 +110,7 @@ function MarkdownPage() {
 
     }
 
+    console.log('hashTag :', hashTag)
     return (
         <div className="flex items-start max-h-fit min-h-screen">
             {isLogin &&
@@ -189,23 +194,30 @@ function MarkdownPage() {
 
                     <div className="flex flex-col   w-full min-h-screen items-start justify-start gap-[1.55831rem] mt-5 self-stretch px-[1.94794rem] py-[1.55831rem] rounded-[0.58438rem] bg-kb-neutral-white">
 
-                        <div className="flex  items-start gap-[0.487rem]  self-stretch">
+                        <div className="flex  items-start gap-[0.487rem] self-stretch">
 
-                            <div className="flex items-center gap-[0.487rem] ">
+                            <div className="flex items-center gap-[0.487rem]  ">
 
-                                <div className="flex justify-center items-center gap-[0.2435rem]">
+                                <div className="flex justify-center items-center gap-[0.2435rem] ">
 
-                                    <div className="justify-center items-center gap-[3.90px] flex text-kb-second-color">
+                                    {isWrite && <div className="justify-center items-center gap-[3.90px] flex text-kb-second-color">
 
                                         {/* FILL NAME */}
                                         <input
                                             value={artName || ''}
-                                            onChange={({ target }) => { setArtName(target.value) }} className="border-2 border-kb-second-color h-10 rounded-md pl-2" placeholder="Your article name" />
+                                            onChange={({ target }) => { setArtName(target.value) }} className="border-2 border-kb-second-color h-10 rounded-md pl-2 " placeholder="Your article name" />
                                         <i className="fa-solid fa-pen-to-square fa-2xl "></i>
 
                                         {!artName && <span className="text-red-700 italic">Please fill name for my Article</span>}
                                         {<span className="text-red-700 italic" >{error}</span>}
-                                    </div>
+                                    </div>}
+
+                                    {!isWrite && <div className="flex flex-col items-start gap-[0.5625rem] self-stretch">
+
+                                        <h2 className="text-kb-second-color">{artName}</h2>
+
+                                    </div>}
+
                                 </div>
                             </div>
 
@@ -222,7 +234,7 @@ function MarkdownPage() {
 
                         {/* HASH TAG */}
 
-                        {isWrite && <div className="flex flex-col items-start gap-3 self-stretch">
+                        <div className="flex flex-col items-start gap-3 self-stretch">
 
                             <div className="flex items-center gap-[0.487rem] self-stretch">
 
@@ -232,14 +244,31 @@ function MarkdownPage() {
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-2.5 self-stretch p-2 border rounded-lg ">
+                            {isWrite && <input
+                                onChange={(e) => {
+                                    setHashTag(e.target.value)
+                                }}
+                                value={hashTag}
+                                maxLength={170}
+                                className="flex items-start gap-2.5 self-stretch p-2 border rounded-lg outline-none text-kb-primary-color font-bold ">
 
-                                <div className="flex bg bg-kb-text-background h-9 items-center  gap-2.5 rounded px-2.5 py-0">
+                                {/* <div className="flex bg bg-kb-text-background h-9 items-center  gap-2.5 rounded px-2.5 py-0">
                                     <div className="l3-b kb-text-primary-gradient">Oracle</div>
                                     <i className="fa-solid fa-xmark fa-sm cursor-pointer text-kb-neutral-300/50 "></i>
-                                </div>
+                                </div> */}
 
-                            </div>
+                            </input>}
+                        </div>
+
+                        {!isWrite && <div className='flex gap-2'>
+
+                            {hashTag?.replace(/\s+/g, " ")
+                                .split(' ').map((i, ind) => <h3
+                                    key={ind} className=" kb-text-primary-gradient cursor-pointer"
+
+                                >
+                                    {i}
+                                </h3>)}
                         </div>}
 
                         {/* MARKDOWN */}

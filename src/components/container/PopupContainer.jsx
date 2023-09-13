@@ -9,6 +9,7 @@ import FolderTreePopup from '../popup/FolderTreePopup'
 
 import SelectEditorPopup from '../popup/SelectEditorPopup'
 import LogOutPopup from '../popup/logOutPopup'
+import AuthorPopup from '../popup/AuthorPopup'
 
 function PopupContainer() {
 
@@ -20,6 +21,7 @@ function PopupContainer() {
     const isTerminate = useSelector(state => state.popup.isTerminate)
     const isTree = useSelector(state => state.popup.isTree)
     const isSelect = useSelector(state => state.popup.isSelect)
+    const isAuthor = useSelector(state => state.popup.isAuthor)
     const isLogOutRedux = useSelector(state => state.popup.isLogOut)
     let isLogOut = JSON.parse(localStorage.getItem('isLogOut')) || false
 
@@ -33,6 +35,7 @@ function PopupContainer() {
             {isTerminate && <TerminatePopup />}
             {isTree && <FolderTreePopup />}
             {isSelect && <SelectEditorPopup />}
+            {isAuthor && <AuthorPopup />}
             {(isLogOut || isLogOutRedux) && <LogOutPopup />}
         </div>
     )

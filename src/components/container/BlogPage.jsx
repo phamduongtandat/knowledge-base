@@ -8,9 +8,10 @@ import useGetUserID from './../../services/auth/useGetUserID';
 import useDeleteLike from '../../services/option/useDeleteLike'
 import formatDate from '../../utils/formatDate'
 import UserAva from '../../assets/image/userava.png'
+import { useNavigate } from 'react-router-dom'
 
 function BlogPage({ titlePage, data }) {
-
+    const navi = useNavigate()
     const headerChart = [
         { name: data?.parentName, id: data?.parentId },
         { name: data?.name, id: data?.id }
@@ -31,7 +32,8 @@ function BlogPage({ titlePage, data }) {
 
             <div className="flex flex-col items-start gap-9 flex-[1_0_0] self-stretch px-[1.6875rem] py-[1.125rem]">
 
-                <div className="flex flex-col justify-center items-center gap-6 self-stretch px-[1.5rem] py-6 rounded-[0.5625rem] kb-shadow-white-bg  md:max-w-[1112px] 2xl:max-w-full w-full">
+                <div className="flex flex-col justify-center items-center gap-6 self-stretch px-[1.5rem] py-6 rounded-[0.5625rem] kb-shadow-white-bg  md:max-w-full 2xl:max-w-full w-full">
+                    {/* <div className="flex flex-col justify-center items-center gap-6 self-stretch px-[1.5rem] py-6 rounded-[0.5625rem] kb-shadow-white-bg  md:max-w-[1112px] 2xl:max-w-full w-full"> */}
 
 
 
@@ -71,7 +73,19 @@ function BlogPage({ titlePage, data }) {
                             </div>
 
                             <div className="flex justify-between items-start self-stretch">
-                                <div className="l2-b kb-text-primary-gradient">{data?.parentName}</div>
+                                <div className='flex gap-2'>
+
+                                    {data?.hashTag?.replace(/\s+/g, " ")
+                                        .split(' ').map((i, ind) => <h3
+                                            key={ind} className=" kb-text-primary-gradient cursor-pointer"
+                                            onClick={() => {
+                                                //console.log(' tttt:', i?.replace(/#/g, ""))
+                                                navi(`/search/${i?.replace(/#/g, "")}`)
+                                            }}
+                                        >
+                                            {i}
+                                        </h3>)}
+                                </div>
 
                                 <div className="flex justify-end items-center gap-[0.46875rem] flex-[1_0_0] self-stretch">
 
@@ -92,8 +106,11 @@ function BlogPage({ titlePage, data }) {
 
                             </div>
 
-                            {data?.editor === 'markdown' && <ReactMarkdown children={data?.content} remarkPlugins={[remarkGfm]} />}
-                            {data?.editor === "wysiwyg" && <div dangerouslySetInnerHTML={{ __html: data?.content }}></div>}
+
+                            <div className=" w-fit max-w-full min-h-full max-h-fit p-2 break-words">
+                                {data?.editor === 'markdown' && <ReactMarkdown children={data?.content} remarkPlugins={[remarkGfm]} />}
+                                {data?.editor === "wysiwyg" && <div dangerouslySetInnerHTML={{ __html: data?.content }}></div>}
+                            </div>
                         </div>
 
                     </div>

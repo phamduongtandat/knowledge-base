@@ -54,7 +54,9 @@ function ChangPassForm() {
 
 
                     <div className="flex flex-col items-end 2xl:gap-[0.46875rem] md:gap-[0.333rem] self-stretch">
-                        <button className="bg-kb-primary-gradient flex justify-center items-center 2xl:gap-[0.46875rem] 2xl:px-[0.46875rem] 2xl:py-3  rounded-md md:gap-[0.333rem] md:px-[0.333rem] md:py-2 ">
+                        <button
+                            type="text"
+                            className="bg-kb-primary-gradient flex justify-center items-center 2xl:gap-[0.46875rem] 2xl:px-[0.46875rem] 2xl:py-3  rounded-md md:gap-[0.333rem] md:px-[0.333rem] md:py-2 ">
                             <div className="l3-b kb-text-shadow-lg">Save changes</div>
                         </button>
                     </div>

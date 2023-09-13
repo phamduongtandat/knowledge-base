@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import formatDate from '../../utils/formatDate';
 import { useDispatch, useSelector } from 'react-redux';
 import { turnOnArtOpt, turnOnOpt } from '../../redux/optionSlice';
+import { getAuthor, getInfo } from '../../redux/popupSlice';
 
 
 
@@ -75,12 +76,18 @@ function Article({ titlePage, articleID, setAticleID, itemID, data, refBottom })
         src={BlogAva}
       />
 
-      <div onClick={() => {
-        if (titlePage === 'Bin') {
-          return
-        }
-        navi(`${linkpathArt}/content/page/${itemID}`)
-      }} className="flex justify-between items-start flex-[1_0_0] self-stretch">
+      <div
+        id="articleBg"
+        onClick={(e) => {
+          if (titlePage === 'Bin') {
+            return
+          }
+          if (e.target.id === "articleBg") {
+
+            navi(`${linkpathArt}/content/page/${itemID}`)
+          }
+        }}
+        className="flex justify-between items-start flex-[1_0_0] self-stretch cursor-pointer">
         <div className="flex flex-col items-center md:gap-[0.1875rem] 2xl:gap-[0.3rem] flex-[1_0_0]">
 
           <div className="flex items-start md:gap-[0.5625rem] 2xl:gap-[0.85rem] self-stretch">
@@ -95,7 +102,17 @@ function Article({ titlePage, articleID, setAticleID, itemID, data, refBottom })
 
           </div>
 
-          <h4 className="self-stretch text-kb-second-color">
+          <h4
+            onClick={() => {
+              if (titlePage === 'Bin') {
+                return
+              }
+
+
+              navi(`${linkpathArt}/content/page/${itemID}`)
+
+            }}
+            className="self-stretch text-kb-second-color">
             {data?.name}
           </h4>
 
@@ -106,7 +123,14 @@ function Article({ titlePage, articleID, setAticleID, itemID, data, refBottom })
 
         <div className="flex flex-col items-end justify-center py-2 gap-1 self-stretch">
           <img
-            className="md:w-6 md:h-6 2xl:w-9 2xl:h-w-9 flex-1  md:rounded-3xl border border-kb-primary-color"
+            id='author'
+            onClick={(e) => {
+              if (e.target.id === 'author') {
+                dispatch(getInfo(data?.userName))
+                dispatch(getAuthor(true))
+              }
+            }}
+            className="md:w-6 md:h-6 2xl:w-9 2xl:h-w-9 flex-1  md:rounded-3xl border border-kb-primary-color cursor-pointer"
             src={UserAva}
           />
 

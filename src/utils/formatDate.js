@@ -1,5 +1,6 @@
 const formatDate = (date, hour) => {
 
+
     // const result = !hour
 
     //     ? `${new Date(date).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}, ${new Date(date).toLocaleString('vi-VN', { hour: '2-digit', minute: '2-digit' })}`
@@ -8,7 +9,7 @@ const formatDate = (date, hour) => {
 
     const result = !hour
 
-        ? `${new Date(date).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}, ${date?.split('T')[1].split('.')[0]}`
+        ? `${new Date(date).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}, ${date?.split('T')[1]?.split('.')[0]}`
 
         : `${new Date(date).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}`
 
