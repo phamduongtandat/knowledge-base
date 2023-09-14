@@ -6,9 +6,20 @@ const signInSchema = object({
 
 });
 
+const updatePasswordSchema = object({
+
+    newPassword: string()
+        .required('required')
+        .min(6, 'Minimum 8 character'),
+    newPasswordConfirm: string()
+        .oneOf([ref('newPassword')], 'Not match')
+        .required('required'),
+});
+
 
 export {
 
     signInSchema,
+    updatePasswordSchema
 
 };

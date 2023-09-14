@@ -71,7 +71,7 @@ function AddNewPopup() {
                     dispatch(addContentPopup(0))
                 }
             }}
-            className="bg-kb-neutral-700/50 fixed z-20 inset-0"
+            className="bg-kb-neutral-700/50 fixed z-50 inset-0"
         >
             <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-start gap-1.5 p-4 rounded-[0.5rem] kb-shadow-white-bg">
 

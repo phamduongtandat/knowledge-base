@@ -9,7 +9,7 @@ function WysiwygArea({ isWrite, setArticle, article }) {
     console.log('content :', article)
 
     return (
-        <div className="min-h-full max-h-fit w-full ">
+        <div className="min-h-full max-h-fit w-full">
 
             {isWrite && <JoditEditor
 

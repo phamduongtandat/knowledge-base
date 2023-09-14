@@ -22,7 +22,7 @@ function LoginPage() {
         >
             <div className="relative">
                 <div className='2xl:w-[19.75rem] md:w-[14rem] 2xl:h-16 md:h-11'></div>
-                <img className='absolute md:-left-[10rem] md:-top-[0rem] 2xl:-left-[14rem] 2xl:-top-[3rem] 2xl:w-[19.75rem] md:w-[14rem] 2xl:h-16 md:h-11 object-cover' src={LogoCompany} />
+                <img className='absolute md:-left-[10rem] md:-top-[0rem] 2xl:-left-[10rem] 2xl:-top-[3rem] 2xl:w-[19.75rem] md:w-[14rem] 2xl:h-16 md:h-11 object-cover' src={LogoCompany} />
                 <img className="2xl:w-[36.625rem] md:w-[26rem] 2xl:h-[43.18431rem] md:h-[30.7rem]" src={LoginImg} />
             </div>
             <LoginForm />

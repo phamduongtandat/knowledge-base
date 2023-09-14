@@ -28,7 +28,7 @@ function LogOutPopup() {
                     <div className="text-cyan-900 text-4xl font-bold leading-9">LOG OUT?</div>
                 </div>
                 <div className="self-stretch py-2.5 justify-center items-center gap-2.5 inline-flex">
-                    <div className="grow shrink basis-0 text-center text-cyan-900 text-base font-medium leading-normal">Are your sure to log out?</div>
+                    <div className="grow shrink basis-0 text-center text-cyan-900 text-base font-medium leading-normal">Are you sure to log out?</div>
                 </div>
                 <div className="self-stretch h-[72px] pt-5 flex-col justify-start items-start gap-2.5 flex">
                     <div className="self-stretch justify-start items-start gap-2.5 inline-flex">

@@ -179,7 +179,7 @@ function Article({ titlePage, articleID, setAticleID, itemID, data, refBottom })
           className="cursor-pointer justify-center items-center md:w-[15px] md:h-[15px]  md:gap-[7.50px] flex hover:outline-blue-200 hover:outline-double 2xl:w-[21px] 2xl:h-[21px]  2xl:gap-[10.6px]"
         />
 
-        <div className={`absolute mt-2 z-30  md:right-4 2xl:right-6 ease-linear duration-150
+        <div className={`absolute -mt-7 z-30  md:right-4 2xl:right-6 ease-linear duration-150
 
          ${Yaxis > (refBottom - 290) ? 'md:bottom-7 2xl:bottom-10' : 'md:top-1/4 2xl:-bottom-16'}
 

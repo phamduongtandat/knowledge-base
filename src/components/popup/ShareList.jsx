@@ -23,7 +23,7 @@ function ShareList() {
     //const mock1 = [{ id: 1 },]
     const [keyParam, setKeyParam] = useState('')
 
-    const { userList } = useGetUserList({ name: keyParam })
+    const { userList } = useGetUserList({ name: keyParam?.trim() })
     console.log('userList :', userList)
     const [userIdShare, setUserIdShare] = useState([])
     const [userShare, setUserShare] = useState([])
@@ -45,7 +45,7 @@ function ShareList() {
         }
         setUserIdShare([...userIdShare, acc])
         setUserShare([...userShare, item])
-        inviteAcc({ userIdShare, userId: userID })
+        //inviteAcc({ userIdShare, userId: userID })
     }
 
     console.log('userShare :', userShare)
@@ -54,6 +54,7 @@ function ShareList() {
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(`http://103.116.106.153:49219/share/content/${itemInfo?.id}`);
+            //document.execCommand(`http://103.116.106.153:49219/share/content/${itemInfo?.id}`);
             setIsCopied(true);
             //setTimeout(() => setIsCopied(false), 3000);
         } catch (err) {
@@ -69,16 +70,17 @@ function ShareList() {
 
                 if (target.id === 'addBackDrop') {
                     dispatch(sharePopup(false))
+                    setUserShare([])
                 }
             }}
-            className="fixed left-0 top-0 inset-0 bg-kb-neutral-500/20">
+            className="fixed z-50 left-0 top-0 inset-0 bg-kb-neutral-500/20">
             <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-start md:gap-[1.6875rem] md:p-[1.875rem] md:w-[26.67188rem] rounded-xl   2xl:gap-[2.4rem] 2xl:p-[2.6rem] 2xl:w-[37.6rem] bg-kb-neutral-white">
 
                 <div className="flex justify-center items-center gap-[1.125rem] self-stretch">
 
                     <h2 className="kb-text-primary-gradient flex-1 truncate">Share {itemInfo?.name}</h2>
                     <div
-                        onClick={() => { dispatch(sharePopup(false)) }}
+                        onClick={() => { dispatch(sharePopup(false)); setUserShare([]) }}
                         className="flex justify-end items-center gap-[0.46875rem]">
                         <div className="flex justify-center items-center gap-[0.46875rem] p-[0.70313rem] rounded-[2.39063rem] bg-kb-neutral-white cursor-pointer">
                             <i className="fa-solid fa-xmark fa-lg"></i>
@@ -122,14 +124,20 @@ function ShareList() {
                                 <input
                                     value={keyParam}
                                     onChange={({ target }) => {
+                                        if (target.value === ' ') {
+                                            return
+                                        }
                                         setKeyParam(target.value)
 
                                     }}
-                                    className="p1-b pl-2 outline-none w-full h-full " placeholder='Friend name' />
+                                    className="p1-b pl-2 outline-none w-full h-2/3 " placeholder='Friend name' />
                             </div>
 
                             <div
+
                                 onClick={() => {
+
+                                    console.log(' huhuhuh')
                                     const data = {
                                         userIdShare,
                                         userId: userID
@@ -137,6 +145,7 @@ function ShareList() {
                                     console.log('dataSend :', data)
                                     setKeyParam('')
                                     inviteAcc(data)
+
                                 }}
                                 className="bg-kb-primary-gradient kb-text-shadow-sm flex justify-center items-center gap-[0.46875rem] px-1.5 py-[0.5625rem] rounded-md cursor-pointer">
                                 <i className="fa-solid fa-paper-plane fa-sm"></i>
@@ -149,7 +158,7 @@ function ShareList() {
                         {keyParam && <div className="self-stretch min-h-fit h-fit max-h-52 rounded-md flex-col justify-start items-start gap-[9px] flex px-2 bg-kb-background">
 
                             {/* SHOW ADDED ACC */}
-                            {userShare?.length !== 0 && <div className="mt-2 flex flex-wrap w-full h-fit   gap-2.5 p-2 border rounded-lg bg-kb-neutral-white  overflow-y-scroll small-scrollbar">
+                            {userShare?.length !== 0 && <div className="mt-2 flex flex-wrap w-full h-16  max-h-fit gap-2.5 pt-2 px-2 border rounded-lg bg-kb-neutral-white  overflow-y-scroll small-scrollbar">
 
                                 {userShare?.map(i => <div key={i?.id} className="flex bg-kb-text-background h-7 items-center  gap-2 rounded px-2">
                                     <div className="l4-b kb-text-primary-gradient">{i?.name}</div>

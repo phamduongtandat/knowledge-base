@@ -194,21 +194,21 @@ function MarkdownPage() {
 
                     <div className="flex flex-col   w-full min-h-screen items-start justify-start gap-[1.55831rem] mt-5 self-stretch px-[1.94794rem] py-[1.55831rem] rounded-[0.58438rem] bg-kb-neutral-white">
 
-                        <div className="flex  items-start gap-[0.487rem] self-stretch">
+                        <div className="flex justify-between  items-center gap-[0.487rem] self-stretch">
 
-                            <div className="flex items-center gap-[0.487rem]  ">
+                            <div className="flex items-center justify-between gap-[0.487rem] flex-1 ">
 
-                                <div className="flex justify-center items-center gap-[0.2435rem] ">
+                                <div className="flex justify-start items-center gap-[0.2435rem] flex-1 ">
 
-                                    {isWrite && <div className="justify-center items-center gap-[3.90px] flex text-kb-second-color">
+                                    {isWrite && <div className="justify-start items-center gap-[3.90px] flex text-kb-second-color flex-1 w-full">
 
                                         {/* FILL NAME */}
                                         <input
                                             value={artName || ''}
-                                            onChange={({ target }) => { setArtName(target.value) }} className="border-2 border-kb-second-color h-10 rounded-md pl-2 " placeholder="Your article name" />
+                                            onChange={({ target }) => { setArtName(target.value) }} className="border-2 border-kb-second-color h-10 rounded-md pl-2 w-2/3 " placeholder="Your article name" />
                                         <i className="fa-solid fa-pen-to-square fa-2xl "></i>
 
-                                        {!artName && <span className="text-red-700 italic">Please fill name for my Article</span>}
+                                        {!artName && <span className="text-red-700 italic w-[277px]">Please fill name for my Article</span>}
                                         {<span className="text-red-700 italic" >{error}</span>}
                                     </div>}
 
@@ -221,7 +221,7 @@ function MarkdownPage() {
                                 </div>
                             </div>
 
-                            <div className="flex justify-end items-center gap-[0.2435rem] flex-[1_0_0] self-stretch">
+                            <div className="flex justify-end items-center gap-[0.2435rem] self-stretch">
 
                                 <div className="flex justify-center  items-center">
 
