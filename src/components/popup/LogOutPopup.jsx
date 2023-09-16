@@ -1,11 +1,14 @@
 import { useDispatch } from "react-redux"
 import { getLogOut } from "../../redux/popupSlice"
+import { useLocation, useNavigate } from "react-router-dom"
 
 
 
 
 function LogOutPopup() {
-
+    const navi = useNavigate()
+    const { pathname } = useLocation()
+    console.log('pathname :', pathname)
     const dispatch = useDispatch()
     return (
         <div
@@ -35,14 +38,32 @@ function LogOutPopup() {
 
                         <div
                             onClick={() => {
-                                document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
-                                document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
+                                // const now = new Date();
+                                // const time = now.getTime();
+                                // const expireTime = time + 1000 * 36000;
+                                // now.setTime(expireTime);
+
+                                // document.cookie = `access_token=;expires=${now.toUTCString()};path=.`
+                                // document.cookie = `refresh_token=;expires=${now.toUTCString()}`
+
+                                // document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
+                                // document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
+
+                                localStorage.setItem('access_token', JSON.stringify(''))
+                                localStorage.setItem('refresh_token', JSON.stringify(''))
+
                                 localStorage.setItem('isLogOut', JSON.stringify(false))
                                 dispatch(getLogOut(false))
 
-                                document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
-                                document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
+                                // document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=.`
+                                // document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=.`
+
                                 location.reload()
+
+                                // document.cookie = `access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
+                                // document.cookie = `refresh_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC`
+
+
 
 
 

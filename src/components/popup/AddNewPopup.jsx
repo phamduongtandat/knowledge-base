@@ -30,7 +30,7 @@ function AddNewPopup() {
         console.log('hello')
     }
 
-    const { createContent, error } = useCreateContent()
+    const { createContent, errorC } = useCreateContent()
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         resolver: yupResolver((!isCateg || isOpenAdd === 3) ? fileSchema : folderSchema),
@@ -157,10 +157,10 @@ function AddNewPopup() {
                     <div className="flex flex-col justify-center items-center gap-2.5 self-stretch pt-[2.625rem] pb-5 px-0">
                         <img className="w-[3.85rem] h-[2.71rem]" src={Folder} />
                     </div>
-                    {<div className="text-center italic text-red-700">{error}</div>}
+                    {<div className="text-center italic text-red-700">{errorC === 'duplicate-name' ? 'This name is existed' : ''}</div>}
                     <div className="flex justify-center items-center gap-2.5 self-stretch px-0 py-2.5 text-kb-second-color">
                         {!isName && <div className="l1-b text-kb-second-color">Your category name</div>}
-                        {isName && <input name='name' {...register('name')} className="border-2 pl-2" />}
+                        {isName && <input name='name' {...register('name')} className="border-2 pl-2 w-52 rounded-md outline-none" />}
                         <i
                             onClick={() => { setIsName(!isName) }}
                             title='Press for name'

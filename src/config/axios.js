@@ -5,7 +5,7 @@ import useGetRefresh from '../services/auth/useGetRefresh';
 
 const axios = Axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
-    withCredentials: true,
+    //withCredentials: true,
     // headers: {
 
     //     Authorization: 'Bearer' + ' ' + document.cookie?.split('; ').find(row => row.startsWith('access_token'))?.split('=')[1],
@@ -20,8 +20,13 @@ axios.interceptors.request.use(async function (config) {
 
     if (tokenInfo?.exp < new Date().getTime() / 1000) {
         const data = await useGetRefresh(refreshToken)
-        document.cookie = `access_token=${data?.data?.access_token}`
-        document.cookie = `refresh_token=${data?.data?.refresh_token}`
+
+        // document.cookie = `access_token=${data?.data?.access_token}`
+        // document.cookie = `refresh_token=${data?.data?.refresh_token}`
+
+        localStorage.setItem('access_token', JSON.stringify(data?.data?.access_token))
+        localStorage.setItem('refresh_token', JSON.stringify(data?.data?.refresh_token))
+
         config.headers['Authorization'] = 'Bearer' + ' ' + data?.data?.access_token
     }
 

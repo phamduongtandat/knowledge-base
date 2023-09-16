@@ -24,7 +24,10 @@ function BlogHomePage() {
                 <ContentLoader />
             </div>}
 
-            {!isLoading && <BlogPage titlePage={titlePage} data={articleContent} />}
+            {!isLoading
+                && <div className=" ">
+                    <BlogPage titlePage={titlePage} data={articleContent} />
+                </div>}
 
         </div>
     )

@@ -137,7 +137,7 @@ function ContentPage({ data, titlePage, headerChart }) {
         }
       }}
 
-      ref={refContent} className="relative md:min-h-[476px] 2xl:min-h-[787px] max-h-full" >
+      ref={refContent} className="relative md:min-h-[476px], 2xl:min-h-[787px], max-h-fit min-h-[calc(100vh-135px)]" >
 
       <HeaderContent titlePage={titlePage} headerChart={headerChart} />
 

@@ -9,7 +9,10 @@ function AccListPage() {
 
     return (
         <>
-            {!tokenInfo?.isAdmin && <h2 className="text-center text-red-700">ONLY FOR ADMIN</h2>}
+            {!tokenInfo?.isAdmin && <h2 className="text-center text-red-700 h-full min-h-[calc(100vh-135px)] max-h-fit ">
+                ONLY FOR ADMIN
+
+            </h2>}
             {tokenInfo?.isAdmin && <AdminContent />}
         </>
     )

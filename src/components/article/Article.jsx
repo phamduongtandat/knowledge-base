@@ -181,7 +181,7 @@ function Article({ titlePage, articleID, setAticleID, itemID, data, refBottom })
 
         <div className={`absolute -mt-7 z-30  md:right-4 2xl:right-6 ease-linear duration-150
 
-         ${Yaxis > (refBottom - 290) ? 'md:bottom-7 2xl:bottom-10' : 'md:top-1/4 2xl:-bottom-16'}
+         ${Yaxis > (refBottom - 300) ? 'md:bottom-7 2xl:bottom-10' : 'md:top-1/4 2xl:-bottom-16'}
 
          ${isTurnOnArtOpt && isArticleOnwerOption && articleID === itemID ? '' : '-translate-y-1/2 scale-0'}`
         }>

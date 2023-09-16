@@ -7,7 +7,7 @@ import checkLogin from '../../utils/checkLogin';
 const useLogin = () => {
 
 
-    checkLogin
+
     const navigate = useNavigate();
     const mutationFn = async ({ username, password }) => {
         const client_id = import.meta.env.VITE_CLIENT_ID
@@ -27,11 +27,16 @@ const useLogin = () => {
     }
     const onSuccess = (data) => {
 
-        document.cookie = `access_token=${data.access_token}`
-        document.cookie = `refresh_token=${data.refresh_token}`
-        const { isLogin } = checkLogin()
-        console.log('isLogin :', isLogin)
-        if (isLogin) navigate('/')
+        // document.cookie = `access_token=${data?.access_token}`
+        // document.cookie = `refresh_token=${data?.refresh_token}`
+
+        localStorage.setItem('access_token', JSON.stringify(data?.access_token))
+        localStorage.setItem('refresh_token', JSON.stringify(data?.refresh_token))
+
+        navigate('/')
+        // const { isLogin } = checkLogin()
+        // console.log('isLogin :', isLogin)
+        // if (isLogin) navigate('/')
     };
 
     const onError = async (error) => {

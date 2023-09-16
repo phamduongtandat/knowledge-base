@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 @layer base {
+  body{
+    @apply bg-kb-background
+  }
     h1 {
       @apply 2xl:text-[3rem] md:text-[2.13rem] font-bold leading-[125%];
     }

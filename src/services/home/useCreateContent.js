@@ -48,7 +48,7 @@ const useCreateContent = () => {
         isSuccess: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
-        error: mutation.error?.response?.data?.data,
+        errorC: mutation.error?.response?.data?.data,
     };
 };
 
