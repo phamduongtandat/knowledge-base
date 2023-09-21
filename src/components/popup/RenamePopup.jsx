@@ -1,0 +1,79 @@
+import Folder from '../../assets/image/folder.png'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { folderSchema } from '../../vadidations/content.schema';
+
+import useRename from '../../services/option/useRename';
+import checkLogin from '../../utils/checkLogin';
+import { useDispatch, useSelector } from 'react-redux';
+import { renamePopup } from '../../redux/popupSlice';
+import useGetUserID from '../../services/auth/useGetUserID';
+
+
+function RenamePopup() {
+    //const { setIsRename, itemName } = useContext(AddPopupContext)
+    const itemInfo = useSelector(state => state.popup.itemInfo)
+    const dispatch = useDispatch()
+
+    const { tokenInfo } = checkLogin()
+    const { userID } = useGetUserID(tokenInfo?.preferred_username)
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: { name: itemInfo?.name },
+        resolver: yupResolver(folderSchema),
+    })
+    console.log('errors :', errors)
+    const { renameContent, error } = useRename(itemInfo?.id)
+    //const { tokenInfo } = checkLogin()
+    const handleRename = (data) => {
+        data.userId = userID
+        console.log('data :', data)
+        renameContent(data)
+
+    }
+
+    return (
+        <div
+            id='addBackDrop'
+            onClick={({ target }) => {
+
+                if (target.id === 'addBackDrop') {
+                    //setIsRename(false)
+                    dispatch(renamePopup(false))
+                }
+            }}
+            className="bg-kb-neutral-700/50 fixed z-50 inset-0"
+        >
+
+
+            <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-col items-start gap-1.5 p-4 rounded-[0.5rem] kb-shadow-white-bg w-1/3">
+                <div className="flex justify-center items-center gap-1.5 rounded-[0.4rem] ">
+
+                    <div className="l3-b ">Rename</div>
+                </div>
+
+                <form onSubmit={handleSubmit(handleRename)}>
+                    <div className="flex flex-col justify-center items-center gap-2.5 self-stretch pt-[2.625rem] pb-5 px-0">
+                        <img className="w-[3.85rem] h-[2.71rem]" src={Folder} />
+                    </div>
+                    {!errors?.name?.message && <div className="text-red-700 italic text-center">{error === 'content-name-exited' ? 'This name is existed' : ''}</div>}
+                    <div className="flex justify-center items-center gap-2.5 self-stretch px-0 py-2.5 text-kb-second-color w-full">
+                        <input name='name' {...register('name')} className="border-2 pl-2 w-full" />
+
+                    </div>
+
+                    <div className={`flex flex-col items-center gap-1.5  pt-3.5 pb-0 px-14   `}>
+                        <button
+                            type='submit'
+                            className={` flex justify-center items-center gap-1.5 w-1/2  px-1.5 py-3 rounded-lg bg-kb-primary-gradient ${errors?.name?.message ? 'cursor-not-allowed' : ''}`}>
+                            <div className="l3-b kb-text-shadow-lg">Done</div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    )
+}
+
+export default RenamePopup

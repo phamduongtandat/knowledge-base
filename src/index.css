@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,700&family=Roboto:wght@300;400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body{
+    @apply bg-kb-background
+  }
+    h1 {
+      @apply 2xl:text-[3rem] md:text-[2.13rem] font-bold leading-[125%];
+    }
+    h2 {
+      @apply 2xl:text-[2rem] md:text-[1.42rem]  font-bold leading-[125%];
+    }
+    h3{
+      @apply 2xl:text-[1.5rem] md:text-[1.1rem] font-bold leading-[125%];
+    }
+    h4 {
+      @apply 2xl:text-[1.125rem] md:text-[0.8rem] font-bold leading-[125%];
+    }
+    h5 {
+        @apply 2xl:text-[0.875rem] md:text-[0.62rem] font-bold leading-[125%];
+    }
+    h6 {
+        @apply md:text-sm 2xl:text-lg font-bold;
+    }
+    table{
+        @apply border p-2 w-full text-sm text-left text-gray-500;
+    }
+    thead {
+        @apply text-xs text-gray-700 uppercase border bg-blue-200  text-center ;
+    }
+    th{
+      @apply px-7 border;
+    }
+    tr {
+        @apply p-7 border  ;
+    }
+    td{
+      @apply border px-7;
+    }
+    blockquote {
+      @apply  italic bg-gray-50 px-7 py-2 border-l-4 border-blue-200 m-2 ;
+    }
+    ul {
+      @apply list-disc list-inside ml-2  ;
+    }
+    a {
+      @apply text-blue-700  ;
+    }
+    hr{
+      @apply my-2  ;
+    }
+    ol{
+      @apply list-decimal list-inside ml-2  ;
+    }
+    code{
+      @apply bg-gray-200 p-0.5
+    } 
+}
+
+@layer utilities {
+  
+  .hidden-scrollbar::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+
+  .small-scrollbar::-webkit-scrollbar {
+    display: initial;
+    width: 4px;
+    height: 14px;
+    
+  }
+
+  .small-scrollbar::-webkit-scrollbar-thumb {
+    background: #dedede;
+    border-radius: vh;
+    
+  }
+
+  .small-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #cecece;
+    
+  }
+  
+  .kb-text-primary-gradient{
+    background: linear-gradient(180deg, #FDED4F 0%, #FFB649 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+  .kb-text-shadow-lg{
+    color: white;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .kb-text-shadow-sm{
+    color: white;
+    text-shadow: 2px 1px 3px rgba(0, 0, 0, 0.25);
+  }
+  .kb-shadow-white-bg{
+    background: #FFF;
+    box-shadow: 4px 5px 30px -6px rgba(0, 0, 0, 0.06);
+  }
+  .kb-font-thin {
+    color: #274F6B;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 100%; 
+    letter-spacing: -1.08px;
+  }
+  .kb-font-thin-md {
+    color: #274F6B;
+    font-size: 25.56px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 100%; 
+    letter-spacing: -0.77px;
+  }
+  
+}
+
+@layer components {
+  .p1-r{
+  @apply  font-normal 2xl:text-[1rem] md:text-[0.71rem] leading-[125%];
+  }
+  .p1-b{
+  @apply  font-semibold 2xl:text-[1rem] md:text-[0.71rem] leading-[125%];
+  }
+  .p2-r{
+  @apply  font-normal 2xl:text-[0.875rem] md:text-[0.62rem] leading-[125%];
+  }
+  .p2-b{
+  @apply  font-semibold 2xl:text-[0.875rem] md:text-[0.62rem] leading-[125%];
+  }
+  .p3-r{
+  @apply  font-normal 2xl:text-[0.75rem] md:text-[0.5325rem] leading-[125%];
+  }
+  .p3-b{
+  @apply  font-semibold 2xl:text-[0.75rem] md:text-[0.5325rem] leading-[125%];
+  }
+  .l1-r{
+    @apply 2xl:text-[2.25rem] md:text-[1.6rem] font-normal leading-[100%] tracking-[-1.08px];
+  }
+  .l1-b{
+    @apply 2xl:text-[2.25rem] md:text-[1.6rem] font-bold leading-[100%] tracking-[-1.08px];
+  }
+  .l2-r{
+    @apply 2xl:text-[2rem] md:text-[1.42rem] font-normal leading-[100%] tracking-[-0.96px];
+  }
+  .l2-b{
+    @apply 2xl:text-[2rem] md:text-[1.42rem] font-bold leading-[100%] tracking-[-0.96px];
+  }
+  
+  .l3-r{
+    @apply 2xl:text-[1.25rem] md:text-[0.9rem] font-normal leading-[125%] tracking-[-0.6px];
+  }
+  .l3-b{
+    @apply 2xl:text-[1.25rem] md:text-[0.9rem] font-bold leading-[100%];
+  }
+  .l4-r{
+    @apply 2xl:text-[1rem] md:text-[0.71rem] font-normal leading-[100%];
+  }
+  .l4-b{
+    @apply 2xl:text-[1rem] md:text-[0.71rem] font-bold leading-[100%];
+  }
+
+}
+
