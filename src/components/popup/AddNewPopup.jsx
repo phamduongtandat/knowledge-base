@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Folder from '../../assets/image/folder.png'
 
 
@@ -21,7 +21,7 @@ function AddNewPopup() {
     const dispatch = useDispatch()
 
     const [isCateg, setIsCateg] = useState(true)
-    const [isName, setIsName] = useState(false)
+    //const [isName, setIsName] = useState(false)
     const { pathname } = useLocation()
     const parentID = pathname?.split('/').pop()
 
@@ -32,7 +32,7 @@ function AddNewPopup() {
 
     const { createContent, errorC } = useCreateContent()
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, setFocus, formState: { errors } } = useForm({
         resolver: yupResolver((!isCateg || isOpenAdd === 3) ? fileSchema : folderSchema),
     })
 
@@ -61,6 +61,11 @@ function AddNewPopup() {
     console.log('watch :', watch('file'))
     console.log('errors :', errors)
 
+    useEffect(() => {
+        if (isOpenAdd === 1) {
+            setFocus('name')
+        }
+    }, [])
 
     return (
         <div
@@ -159,18 +164,18 @@ function AddNewPopup() {
                     </div>
                     {<div className="text-center italic text-red-700">{errorC === 'duplicate-name' ? 'This name is existed' : ''}</div>}
                     <div className="flex justify-center items-center gap-2.5 self-stretch px-0 py-2.5 text-kb-second-color">
-                        {!isName && <div className="l1-b text-kb-second-color">Your category name</div>}
-                        {isName && <input name='name' {...register('name')} className="border-2 pl-2 w-52 rounded-md outline-none" />}
+                        {/* {!isName && <div className="l1-b text-kb-second-color">Your category name</div>} */}
+                        {<input name='name' {...register('name')} className="border-2 pl-2 w-52 rounded-md outline-none" />}
                         <i
-                            onClick={() => { setIsName(!isName) }}
-                            title='Press for name'
-                            className="fa-solid fa-pen-to-square fa-sm cursor-pointer"></i>
+                            //onClick={() => { setIsName(!isName) }}
+
+                            className="fa-solid fa-pen-to-square fa-lg"></i>
                     </div>
 
                     <div className={`flex flex-col items-start gap-1.5 self-stretch pt-3.5 pb-0 px-14  `}>
                         <button
                             type='submit'
-                            className={`${errors?.name?.message || !isName ? 'cursor-not-allowed' : ''}  flex justify-center items-center gap-1.5 self-stretch px-1.5 py-3 rounded-lg bg-kb-primary-gradient`}>
+                            className={`${errors?.name?.message || !watch('name') ? 'cursor-not-allowed' : ''}  flex justify-center items-center gap-1.5 self-stretch px-1.5 py-3 rounded-lg bg-kb-primary-gradient`}>
                             <div className="l3-b kb-text-shadow-lg">Create</div>
                         </button>
                     </div>

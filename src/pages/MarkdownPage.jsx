@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import checkLogin from "../utils/checkLogin"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import MarkdownArea from "../components/MarkdownArea"
 import { useDispatch } from "react-redux"
 import { selectEditorPopup } from "../redux/popupSlice"
@@ -58,7 +58,13 @@ function MarkdownPage() {
 
     const { createContent, errorC, isSuccess, } = useCreateContent()
 
+    const nameRef = useRef(null)
 
+    useEffect(() => {
+        if (!isMarkDownEdit) {
+            nameRef.current.focus()
+        }
+    }, [isMarkDownEdit])
 
 
     const handPost = (status) => {
@@ -112,6 +118,9 @@ function MarkdownPage() {
     }
 
     console.log('hashTag :', hashTag)
+
+
+
     return (
 
         <>
@@ -154,7 +163,7 @@ function MarkdownPage() {
 
                                             <i className="flex w-[0.97394rem] h-[0.97394rem] flex-col justify-center items-center gap-[0.487rem] fa-solid fa-paper-plane fa-sm" />
 
-                                            <div className="l3-b ">Post</div>
+                                            <div className="l3-b ">Publish</div>
                                         </div>
 
                                     </div>
@@ -167,7 +176,7 @@ function MarkdownPage() {
 
                                             <i className="flex w-[0.97394rem] h-[0.97394rem] flex-col justify-center items-center gap-[0.487rem] fa-solid fa-paper-plane fa-sm" />
 
-                                            <div className="l3-b ">Private</div>
+                                            <div className="l3-b ">Save</div>
                                         </div>
 
                                     </div>
@@ -178,9 +187,6 @@ function MarkdownPage() {
                             }
 
 
-
-
-
                             {isMarkDownEdit && <div
                                 onClick={handEdit}
                                 className="flex items-start cursor-pointer">
@@ -189,7 +195,7 @@ function MarkdownPage() {
 
                                     <i className="flex w-[0.97394rem] h-[0.97394rem] flex-col justify-center items-center gap-[0.487rem] fa-solid fa-paper-plane fa-sm" />
 
-                                    <div className="l3-b ">Done Edit</div>
+                                    <div className="l3-b ">Save</div>
                                 </div>
 
                             </div>}
@@ -209,6 +215,7 @@ function MarkdownPage() {
 
                                             {/* FILL NAME */}
                                             <input
+                                                ref={nameRef}
                                                 value={artName || ''}
                                                 onChange={({ target }) => { setArtName(target.value) }} className="border-2 border-kb-second-color h-10 rounded-md pl-2 w-2/3 " placeholder="Your article name" />
                                             <i className="fa-solid fa-pen-to-square fa-2xl "></i>

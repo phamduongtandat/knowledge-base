@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import checkLogin from './../../utils/checkLogin';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getHome } from '../../redux/filterSlice';
 
@@ -36,6 +35,7 @@ function BlogFilterOpt() {
                 return <div
                     key={label}
                     className="flex  justify-start items-center gap-3 pl-7 py-3 rounded-lg hover:bg-kb-neutral-50/50 "
+                    onClick={() => { handleSelect(label) }}
                 // onClick={() => { handleSelect(label) }}
                 >
                     <input type="checkbox" checked={isAll === name} onChange={() => { handleSelect(label) }} />
