@@ -22,6 +22,7 @@ import BinDetailPage from "./pages/BinDetailPage";
 import SearchPage from './pages/SearchPage';
 import MarkdownPage from './pages/MarkdownPage';
 import BlogHomePage from './pages/BlogHomePage';
+import NotFound from './components/noData/NotFound';
 
 
 
@@ -65,6 +66,7 @@ function App() {
           <Route path="/account-list" element={<AccListPage />} />
           <Route path="/support" element={<SupportPage />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
 

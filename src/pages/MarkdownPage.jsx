@@ -83,8 +83,8 @@ function MarkdownPage() {
 
     }
 
-    const { updateArt, isSuccessU } = useUpdateArt(id)
-
+    const { updateArt, isSuccessU, errorU } = useUpdateArt(id)
+    console.log(' errorU:', errorU)
     useEffect(() => {
         if (isSuccess || isSuccessU) {
             if (parentID === 'recent' || parentID === 'favourite') {
@@ -215,6 +215,8 @@ function MarkdownPage() {
 
                                             {!artName && <span className="text-red-700 italic w-[277px]">Please fill name for my Article</span>}
                                             {artName && <span className="text-red-700 italic" >{errorC}</span>}
+                                            {isMarkDownEdit && artName && <span className="text-red-700 italic" >{errorU}</span>}
+
                                         </div>}
 
                                         {!isWrite && <div className="flex flex-col items-start gap-[0.5625rem] self-stretch">

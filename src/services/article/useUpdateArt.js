@@ -46,7 +46,7 @@ const useUpdateArt = (contentID) => {
         isSuccessU: mutation.isSuccess,
         isError: mutation.isError,
         isLoading: mutation.isLoading,
-        error: mutation.error?.response?.data?.data,
+        errorU: mutation.error?.response?.data?.data,
     };
 };
 

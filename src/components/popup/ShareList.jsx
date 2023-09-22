@@ -53,7 +53,7 @@ function ShareList() {
     const [isCopied, setIsCopied] = useState(false);
     const handleCopy = async () => {
         try {
-            await navigator.clipboard.writeText(`http://103.116.106.153:49219/share/content/${itemInfo?.id}`);
+            await navigator.clipboard.writeText(`https://kb.hiptechvn.com/share/content/page/${itemInfo?.id}`);
             //document.execCommand(`http://103.116.106.153:49219/share/content/${itemInfo?.id}`);
             setIsCopied(true);
             //setTimeout(() => setIsCopied(false), 3000);

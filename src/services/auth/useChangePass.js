@@ -11,7 +11,7 @@ const useChangePass = (userKey) => {
     const mutationFn = async (data) => {
         const res = await axios({
             method: 'put',
-            url: `http://103.116.106.153:8080/admin/realms/hiptech-portal/users/${userKey}/reset-password`,
+            url: `https://hiptechvn.com:8443/realms/hiptech-portal/users/${userKey}/reset-password`,
             data
         });
 

@@ -118,7 +118,7 @@ function LoginForm() {
                     <a
                         target='_blank'
                         rel="noreferrer"
-                        href='http://103.116.106.153:8080/realms/hiptech-portal/login-actions/reset-credentials?client_id=account-console&tab_id=rEszzCUy-Ak'
+                        href='https://hiptechvn.com:8443/realms/hiptech-portal/login-actions/reset-credentials?client_id=account-console&tab_id=rEszzCUy-Ak'
                         className="p2-b text-right text-kb-neutral-300"
                     >
                         Forget password?
